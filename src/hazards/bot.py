@@ -1,18 +1,24 @@
 """Telegram bot: risk replies, subscriptions and logged alerts. Run with python -m hazards.bot."""
 from __future__ import annotations
 
+import csv
 import json
 import sqlite3
 import time
 from datetime import datetime, timezone
+from functools import lru_cache
 from pathlib import Path
 
+import numpy as np
 import requests
 from dotenv import dotenv_values
 
 from .common import RESULTS, ROOT, log
 
 DB = ROOT / "data" / "bot.sqlite"
+PLACES = Path(__file__).with_name("places.csv")
+NEAR_KM = 30
+COMPASS = ("north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest")
 STORMS = ROOT / "dashboard" / "public" / "data" / "storms.json"
 HAZARDS = ("cyclone", "flood", "earthquake")
 LEVELS = ("Low", "Medium", "High")
@@ -35,7 +41,7 @@ SAFETY = {"cyclone": "Secure loose items and keep away from the coast if told to
 NOTICE = "This alert is model-based. Follow official agency evacuation instructions."
 HELP = ("Commands\n/risk <hazard> <region>\n/subscribe <hazard> <region>\n/unsubscribe <hazard> <region>\n/help\n\n"
         f"Hazards: {', '.join(HAZARDS)}\nRegions: {', '.join(REGIONS)}\n\n"
-        "Earthquake output is a risk level for a region and 30-day window, never a prediction of when an earthquake will occur. Risk levels are not comparable across hazards.")
+        "Earthquake output is a risk level for a region and 30-day window, never a prediction of when an earthquake will occur. Risk levels are not comparable across hazards.\n\nPlace names: GeoNames, CC BY 4.0.")
 
 
 def fresh(stamp: str | None, hours: float, now: datetime) -> bool:
@@ -54,6 +60,33 @@ def level(p: float, cuts: dict) -> str:
 def inside(lat: float, lon: float, region: str) -> bool:
     a, b, c, d = REGIONS[region]
     return a <= lat <= b and c <= lon <= d
+
+
+@lru_cache(maxsize=1)
+def load_places() -> tuple[list[dict], np.ndarray]:
+    with open(PLACES, encoding="utf-8", newline="") as f:
+        rows = list(csv.DictReader(f))
+    return rows, np.radians([[float(r["lat"]), float(r["lon"])] for r in rows])
+
+
+def place(lat: float, lon: float) -> str:
+    """Area name from the nearest town. Without the table the message keeps coordinates."""
+    try:
+        rows, xy = load_places()
+    except OSError:
+        return f"{lat}, {lon}"
+    a, b = np.radians(lat), np.radians(lon)
+    h = np.sin((xy[:, 0] - a) / 2) ** 2 + np.cos(a) * np.cos(xy[:, 0]) * np.sin((xy[:, 1] - b) / 2) ** 2
+    i = int(np.argmin(h))
+    km = 2 * 6371 * np.arcsin(np.sqrt(h[i]))
+    r = rows[i]
+    parts = list(dict.fromkeys(x for x in (r["name"], r["state"], r["country"]) if x))
+    name = ", ".join(parts)
+    if km <= NEAR_KM:
+        return f"near {name}"
+    dlat, dlon = xy[i, 0] - a, xy[i, 1] - b  # bearing runs from the town to the point
+    bearing = np.degrees(np.arctan2(-dlon * np.cos(a), -dlat)) % 360
+    return f"about {round(km, -1):.0f} km {COMPASS[int((bearing + 22.5) // 45) % 8]} of {name}"
 
 
 def read_results(hazard: str, base: Path = RESULTS) -> dict:
@@ -110,14 +143,14 @@ def text_for(hazard: str, region: str, s: dict | None) -> str:
     if s is None:
         return f"{hazard.title()}, {zone}: no active storm." if hazard == "cyclone" else f"{hazard.title()}, {zone}: this region has no scored location."
     if hazard == "cyclone" and not s["scored"]:
-        detail = f"Storm {s['name']}, {s['wind']:.0f} kt from the agency feed. The model could not score it."
+        detail = f"Storm {s['name']}, {place(s['lat'], s['lon'])}, {s['wind']:.0f} kt from the agency feed. The model could not score it."
     elif hazard == "cyclone":
         chance = "already at typhoon force" if s["p"] is None else f"{s['p']:.0%} chance of reaching 64 kt in 24 hours"
-        detail = f"Storm {s['name']}, {s['wind']:.0f} kt now, {chance}. 24 hour wind range {s['low']:.0f} to {s['high']:.0f} kt."
+        detail = f"Storm {s['name']}, {place(s['lat'], s['lon'])}, {s['wind']:.0f} kt now, {chance}. 24 hour wind range {s['low']:.0f} to {s['high']:.0f} kt."
     elif hazard == "flood":
-        detail = f"Highest location {s['lat']}, {s['lon']}: {s['p']:.0%} chance of a flood report surge in the next 3 days."
+        detail = f"Highest area {place(s['lat'], s['lon'])}: {s['p']:.0%} chance of a flood report surge in the next 3 days."
     else:
-        detail = f"Highest 1 degree cell {s['lat']}, {s['lon']}: {s['p']:.0%} chance of M5.0+ in the 30-day window. This is a risk level for a region and time window, never a predicted time."
+        detail = f"Highest area, a 1 degree cell {place(s['lat'], s['lon'])}: {s['p']:.0%} chance of M5.0+ in the 30-day window. This is a risk level for a region and time window, never a predicted time."
     return f"{hazard.title()} risk, {zone}: {s['level']}\nPrediction time: {s['issued']}\n{detail}\n{SAFETY[hazard]}\n{NOTICE}"
 
 

@@ -37,6 +37,30 @@ def test_storm_at_typhoon_force_is_high_and_weak_storm_uses_chance():
     assert bot.storm_status("india", [s], CUTS) is None
 
 
+def test_place_names_town_state_and_country():
+    assert bot.place(25.6, 85.1) == "near Patna, Bihar, India"
+
+
+def test_place_far_from_town_gives_distance_and_direction():
+    t = bot.place(13.0, 130.0)
+    assert " km east of " in t and "Philippines" in t
+
+
+def test_place_falls_back_to_coordinates_without_the_table(monkeypatch):
+    monkeypatch.setattr(bot, "PLACES", bot.ROOT / "missing.csv")
+    bot.load_places.cache_clear()
+    assert bot.place(25.5, 85.5) == "25.5, 85.5"
+    bot.load_places.cache_clear()
+
+
+def test_messages_name_the_area():
+    flood = bot.text_for("flood", "india", {"level": "High", "p": 0.4, "lat": 25.5, "lon": 85.5, "issued": "x"})
+    assert "Bihar" in flood and "25.5, 85.5" not in flood
+    m = {"wind_now_1min": 40.0, "reach_64_chance": 0.05, "from": "t", "low": 30.0, "high": 50.0}
+    storm = bot.storm_status("westpacific", [{"lat": 13.0, "lon": 130.0, "name": "A", "model": m}], CUTS)
+    assert "Philippines" in bot.text_for("cyclone", "westpacific", storm)
+
+
 def test_every_alert_says_model_based_and_official_instructions():
     s = {"level": "High", "p": 0.4, "lat": 25.5, "lon": 85.5, "issued": "2026-11-01"}
     for hazard in ("flood", "earthquake"):
