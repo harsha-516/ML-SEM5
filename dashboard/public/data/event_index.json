@@ -1,0 +1,101 @@
+[
+ {
+  "id": "arnab-2026",
+  "kind": "cyclone",
+  "title": "Cyclone Arnab",
+  "place": "Bay of Bengal, landfall in Andhra Pradesh",
+  "date": "2026-10-26",
+  "headline": "Peak wind 119 knots",
+  "severity": 119.0
+ },
+ {
+  "id": "assam-2026",
+  "kind": "flood",
+  "title": "Assam monsoon floods",
+  "place": "Sivasagar district, Assam",
+  "date": "2026-07-20",
+  "headline": "Model chance before event: 64%",
+  "severity": 0.6359
+ },
+ {
+  "id": "biparjoy-2023",
+  "kind": "cyclone",
+  "title": "Cyclone Biparjoy",
+  "place": "Arabian Sea, landfall in Gujarat",
+  "date": "2023-06-05",
+  "headline": "Peak wind 105 knots",
+  "severity": 105.0
+ },
+ {
+  "id": "budhi-gandaki-2026",
+  "kind": "flood",
+  "title": "Budhi Gandaki flash flood, Nepal",
+  "place": "Gorkha district, Nepal",
+  "date": "2026-10-11",
+  "headline": "Model chance before event: 5%",
+  "severity": 0.0505
+ },
+ {
+  "id": "champi-2026",
+  "kind": "cyclone",
+  "title": "Typhoon Champi",
+  "place": "Western North Pacific",
+  "date": "2026-10-14",
+  "headline": "Peak wind 159 knots",
+  "severity": 159.0
+ },
+ {
+  "id": "ende-2026",
+  "kind": "earthquake",
+  "title": "M7.8 earthquake near Ende, Indonesia",
+  "place": "Ende, Indonesia",
+  "date": "2026-08-14",
+  "headline": "Model chance for this cell, 3%",
+  "severity": 7.8
+ },
+ {
+  "id": "mocha-2023",
+  "kind": "cyclone",
+  "title": "Cyclone Mocha",
+  "place": "Bay of Bengal, landfall near Myanmar and Bangladesh",
+  "date": "2023-05-08",
+  "headline": "Peak wind 145 knots",
+  "severity": 145.0
+ },
+ {
+  "id": "nagqu-2026",
+  "kind": "earthquake",
+  "title": "M7.0 earthquake near Nagqu, China",
+  "place": "Nagqu, China",
+  "date": "2026-10-22",
+  "headline": "Model chance for this cell, 0%",
+  "severity": 7.0
+ },
+ {
+  "id": "nilambur-2026",
+  "kind": "flood",
+  "title": "Nilambur flash flood, Kerala",
+  "place": "Malappuram district, Kerala",
+  "date": "2026-09-20",
+  "headline": "Model chance before event: 8%",
+  "severity": 0.0762
+ },
+ {
+  "id": "rasuwa-2026",
+  "kind": "flood",
+  "title": "Bhote Koshi flood, Nepal",
+  "place": "Rasuwa district, Nepal",
+  "date": "2026-08-26",
+  "headline": "Model chance before event: 29%",
+  "severity": 0.2881
+ },
+ {
+  "id": "yagi-2024",
+  "kind": "cyclone",
+  "title": "Typhoon Yagi",
+  "place": "South China Sea and Vietnam",
+  "date": "2024-08-30",
+  "headline": "Peak wind 145 knots",
+  "severity": 145.0
+ }
+]

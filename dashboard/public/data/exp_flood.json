@@ -1,0 +1,40 @@
+{
+ "table": [
+  {
+   "name": "Current",
+   "validation": 0.2237955492550473,
+   "test_real_forecast": 0.2771885809213517
+  },
+  {
+   "name": "Add ratios",
+   "validation": 0.23062129891336244,
+   "test_real_forecast": 0.2941600612028343
+  },
+  {
+   "name": "Add forecast",
+   "validation": 0.36076773199515877,
+   "test_real_forecast": 0.36885973918630816,
+   "test_actual_rain": 0.41001256688889104
+  },
+  {
+   "name": "Add both",
+   "validation": 0.3592441719923243,
+   "test_real_forecast": 0.37591356974092766,
+   "test_actual_rain": 0.4176805605221284
+  }
+ ],
+ "rows": {
+  "test": 45540,
+  "test_with_real_forecast": 44460
+ },
+ "base_rate_real": 0.06576698155645525,
+ "stage_2024": {
+  "check_stage": 0.3737759464368605,
+  "check_reanalysis_trained": 0.38371358556378216,
+  "kept": false,
+  "test_2025_stage": 0.38330390454426577,
+  "test_2025_reanalysis_trained": 0.389730285867433,
+  "test_rows_2025": 23580
+ },
+ "forecast_actual_correlation": 0.6805198193430313
+}

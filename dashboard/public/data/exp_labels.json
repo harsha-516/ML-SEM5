@@ -1,0 +1,39 @@
+{
+ "table": [
+  {
+   "name": "News surge",
+   "positives_train": 0.06110162254483348,
+   "val_news": 0.36425728743155467,
+   "val_gdacs": 0.047808805763639904,
+   "test_news": 0.38193021321550047,
+   "test_gdacs": 0.04917073927497719,
+   "kept": "Baseline"
+  },
+  {
+   "name": "GDACS only",
+   "positives_train": 0.00984201537147737,
+   "val_news": 0.2203759765458511,
+   "val_gdacs": 0.06594874248186665,
+   "test_news": 0.24042349211912986,
+   "test_gdacs": 0.08457115175274253,
+   "kept": "No"
+  },
+  {
+   "name": "News or GDACS",
+   "positives_train": 0.06805436948477085,
+   "val_news": 0.36666836028498545,
+   "val_gdacs": 0.04984027821612249,
+   "test_news": 0.37794453120417143,
+   "test_gdacs": 0.0519676242116319,
+   "kept": "Yes"
+  }
+ ],
+ "base_rates": {
+  "val_news": 0.05370636059301769,
+  "val_gdacs": 0.019057867049258728,
+  "test_news": 0.06576698155645525,
+  "test_gdacs": 0.01907332433648223
+ },
+ "km": 300,
+ "note": "Kept only if PR-AUC against GDACS on validation rises by more than 2 standard deviations over 3 seeds, without losing the news label. A GDACS match is a new event within 300 km in the next 3 days."
+}

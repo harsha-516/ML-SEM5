@@ -10,8 +10,8 @@ __pycache__/
 *.egg-info/
 
 # Data, models and logs are rebuilt by the scripts
-data/
-logs/
+/data/
+/logs/
 
 # Dashboard build output and dependencies
 dashboard/node_modules/

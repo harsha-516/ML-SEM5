@@ -1,0 +1,45 @@
+{
+ "table": [
+  {
+   "target": "Reach 64 kt",
+   "rows": 2397,
+   "without_val": "0.627",
+   "with_val": "0.675",
+   "without_test": "0.695",
+   "with_test": "0.722",
+   "kept": "Yes"
+  },
+  {
+   "target": "24 h wind",
+   "rows": 3365,
+   "without_val": "11.08 kt",
+   "with_val": "10.71 kt",
+   "without_test": "11.82 kt",
+   "with_test": "11.71 kt",
+   "kept": "Yes"
+  },
+  {
+   "target": "Rapid intensification",
+   "rows": 3365,
+   "without_val": "0.254",
+   "with_val": "0.312",
+   "without_test": "0.418",
+   "with_test": "0.388",
+   "kept": "Yes"
+  }
+ ],
+ "years": {
+  "train": [
+   2022,
+   2023,
+   2024
+  ],
+  "validation": [
+   2025
+  ],
+  "test": [
+   2026
+  ]
+ },
+ "note": "Same rows with and without. Train 2022 to 2024, validation 2025 to 2025, test 2026 to 2026. Kept only if validation improves by more than 2 standard deviations over 3 seeds. ERA5 arrives 5 or more days late, so this measures physical value and could not run live."
+}

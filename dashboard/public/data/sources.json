@@ -1,0 +1,206 @@
+{
+ "refreshed_at": "2026-11-01T08:02:03+00:00",
+ "forecasts_logged": 5183,
+ "sources": [
+  {
+   "id": "usgs",
+   "name": "USGS earthquakes",
+   "use": "Earthquakes",
+   "kind": "API",
+   "checked_at": "2026-11-01T08:01:41+00:00",
+   "last_ok": "2026-11-01T08:01:41+00:00",
+   "state": "live",
+   "records": 139,
+   "latest": "M4.7 191 km NW of Port-Olry, Vanuatu",
+   "latency_ms": 3748
+  },
+  {
+   "id": "jma",
+   "name": "JMA active storms",
+   "use": "Cyclones",
+   "kind": "API",
+   "checked_at": "2026-11-01T08:01:44+00:00",
+   "last_ok": "2026-11-01T08:01:44+00:00",
+   "state": "live",
+   "records": 1,
+   "latest": "In-fa, 85 knots",
+   "latency_ms": 3202
+  },
+  {
+   "id": "ibtracs",
+   "name": "IBTrACS storm tracks",
+   "use": "Cyclones",
+   "kind": "File",
+   "checked_at": "2026-11-01T08:01:48+00:00",
+   "last_ok": "2026-11-01T08:01:48+00:00",
+   "state": "live",
+   "records": null,
+   "latest": "File updated Fri, 30 Oct 2026 04:26:45 GMT",
+   "latency_ms": 1780
+  },
+  {
+   "id": "gdacs",
+   "name": "GDACS disaster alerts",
+   "use": "All hazards",
+   "kind": "API",
+   "checked_at": "2026-11-01T08:01:49+00:00",
+   "last_ok": "2026-11-01T08:01:49+00:00",
+   "state": "live",
+   "records": 100,
+   "latest": "Earthquake in Vanuatu",
+   "latency_ms": 1892
+  },
+  {
+   "id": "discharge",
+   "name": "GloFAS river discharge",
+   "use": "Floods",
+   "kind": "API",
+   "checked_at": "2026-11-01T08:01:51+00:00",
+   "last_ok": "2026-11-01T08:01:51+00:00",
+   "state": "live",
+   "records": 1,
+   "latest": "Patna river discharge 7.73 m3/s",
+   "latency_ms": 1091
+  },
+  {
+   "id": "rain",
+   "name": "Open-Meteo rainfall",
+   "use": "Floods",
+   "kind": "API",
+   "checked_at": "2026-11-01T08:01:52+00:00",
+   "last_ok": "2026-11-01T08:01:52+00:00",
+   "state": "live",
+   "records": 1,
+   "latest": "Kathmandu rain today 1.3 mm",
+   "latency_ms": 922
+  },
+  {
+   "id": "gibs",
+   "name": "NASA GIBS imagery",
+   "use": "Maps",
+   "kind": "Satellite",
+   "checked_at": "2026-11-01T08:01:53+00:00",
+   "last_ok": "2026-11-01T08:01:53+00:00",
+   "state": "live",
+   "records": null,
+   "latest": "Imagery tile for 2026-10-30",
+   "latency_ms": 1363
+  },
+  {
+   "id": "imerg",
+   "name": "NASA IMERG rainfall",
+   "use": "Floods",
+   "kind": "Satellite",
+   "checked_at": "2026-11-01T08:01:55+00:00",
+   "last_ok": "2026-11-01T08:01:55+00:00",
+   "state": "live",
+   "records": null,
+   "latest": "Newest record 2026-10-31 23:30 UTC",
+   "latency_ms": 1303
+  },
+  {
+   "id": "smap",
+   "name": "NASA SMAP soil moisture",
+   "use": "Floods",
+   "kind": "Satellite",
+   "checked_at": "2026-11-01T08:01:56+00:00",
+   "last_ok": "2026-11-01T08:01:56+00:00",
+   "state": "live",
+   "records": null,
+   "latest": "Newest record 2026-10-30 00:00 UTC",
+   "latency_ms": 1671
+  },
+  {
+   "id": "himawari",
+   "name": "Himawari-9 clouds",
+   "use": "Cyclones",
+   "kind": "Satellite",
+   "checked_at": "2026-11-01T08:01:58+00:00",
+   "last_ok": "2026-11-01T08:01:58+00:00",
+   "state": "live",
+   "records": 5,
+   "latest": "Files listed for 01 Nov 2026",
+   "latency_ms": 1008
+  },
+  {
+   "id": "bbc",
+   "name": "BBC Asia",
+   "use": "News",
+   "kind": "RSS",
+   "checked_at": "2026-11-01T08:01:59+00:00",
+   "last_ok": "2026-11-01T08:01:59+00:00",
+   "state": "live",
+   "records": 19,
+   "latest": "No hazard headlines right now",
+   "latency_ms": 533
+  },
+  {
+   "id": "hindu",
+   "name": "The Hindu",
+   "use": "News",
+   "kind": "RSS",
+   "checked_at": "2026-11-01T08:01:59+00:00",
+   "last_ok": "2026-11-01T08:01:59+00:00",
+   "state": "live",
+   "records": 60,
+   "latest": "1 hazard headlines",
+   "latency_ms": 1120
+  },
+  {
+   "id": "toi",
+   "name": "Times of India",
+   "use": "News",
+   "kind": "RSS",
+   "checked_at": "2026-11-01T08:02:00+00:00",
+   "last_ok": "2026-11-01T08:02:00+00:00",
+   "state": "live",
+   "records": 0,
+   "latest": "No hazard headlines right now",
+   "latency_ms": 1049
+  },
+  {
+   "id": "gnews",
+   "name": "Google News",
+   "use": "News",
+   "kind": "RSS",
+   "checked_at": "2026-11-01T08:02:01+00:00",
+   "last_ok": "2026-11-01T08:02:01+00:00",
+   "state": "live",
+   "records": 8,
+   "latest": "Technology reshapes advice on earthquake risk",
+   "latency_ms": 528
+  },
+  {
+   "id": "groundsource",
+   "name": "Groundsource flood reports",
+   "use": "Floods",
+   "kind": "Archive",
+   "state": "archive",
+   "latest": "2000 to February 2026"
+  },
+  {
+   "id": "copernicus",
+   "name": "Copernicus Sentinel-1",
+   "use": "Floods",
+   "kind": "Satellite",
+   "state": "off",
+   "latest": "Radar imagery"
+  },
+  {
+   "id": "youtube",
+   "name": "YouTube news video",
+   "use": "News",
+   "kind": "API",
+   "state": "off",
+   "latest": "News video"
+  },
+  {
+   "id": "telegram",
+   "name": "Telegram alerts",
+   "use": "Alerts",
+   "kind": "API",
+   "state": "off",
+   "latest": "Alert delivery"
+  }
+ ]
+}

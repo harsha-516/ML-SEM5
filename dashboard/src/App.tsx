@@ -24,7 +24,7 @@ function App() {
   return (
     <>
       <nav className="top" aria-label="Main">
-        <a className="brand" href="#/">Asia Hazard Watch</a>
+        <a className="brand" href="#/">Tarang</a>
         {LINKS.map(([h, t]) => <a key={h} href={h} aria-current={route === h ? 'page' : undefined}>{t}</a>)}
       </nav>
       <main>

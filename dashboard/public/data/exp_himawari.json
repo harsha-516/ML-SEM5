@@ -1,0 +1,43 @@
+{
+ "table": [
+  {
+   "target": "Reach 64 kt",
+   "rows": 1180,
+   "without_val": "0.614",
+   "with_val": "0.645",
+   "without_test": "0.605",
+   "with_test": "0.677",
+   "kept": "No"
+  },
+  {
+   "target": "24 h wind",
+   "rows": 1705,
+   "without_val": "11.79 kt",
+   "with_val": "11.03 kt",
+   "without_test": "15.39 kt",
+   "with_test": "15.00 kt",
+   "kept": "Yes"
+  },
+  {
+   "target": "Rapid intensification",
+   "rows": 1705,
+   "without_val": "0.187",
+   "with_val": "0.223",
+   "without_test": "0.183",
+   "with_test": "0.222",
+   "kept": "No"
+  }
+ ],
+ "years": {
+  "train": [
+   2024
+  ],
+  "validation": [
+   2025
+  ],
+  "test": [
+   2026
+  ]
+ },
+ "note": "Same rows with and without. Train 2024 to 2024, validation 2025 to 2025, test 2026 to 2026. Kept only if validation improves by more than 2 standard deviations over 3 seeds. Cloud is read at best-track positions, which are corrected after the storm; live positions would be rougher."
+}
