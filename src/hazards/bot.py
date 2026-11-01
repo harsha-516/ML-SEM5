@@ -18,6 +18,10 @@ HAZARDS = ("cyclone", "flood", "earthquake")
 LEVELS = ("Low", "Medium", "High")
 CHECK_S = 300
 REPEAT_DAYS = 7
+STORM_MAX_HOURS = 1  # the refresh loop writes storms every 5 minutes
+MAP_MAX_HOURS = 48  # maps rescore once a UTC day
+TYPHOON_10MIN_KT = 56  # 64 kt on the 1-minute scale
+UNAVAILABLE = {"unavailable": True}
 REGIONS = {
     "india": (6, 36, 68, 98), "bangladesh": (20, 27, 88, 93), "nepal": (26, 31, 80, 89), "pakistan": (23, 37, 60, 77), "srilanka": (5, 10, 79, 83),
     "myanmar": (9, 29, 92, 102), "thailand": (5, 21, 97, 106), "vietnam": (8, 24, 102, 110), "philippines": (4, 21, 116, 127), "indonesia": (-11, 6, 95, 141),
@@ -31,6 +35,15 @@ NOTICE = "This alert is model-based. Follow official agency evacuation instructi
 HELP = ("Commands\n/risk <hazard> <region>\n/subscribe <hazard> <region>\n/unsubscribe <hazard> <region>\n/help\n\n"
         f"Hazards: {', '.join(HAZARDS)}\nRegions: {', '.join(REGIONS)}\n\n"
         "Earthquake output is a risk level for a region and 30-day window, never a prediction of when an earthquake will occur. Risk levels are not comparable across hazards.")
+
+
+def fresh(stamp: str | None, hours: float, now: datetime) -> bool:
+    try:
+        t = datetime.fromisoformat(stamp.replace("Z", "+00:00"))
+    except (AttributeError, ValueError):
+        return False
+    t = t if t.tzinfo else t.replace(tzinfo=timezone.utc)
+    return (now - t).total_seconds() <= hours * 3600
 
 
 def level(p: float, cuts: dict) -> str:
@@ -56,29 +69,46 @@ def map_status(hazard: str, region: str, r: dict) -> dict | None:
 
 
 def storm_status(region: str, storms: list[dict], cuts: dict) -> dict | None:
-    """Strongest active storm in a region. A storm already at typhoon force is High."""
-    rows = [s for s in storms if inside(s["lat"], s["lon"], region) and s.get("model")]
+    """Strongest active storm in a region. A storm at typhoon force is High, even if the model could not score it."""
+    rows = [s for s in storms if inside(s["lat"], s["lon"], region)]
     if not rows:
         return None
-    top = max(rows, key=lambda s: s["model"]["wind_now_1min"])
+    top = max(rows, key=lambda s: s["model"]["wind_now_1min"] if s.get("model") else s.get("wind_kt", 0) / 0.88)
+    base = {"lat": top["lat"], "lon": top["lon"], "name": top["name"]}
+    if not top.get("model"):
+        high = top.get("wind_kt", 0) >= TYPHOON_10MIN_KT
+        return {**base, "level": "High" if high else "Medium", "p": None, "issued": top.get("issued", ""), "scored": False, "wind": top.get("wind_kt", 0)}
     m = top["model"]
     p = m["reach_64_chance"]
-    return {"level": "High" if p is None else level(p, cuts), "p": p, "lat": top["lat"], "lon": top["lon"], "issued": m["from"], "name": top["name"], "wind": m["wind_now_1min"],
-            "low": m["low"], "high": m["high"]}
+    return {**base, "level": "High" if p is None else level(p, cuts), "p": p, "issued": m["from"], "scored": True, "wind": m["wind_now_1min"], "low": m["low"], "high": m["high"]}
 
 
-def status(hazard: str, region: str) -> dict | None:
-    r = read_results(hazard)
-    if hazard == "cyclone":
-        return storm_status(region, json.loads(STORMS.read_text())["storms"], r["risk_levels"])
-    return map_status(hazard, region, r)
+def status(hazard: str, region: str, now: datetime | None = None) -> dict | None:
+    """Current state of a region. Failed or old data returns UNAVAILABLE, never a quiet answer."""
+    now = now or datetime.now(timezone.utc)
+    try:
+        r = read_results(hazard)
+        if hazard == "cyclone":
+            feed = json.loads(STORMS.read_text())
+            if feed.get("status") != "ok" or not fresh(feed.get("fetched_at"), STORM_MAX_HOURS, now):
+                return UNAVAILABLE
+            return storm_status(region, feed["storms"], r["risk_levels"])
+        if not fresh(r.get("scored_at"), MAP_MAX_HOURS, now):
+            return UNAVAILABLE
+        return map_status(hazard, region, r)
+    except (OSError, ValueError, KeyError, TypeError):
+        return UNAVAILABLE
 
 
 def text_for(hazard: str, region: str, s: dict | None) -> str:
     zone = NAMES.get(region, region.title())
+    if s is not None and s.get("unavailable"):
+        return f"{hazard.title()}, {zone}: data is unavailable or out of date, so risk is unknown. This does not mean there is no risk. Check official sources."
     if s is None:
         return f"{hazard.title()}, {zone}: no active storm." if hazard == "cyclone" else f"{hazard.title()}, {zone}: this region has no scored location."
-    if hazard == "cyclone":
+    if hazard == "cyclone" and not s["scored"]:
+        detail = f"Storm {s['name']}, {s['wind']:.0f} kt from the agency feed. The model could not score it."
+    elif hazard == "cyclone":
         chance = "already at typhoon force" if s["p"] is None else f"{s['p']:.0%} chance of reaching 64 kt in 24 hours"
         detail = f"Storm {s['name']}, {s['wind']:.0f} kt now, {chance}. 24 hour wind range {s['low']:.0f} to {s['high']:.0f} kt."
     elif hazard == "flood":
@@ -91,28 +121,37 @@ def text_for(hazard: str, region: str, s: dict | None) -> str:
 def connect(path: Path = DB) -> sqlite3.Connection:
     con = sqlite3.connect(path)
     con.execute("create table if not exists subscribers (chat_id integer, hazard text, region text, primary key (chat_id, hazard, region))")
+    con.execute("create table if not exists alert_state (chat_id integer, hazard text, region text, level text, event text, primary key (chat_id, hazard, region))")
     con.execute("create table if not exists alerts (id integer primary key, chat_id integer, hazard text, region text, level text, issued text, message text, created text, sent integer default 0)")
     return con
 
 
-def should_send(last: tuple | None, lvl: str, now: datetime) -> bool:
-    """Alert on High, once, then again only after a week if it stays High."""
+def should_send(prev: tuple | None, last_sent: str | None, lvl: str, event: str, now: datetime) -> bool:
+    """Alert on entering High or on a different event at High. Repeat weekly only during one unbroken High."""
     if lvl != "High":
         return False
-    return last is None or (now - datetime.fromisoformat(last[1])).days >= REPEAT_DAYS
+    if prev is None or prev[0] != "High" or prev[1] != event:
+        return True
+    return last_sent is None or (now - datetime.fromisoformat(last_sent)).days >= REPEAT_DAYS
 
 
 def queue_alerts(con: sqlite3.Connection, now: datetime, look=status) -> int:
     n = 0
     for chat, hazard, region in con.execute("select chat_id, hazard, region from subscribers").fetchall():
         s = look(hazard, region)
-        if s is None:
+        key = (chat, hazard, region)
+        if s is not None and s.get("unavailable"):  # unknown is not quiet, so keep the state as it was
             continue
-        last = con.execute("select level, created from alerts where chat_id = ? and hazard = ? and region = ? order by id desc limit 1", (chat, hazard, region)).fetchone()
-        if should_send(last, s["level"], now):
+        if s is None and hazard != "cyclone":
+            continue
+        lvl, event = ("Low", "") if s is None else (s["level"], s.get("name", ""))
+        prev = con.execute("select level, event from alert_state where chat_id = ? and hazard = ? and region = ?", key).fetchone()
+        last = con.execute("select created from alerts where chat_id = ? and hazard = ? and region = ? order by id desc limit 1", key).fetchone()
+        if should_send(prev, last[0] if last else None, lvl, event, now):
             con.execute("insert into alerts (chat_id, hazard, region, level, issued, message, created) values (?,?,?,?,?,?,?)",
-                        (chat, hazard, region, s["level"], s["issued"], text_for(hazard, region, s), now.isoformat()))
+                        (chat, hazard, region, lvl, s["issued"], text_for(hazard, region, s), now.isoformat()))
             n += 1
+        con.execute("insert or replace into alert_state values (?,?,?,?,?)", (*key, lvl, event))
     con.commit()
     return n
 

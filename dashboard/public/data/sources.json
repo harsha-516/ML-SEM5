@@ -1,5 +1,5 @@
 {
- "refreshed_at": "2026-11-01T08:35:53+00:00",
+ "refreshed_at": "2026-11-01T08:39:31+00:00",
  "forecasts_logged": 5186,
  "sources": [
   {
@@ -7,168 +7,168 @@
    "name": "USGS earthquakes",
    "use": "Earthquakes",
    "kind": "API",
-   "checked_at": "2026-11-01T08:35:10+00:00",
-   "last_ok": "2026-11-01T08:35:10+00:00",
+   "checked_at": "2026-11-01T08:39:12+00:00",
+   "last_ok": "2026-11-01T08:39:12+00:00",
    "state": "live",
-   "records": 139,
-   "latest": "M4.7 191 km NW of Port-Olry, Vanuatu",
-   "latency_ms": 684
+   "records": 140,
+   "latest": "M4.8 33 km SE of Jiufen, Taiwan",
+   "latency_ms": 1206
   },
   {
    "id": "jma",
    "name": "JMA active storms",
    "use": "Cyclones",
    "kind": "API",
-   "checked_at": "2026-11-01T08:35:11+00:00",
-   "last_ok": "2026-11-01T08:35:11+00:00",
+   "checked_at": "2026-11-01T08:39:13+00:00",
+   "last_ok": "2026-11-01T08:39:13+00:00",
    "state": "live",
    "records": 1,
    "latest": "In-fa, 85 knots",
-   "latency_ms": 3265
+   "latency_ms": 1573
   },
   {
    "id": "ibtracs",
    "name": "IBTrACS storm tracks",
    "use": "Cyclones",
    "kind": "File",
-   "checked_at": "2026-11-01T08:35:14+00:00",
-   "last_ok": "2026-11-01T08:35:14+00:00",
+   "checked_at": "2026-11-01T08:39:15+00:00",
+   "last_ok": "2026-11-01T08:39:15+00:00",
    "state": "live",
    "records": null,
    "latest": "File updated Fri, 30 Oct 2026 04:26:45 GMT",
-   "latency_ms": 1223
+   "latency_ms": 1654
   },
   {
    "id": "gdacs",
    "name": "GDACS disaster alerts",
    "use": "All hazards",
    "kind": "API",
-   "checked_at": "2026-11-01T08:35:15+00:00",
-   "last_ok": "2026-11-01T08:35:15+00:00",
+   "checked_at": "2026-11-01T08:39:17+00:00",
+   "last_ok": "2026-11-01T08:39:17+00:00",
    "state": "live",
    "records": 100,
-   "latest": "Earthquake in Vanuatu",
-   "latency_ms": 1811
+   "latest": "Earthquake in Taiwan",
+   "latency_ms": 2843
   },
   {
    "id": "discharge",
    "name": "GloFAS river discharge",
    "use": "Floods",
    "kind": "API",
-   "checked_at": "2026-11-01T08:35:17+00:00",
-   "last_ok": "2026-11-01T08:35:17+00:00",
+   "checked_at": "2026-11-01T08:39:20+00:00",
+   "last_ok": "2026-11-01T08:39:20+00:00",
    "state": "live",
    "records": 1,
    "latest": "Patna river discharge 7.73 m3/s",
-   "latency_ms": 991
+   "latency_ms": 980
   },
   {
    "id": "rain",
    "name": "Open-Meteo rainfall",
    "use": "Floods",
    "kind": "API",
-   "checked_at": "2026-11-01T08:35:18+00:00",
-   "last_ok": "2026-11-01T08:35:18+00:00",
+   "checked_at": "2026-11-01T08:39:21+00:00",
+   "last_ok": "2026-11-01T08:39:21+00:00",
    "state": "live",
    "records": 1,
    "latest": "Kathmandu rain today 1.3 mm",
-   "latency_ms": 1217
+   "latency_ms": 880
   },
   {
    "id": "gibs",
    "name": "NASA GIBS imagery",
    "use": "Maps",
    "kind": "Satellite",
-   "checked_at": "2026-11-01T08:35:19+00:00",
-   "last_ok": "2026-11-01T08:35:19+00:00",
+   "checked_at": "2026-11-01T08:39:21+00:00",
+   "last_ok": "2026-11-01T08:39:21+00:00",
    "state": "live",
    "records": null,
    "latest": "Imagery tile for 2026-10-30",
-   "latency_ms": 1167
+   "latency_ms": 2262
   },
   {
    "id": "imerg",
    "name": "NASA IMERG rainfall",
    "use": "Floods",
    "kind": "Satellite",
-   "checked_at": "2026-11-01T08:35:20+00:00",
-   "last_ok": "2026-11-01T08:35:20+00:00",
+   "checked_at": "2026-11-01T08:39:24+00:00",
+   "last_ok": "2026-11-01T08:39:24+00:00",
    "state": "live",
    "records": null,
    "latest": "Newest record 2026-11-01 02:30 UTC",
-   "latency_ms": 1060
+   "latency_ms": 1131
   },
   {
    "id": "smap",
    "name": "NASA SMAP soil moisture",
    "use": "Floods",
    "kind": "Satellite",
-   "checked_at": "2026-11-01T08:35:21+00:00",
-   "last_ok": "2026-11-01T08:35:21+00:00",
+   "checked_at": "2026-11-01T08:39:25+00:00",
+   "last_ok": "2026-11-01T08:39:25+00:00",
    "state": "live",
    "records": null,
    "latest": "Newest record 2026-10-30 00:00 UTC",
-   "latency_ms": 942
+   "latency_ms": 822
   },
   {
    "id": "himawari",
    "name": "Himawari-9 clouds",
    "use": "Cyclones",
    "kind": "Satellite",
-   "checked_at": "2026-11-01T08:35:22+00:00",
-   "last_ok": "2026-11-01T08:35:22+00:00",
+   "checked_at": "2026-11-01T08:39:26+00:00",
+   "last_ok": "2026-11-01T08:39:26+00:00",
    "state": "live",
    "records": 5,
    "latest": "Files listed for 01 Nov 2026",
-   "latency_ms": 1325
+   "latency_ms": 948
   },
   {
    "id": "bbc",
    "name": "BBC Asia",
    "use": "News",
    "kind": "RSS",
-   "checked_at": "2026-11-01T08:35:24+00:00",
-   "last_ok": "2026-11-01T08:35:24+00:00",
+   "checked_at": "2026-11-01T08:39:27+00:00",
+   "last_ok": "2026-11-01T08:39:27+00:00",
    "state": "live",
    "records": 19,
    "latest": "No hazard headlines right now",
-   "latency_ms": 1923
+   "latency_ms": 601
   },
   {
    "id": "hindu",
    "name": "The Hindu",
    "use": "News",
    "kind": "RSS",
-   "checked_at": "2026-11-01T08:35:26+00:00",
-   "last_ok": "2026-11-01T08:35:26+00:00",
+   "checked_at": "2026-11-01T08:39:27+00:00",
+   "last_ok": "2026-11-01T08:39:27+00:00",
    "state": "live",
    "records": 60,
    "latest": "1 hazard headlines",
-   "latency_ms": 444
+   "latency_ms": 264
   },
   {
    "id": "toi",
    "name": "Times of India",
    "use": "News",
    "kind": "RSS",
-   "checked_at": "2026-11-01T08:35:26+00:00",
-   "last_ok": "2026-11-01T08:35:26+00:00",
+   "checked_at": "2026-11-01T08:39:27+00:00",
+   "last_ok": "2026-11-01T08:39:27+00:00",
    "state": "live",
    "records": 0,
    "latest": "No hazard headlines right now",
-   "latency_ms": 320
+   "latency_ms": 575
   },
   {
    "id": "gnews",
    "name": "Google News",
    "use": "News",
    "kind": "RSS",
-   "checked_at": "2026-11-01T08:35:26+00:00",
-   "last_ok": "2026-11-01T08:35:26+00:00",
+   "checked_at": "2026-11-01T08:39:28+00:00",
+   "last_ok": "2026-11-01T08:39:28+00:00",
    "state": "live",
    "records": 8,
    "latest": "Technology reshapes advice on earthquake risk",
-   "latency_ms": 191
+   "latency_ms": 1300
   },
   {
    "id": "groundsource",

@@ -1,6 +1,18 @@
 [
  {
   "source": "GDACS",
+  "text": "Earthquake in Taiwan, Green alert",
+  "time": "2026-11-01T08:20:07",
+  "url": "https://www.gdacs.org/report.aspx?eventid=1575057&episodeid=1744047&eventtype=EQ"
+ },
+ {
+  "source": "USGS",
+  "text": "M4.8 33 km SE of Jiufen, Taiwan",
+  "time": "2026-11-01T08:20+00:00",
+  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tunq"
+ },
+ {
+  "source": "GDACS",
   "text": "Earthquake in Vanuatu, Green alert",
   "time": "2026-11-01T07:37:47",
   "url": "https://www.gdacs.org/report.aspx?eventid=1575052&episodeid=1744041&eventtype=EQ"
@@ -54,12 +66,6 @@
   "url": "https://www.gdacs.org/report.aspx?eventid=1001346&episodeid=2&eventtype=TC"
  },
  {
-  "source": "GDACS",
-  "text": "Earthquake in Argentina, Green alert",
-  "time": "2026-11-01T05:31:54",
-  "url": "https://www.gdacs.org/report.aspx?eventid=1575038&episodeid=1744026&eventtype=EQ"
- },
- {
   "source": "USGS",
   "text": "M4.8 71 km NNW of San Antonio de los Cobres, Argentina",
   "time": "2026-11-01T05:31+00:00",
@@ -78,28 +84,28 @@
   "url": "https://www.thehindu.com/news/national/andhra-pradesh/clear-skies-after-arnab-cyclone-expected-to-ensure-decent-poll-percentage-in-north-andhra-districts/article71651947.ece"
  },
  {
+  "source": "Times Now",
+  "text": "Earthquake Of Magnitude 6.0 Hits Japan's Shima",
+  "time": "2026-11-01T02:33+00:00",
+  "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPbzh6X0FYUi1OSFJabHZENFNjSjBiRTQweWpRTXBYYjdLMUZfaEtlMzdQMlYwU3hCRjV4TE9oSFNzZ2VqR1JEVUVTLVNhLWVTUHVMa1pDWkllT25zazR4NEYzNVluTlJGRkJ4RlpZbmwwSFE1Y1ZuOEVfUHlaZ01pOUo2S0ZHcy14VXNuaXBSRmlwU25SN3hGSXZfY2RWNEtaakN0M2E3UDU3SWfSAasBQVVfeXFMT284el9BWFItTkhSWmx2RDRTY0owYkU0MHlqUU1wWGI3SzFGX2hLZTM3UDJWMFN4QkY1eExPaEhTc2dlakdSRFVFUy1TYS1lU1B1TGtaQ1pJZU9uc2s0eDRGMzVZbk5SRkZCeEZaWW5sMEhRNWNWbjhFX1B5WmdNaTlKNktGR3MteFVzbmlwUkZpcFNuUjd4Rkl2X2NkVjRLWmpDdDNhN1A1N0ln?oc=5"
+ },
+ {
   "source": "Borneo Bulletin",
   "text": "MTL, Super El Ni\u00f1o: Malaysia faces flood and drought risks",
   "time": "2026-11-01T02:30+00:00",
   "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQQTdMZkNSamF4ZzFZZXl6bUdfZmV6Z2RiaDFKcld3WV9Kd3lna3c3SDR5R1AxUTF3SkFJVlFNalpNbnF2WlRTeU1QQVRYdElMbHgzM09VRjZDRHFnWHhrLWZrcUVyR3k1QXp2VERvclN6WnlZWmxYUW9KMnhrWEhkV3lUSUJBcTVIMFFmcWdIMTk?oc=5"
  },
  {
-  "source": "Times Now",
-  "text": "Earthquake Of Magnitude 6.0 Hits Japan's Shima",
-  "time": "2026-11-01T01:33+00:00",
-  "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPUm4tUG9LT1VLdjM5X1M0RFJ4M01BRGY5VFgwd3FCRlFlRFRBNnNWdEVYWWZVR2VhbVEtTTQ4M0JfWTcwb1pHU3pRUHprQ1dQdHpmeHVBWHdybkNUN2tvNWU2UVYzUXRVOG04dUlkNng1MEY4dXVrWXdZOW1fbXpPVWhzSURuSGR2TFRYZ2o3eDdkUUw1SFpWbjE1ZVoyVDdCei13Mld30gGrAUFVX3lxTE9vOHpfQVhSLU5IUlpsdkQ0U2NKMGJFNDB5alFNcFhiN0sxRl9oS2UzN1AyVjBTeEJGNXhMT2hIU3NnZWpHUkRVRVMtU2EtZVNQdUxrWkNaSWVPbnNrNHg0RjM1WW5OUkZGQnhGWllubDBIUTVjVm44RV9QeVpnTWk5SjZLRkdzLXhVc25pcFJGaXBTblI3eEZJdl9jZFY0S1pqQ3QzYTdQNTdJZw?oc=5"
+  "source": "Volcano Discovery",
+  "text": "Moderate mag. 4.0 earthquake - 50 km northwest of Bandar-e Deyr, Bushehr, Iran, on Sunday, Nov 1, 2026, at 04:19 am (Tehran time)",
+  "time": "2026-11-01T02:15+00:00",
+  "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQbmZfS2tPVUtGTVkyXzQ3a2VPQW4wOXNDRkxWMGd1bnpXR3loMmtqdk4xOGFrT1lnM29oVW5Oa3VwbHFXdkM5UkNlVjdhaDNiZm9iOUhBU0RwaVFGMzB3MUZlYXRPRDFrVDYzUlI1WGhhRGZSOGVhZFFNMWVJOWtSZE1TQkVGVHpuNGFnUkg3d0dCbEpVQ01LY0o1T0dmWGp2Zkh1cXQ1dw?oc=5"
  },
  {
   "source": "USGS",
   "text": "M4.5 55 km SSW of Ollag\u00fce, Chile",
   "time": "2026-11-01T01:24+00:00",
   "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tuly"
- },
- {
-  "source": "USGS",
-  "text": "M4.8 199 km NW of Port-Olry, Vanuatu",
-  "time": "2026-10-31T23:57+00:00",
-  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tule"
  },
  {
   "source": "Volcano Discovery",
@@ -124,11 +130,5 @@
   "text": "Tokyo's flood defence: a city engineered to stay dry",
   "time": "2026-10-31T19:18+00:00",
   "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQeE5vbXp5WVBLYy1CQm0tbTFNNVlVWW1ySVhCRllmOFA3QnJGSkh5T1Bhb3ZfbjdkcmY1OFRwMU12aGZSTFVCdjd3bmpIOFlFUmtPYlFsV2dCMkxIS1lzQWJ1aDh4cmQyaktVZkctbVF4SXpmQmliOTd4cU1aQWNpYTVpSU1sMTZjQmxfdHBNODluLWlZS19wM0k5N1BhR29yLWxJS2ZHUHZtdHdMMkdiQ2E1SGYyWGd1Z2N2UGNsUQ?oc=5"
- },
- {
-  "source": "OpenGov Asia",
-  "text": "India Restores Telecom Connectivity After Cyclone Arnab",
-  "time": "2026-10-31T05:54+00:00",
-  "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQX3pOZ2tWWGlpS1dTVWVfMUNVT2w3QUFjeTlLWDAycjNhRUVMMkhham1LeDdRZFVQb21jUDR5MEVITFU3ZEQ0M3djNnVsVHBoYVowREdza3ZXdDRvS18wMW1QMENrd3pWS1dXYzlGb1gydko0Y0pvdVloUGFVOXlMRTJpMVhkbms?oc=5"
  }
 ]

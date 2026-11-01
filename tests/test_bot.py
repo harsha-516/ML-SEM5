@@ -49,10 +49,54 @@ def test_earthquake_text_never_gives_a_time():
     assert "never a predicted time" in t and "will occur" not in t
 
 
-def test_should_send_once_then_after_a_week():
-    assert bot.should_send(None, "High", NOW) and not bot.should_send(None, "Medium", NOW)
-    assert not bot.should_send(("High", (NOW - timedelta(days=2)).isoformat()), "High", NOW)
-    assert bot.should_send(("High", (NOW - timedelta(days=8)).isoformat()), "High", NOW)
+def test_should_send_on_entry_new_event_and_after_a_week():
+    day = (NOW - timedelta(days=2)).isoformat()
+    week = (NOW - timedelta(days=8)).isoformat()
+    assert bot.should_send(None, None, "High", "", NOW) and not bot.should_send(None, None, "Medium", "", NOW)
+    assert not bot.should_send(("High", "A"), day, "High", "A", NOW)
+    assert bot.should_send(("High", "A"), day, "High", "B", NOW)
+    assert bot.should_send(("Low", ""), day, "High", "", NOW)
+    assert bot.should_send(("High", "A"), week, "High", "A", NOW)
+
+
+def test_new_high_after_a_quiet_spell_alerts_at_once(tmp_path):
+    con = bot.connect(tmp_path / "b.sqlite")
+    con.execute("insert into subscribers values (1, 'flood', 'india')")
+    states = iter(["High", "Low", "High"])
+    look = lambda h, r: {"level": next(states), "p": 0.4, "lat": 25.5, "lon": 85.5, "issued": "x"}  # noqa: E731
+    assert [bot.queue_alerts(con, NOW, look) for _ in range(3)] == [1, 0, 1]
+
+
+def test_unavailable_never_reads_as_quiet_and_keeps_state(tmp_path):
+    assert "does not mean there is no risk" in bot.text_for("cyclone", "india", bot.UNAVAILABLE)
+    con = bot.connect(tmp_path / "b.sqlite")
+    con.execute("insert into subscribers values (1, 'flood', 'india')")
+    high = lambda h, r: {"level": "High", "p": 0.4, "lat": 25.5, "lon": 85.5, "issued": "x"}  # noqa: E731
+    bot.queue_alerts(con, NOW, high)
+    assert bot.queue_alerts(con, NOW, lambda h, r: bot.UNAVAILABLE) == 0
+    assert con.execute("select level from alert_state").fetchone() == ("High",)
+
+
+def test_failed_or_old_storm_feed_is_unavailable(tmp_path, monkeypatch):
+    f = tmp_path / "storms.json"
+    monkeypatch.setattr(bot, "STORMS", f)
+    monkeypatch.setattr(bot, "read_results", lambda h: {"risk_levels": CUTS})
+    f.write_text('{"status": "failed: Timeout", "fetched_at": "2026-11-01T00:00:00+00:00", "storms": []}')
+    assert bot.status("cyclone", "india", NOW)["unavailable"]
+    f.write_text('{"status": "ok", "fetched_at": "2026-10-30T00:00:00+00:00", "storms": []}')
+    assert bot.status("cyclone", "india", NOW)["unavailable"]
+    f.write_text('{"status": "ok", "fetched_at": "2026-11-01T00:00:00+00:00", "storms": []}')
+    assert bot.status("cyclone", "india", NOW) is None
+
+
+def test_old_map_is_unavailable(monkeypatch):
+    monkeypatch.setattr(bot, "read_results", lambda h: {**MAP, "scored_at": "2026-10-01T00:00:00+00:00"})
+    assert bot.status("flood", "india", NOW)["unavailable"]
+
+
+def test_unscored_storm_at_typhoon_force_is_high():
+    s = bot.storm_status("westpacific", [{"lat": 15.0, "lon": 130.0, "name": "A", "wind_kt": 90, "issued": "t"}], CUTS)
+    assert s["level"] == "High" and "could not score" in bot.text_for("cyclone", "westpacific", s)
 
 
 def test_subscribe_alert_is_logged_once(tmp_path):
