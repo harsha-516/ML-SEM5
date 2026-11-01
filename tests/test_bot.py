@@ -1,0 +1,73 @@
+from datetime import datetime, timedelta, timezone
+
+import numpy as np
+
+from hazards import bot
+from hazards.common import risk_cuts
+
+CUTS = {"medium": 0.1, "high": 0.3}
+NOW = datetime(2026, 11, 1, tzinfo=timezone.utc)
+MAP = {"risk_levels": CUTS, "scored_at": "2026-11-01T00:00:00", "current_risk": [{"lat": 25.5, "lon": 85.5, "p": 0.4}, {"lat": 12.5, "lon": 80.5, "p": 0.05}, {"lat": 35.5, "lon": 139.5, "p": 0.9}]}
+
+
+def test_level_uses_both_cuts():
+    assert [bot.level(p, CUTS) for p in (0.05, 0.1, 0.3)] == ["Low", "Medium", "High"]
+
+
+def test_risk_cuts_keep_high_at_or_above_medium():
+    rng = np.random.default_rng(0)
+    p = rng.uniform(0, 1, 3000)
+    y = (rng.uniform(size=3000) < p**2).astype(int)
+    c = risk_cuts(y, p)
+    assert 0 < c["medium"] <= c["high"] < 1
+
+
+def test_map_status_takes_the_highest_inside_the_region():
+    s = bot.map_status("flood", "india", MAP)
+    assert s["level"] == "High" and s["p"] == 0.4
+    assert bot.map_status("flood", "pakistan", MAP) is None
+
+
+def test_storm_at_typhoon_force_is_high_and_weak_storm_uses_chance():
+    m = {"wind_now_1min": 40.0, "reach_64_chance": 0.05, "from": "t", "low": 30.0, "high": 50.0}
+    s = {"lat": 15.0, "lon": 130.0, "name": "A", "model": m}
+    assert bot.storm_status("westpacific", [s], CUTS)["level"] == "Low"
+    strong = {**s, "model": {**m, "reach_64_chance": None}}
+    assert bot.storm_status("westpacific", [strong], CUTS)["level"] == "High"
+    assert bot.storm_status("india", [s], CUTS) is None
+
+
+def test_every_alert_says_model_based_and_official_instructions():
+    s = {"level": "High", "p": 0.4, "lat": 25.5, "lon": 85.5, "issued": "2026-11-01"}
+    for hazard in ("flood", "earthquake"):
+        t = bot.text_for(hazard, "india", s)
+        assert "model-based" in t and "official" in t and "Prediction time" in t and "High" in t
+
+
+def test_earthquake_text_never_gives_a_time():
+    t = bot.text_for("earthquake", "india", {"level": "High", "p": 0.4, "lat": 25.5, "lon": 85.5, "issued": "2026-11-01"})
+    assert "never a predicted time" in t and "will occur" not in t
+
+
+def test_should_send_once_then_after_a_week():
+    assert bot.should_send(None, "High", NOW) and not bot.should_send(None, "Medium", NOW)
+    assert not bot.should_send(("High", (NOW - timedelta(days=2)).isoformat()), "High", NOW)
+    assert bot.should_send(("High", (NOW - timedelta(days=8)).isoformat()), "High", NOW)
+
+
+def test_subscribe_alert_is_logged_once(tmp_path):
+    con = bot.connect(tmp_path / "b.sqlite")
+    look = lambda h, r: {"level": "High", "p": 0.4, "lat": 25.5, "lon": 85.5, "issued": "x"}  # noqa: E731
+    assert "Subscribed" in bot.handle(con, 1, "/subscribe flood india", look)
+    assert bot.queue_alerts(con, NOW, look) == 1 and bot.queue_alerts(con, NOW, look) == 0
+    assert con.execute("select count(*), sum(sent) from alerts").fetchone() == (1, 0)
+    assert "Unsubscribed" in bot.handle(con, 1, "/unsubscribe flood india", look)
+    assert con.execute("select count(*) from subscribers").fetchone() == (0,)
+
+
+def test_bad_commands_get_guidance(tmp_path):
+    con = bot.connect(tmp_path / "b.sqlite")
+    assert "Send /help" in bot.handle(con, 1, "/risk flood mars")
+    assert "Unknown" in bot.handle(con, 1, "hello")
+    assert "bay" in bot.handle(con, 1, "/help@tarang_ML_bot").lower()
+    assert "no active storm" in bot.handle(con, 1, "/risk cyclone bay of bengal", lambda h, r: None)

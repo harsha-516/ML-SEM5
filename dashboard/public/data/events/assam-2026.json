@@ -7,11 +7,11 @@
  "lat": 26.98,
  "lon": 94.64,
  "summary": "Sivasagar was reported as the worst-affected district in July. The date marks the seasonal peak period, not a single moment.",
- "severity": 0.6359,
- "headline": "Model chance before event: 64%",
+ "severity": 0.6748,
+ "headline": "Model chance before event: 67%",
  "forecast_source": "archived forecast",
- "top_3_days": 0.6359,
- "usual": 0.2428,
+ "top_3_days": 0.6748,
+ "usual": 0.2778,
  "warned": true,
  "news_query": "Assam floods Sivasagar 2026",
  "news_match": "assam|sivasagar",
@@ -21,266 +21,266 @@
    "rain_mm": 14.3,
    "discharge": 215.8,
    "next3_mm": 104.4,
-   "chance": 0.2983
+   "chance": 0.3478
   },
   {
    "date": "2026-06-21",
    "rain_mm": 20.2,
    "discharge": 215.3,
    "next3_mm": 61.9,
-   "chance": 0.169
+   "chance": 0.2174
   },
   {
    "date": "2026-06-22",
    "rain_mm": 37.3,
    "discharge": 205.5,
    "next3_mm": 65.9,
-   "chance": 0.1974
+   "chance": 0.2305
   },
   {
    "date": "2026-06-23",
    "rain_mm": 6.8,
    "discharge": 208.9,
    "next3_mm": 68.0,
-   "chance": 0.1575
+   "chance": 0.193
   },
   {
    "date": "2026-06-24",
    "rain_mm": 13.8,
    "discharge": 223.4,
    "next3_mm": 82.1,
-   "chance": 0.2168
+   "chance": 0.2584
   },
   {
    "date": "2026-06-25",
    "rain_mm": 13.2,
    "discharge": 227.0,
    "next3_mm": 81.5,
-   "chance": 0.2181
+   "chance": 0.2562
   },
   {
    "date": "2026-06-26",
    "rain_mm": 14.1,
    "discharge": 232.9,
    "next3_mm": 125.0,
-   "chance": 0.3694
+   "chance": 0.4225
   },
   {
    "date": "2026-06-27",
    "rain_mm": 24.5,
    "discharge": 228.6,
    "next3_mm": 124.2,
-   "chance": 0.4117
+   "chance": 0.457
   },
   {
    "date": "2026-06-28",
    "rain_mm": 54.5,
    "discharge": 320.4,
    "next3_mm": 90.7,
-   "chance": 0.4169
+   "chance": 0.4303
   },
   {
    "date": "2026-06-29",
    "rain_mm": 9.5,
    "discharge": 301.7,
    "next3_mm": 69.3,
-   "chance": 0.1977
+   "chance": 0.2246
   },
   {
    "date": "2026-06-30",
    "rain_mm": 2.6,
    "discharge": 330.9,
    "next3_mm": 80.5,
-   "chance": 0.256
+   "chance": 0.2778
   },
   {
    "date": "2026-07-01",
    "rain_mm": 8.8,
    "discharge": 341.8,
    "next3_mm": 41.4,
-   "chance": 0.1355
+   "chance": 0.1605
   },
   {
    "date": "2026-07-02",
    "rain_mm": 10.8,
    "discharge": 367.1,
    "next3_mm": 57.5,
-   "chance": 0.2391
+   "chance": 0.2621
   },
   {
    "date": "2026-07-03",
    "rain_mm": 1.1,
    "discharge": 365.4,
    "next3_mm": 31.6,
-   "chance": 0.124
+   "chance": 0.141
   },
   {
    "date": "2026-07-04",
    "rain_mm": 1.3,
    "discharge": 327.9,
    "next3_mm": 46.0,
-   "chance": 0.1415
+   "chance": 0.1552
   },
   {
    "date": "2026-07-05",
    "rain_mm": 0.0,
    "discharge": 371.4,
    "next3_mm": 53.3,
-   "chance": 0.2428
+   "chance": 0.2824
   },
   {
    "date": "2026-07-06",
    "rain_mm": 2.4,
    "discharge": 364.6,
    "next3_mm": 21.7,
-   "chance": 0.0746
+   "chance": 0.0988
   },
   {
    "date": "2026-07-07",
    "rain_mm": 16.8,
    "discharge": 344.1,
    "next3_mm": 26.6,
-   "chance": 0.1012
+   "chance": 0.1283
   },
   {
    "date": "2026-07-08",
    "rain_mm": 7.4,
    "discharge": 336.3,
    "next3_mm": 37.9,
-   "chance": 0.15
+   "chance": 0.1855
   },
   {
    "date": "2026-07-09",
    "rain_mm": 5.6,
    "discharge": 368.0,
    "next3_mm": 47.6,
-   "chance": 0.2528
+   "chance": 0.2961
   },
   {
    "date": "2026-07-10",
    "rain_mm": 11.6,
    "discharge": 380.9,
    "next3_mm": 46.8,
-   "chance": 0.2688
+   "chance": 0.3098
   },
   {
    "date": "2026-07-11",
    "rain_mm": 5.6,
    "discharge": 368.8,
    "next3_mm": 83.2,
-   "chance": 0.3371
+   "chance": 0.3691
   },
   {
    "date": "2026-07-12",
    "rain_mm": 31.1,
    "discharge": 363.8,
    "next3_mm": 54.8,
-   "chance": 0.28
+   "chance": 0.3144
   },
   {
    "date": "2026-07-13",
    "rain_mm": 3.1,
    "discharge": 459.3,
    "next3_mm": 111.4,
-   "chance": 0.4117
+   "chance": 0.4369
   },
   {
    "date": "2026-07-14",
    "rain_mm": 12.5,
    "discharge": 447.8,
    "next3_mm": 66.7,
-   "chance": 0.3123
+   "chance": 0.3545
   },
   {
    "date": "2026-07-15",
    "rain_mm": 37.6,
    "discharge": 446.7,
    "next3_mm": 78.1,
-   "chance": 0.3737
+   "chance": 0.4055
   },
   {
    "date": "2026-07-16",
    "rain_mm": 23.8,
    "discharge": 517.8,
    "next3_mm": 92.7,
-   "chance": 0.4283
+   "chance": 0.4673
   },
   {
    "date": "2026-07-17",
    "rain_mm": 7.0,
    "discharge": 492.2,
    "next3_mm": 160.0,
-   "chance": 0.5218
+   "chance": 0.5445
   },
   {
    "date": "2026-07-18",
    "rain_mm": 26.7,
    "discharge": 420.7,
    "next3_mm": 180.8,
-   "chance": 0.6359
+   "chance": 0.6748
   },
   {
    "date": "2026-07-19",
    "rain_mm": 20.8,
    "discharge": 418.8,
    "next3_mm": 59.2,
-   "chance": 0.3311
+   "chance": 0.3788
   },
   {
    "date": "2026-07-20",
    "rain_mm": 0.6,
    "discharge": 766.4,
    "next3_mm": 59.9,
-   "chance": 0.3299
+   "chance": 0.3562
   },
   {
    "date": "2026-07-21",
    "rain_mm": 12.5,
    "discharge": 665.8,
    "next3_mm": 57.7,
-   "chance": 0.3974
+   "chance": 0.4381
   },
   {
    "date": "2026-07-22",
    "rain_mm": 17.9,
    "discharge": 440.6,
    "next3_mm": 37.4,
-   "chance": 0.2782
+   "chance": 0.2995
   },
   {
    "date": "2026-07-23",
    "rain_mm": 11.6,
    "discharge": 445.7,
    "next3_mm": 40.0,
-   "chance": 0.2565
+   "chance": 0.3036
   },
   {
    "date": "2026-07-24",
    "rain_mm": 3.2,
    "discharge": 448.8,
    "next3_mm": 39.7,
-   "chance": 0.2566
+   "chance": 0.2954
   },
   {
    "date": "2026-07-25",
    "rain_mm": 3.6,
    "discharge": 442.6,
    "next3_mm": 69.4,
-   "chance": 0.3538
+   "chance": 0.3987
   },
   {
    "date": "2026-07-26",
    "rain_mm": 3.0,
    "discharge": 433.5,
    "next3_mm": 84.8,
-   "chance": 0.406
+   "chance": 0.4648
   },
   {
    "date": "2026-07-27",
    "rain_mm": 17.8,
    "discharge": 387.1,
    "next3_mm": 90.0,
-   "chance": 0.4338
+   "chance": 0.4717
   }
  ]
 }

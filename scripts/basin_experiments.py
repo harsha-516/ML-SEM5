@@ -8,7 +8,7 @@ from xgboost import XGBClassifier
 
 from hazards import basins, flood
 from hazards.common import DATA, RESULTS, log, tuned
-from label_experiments import gdacs_label
+from hazards.flood import gdacs_label
 
 
 def main() -> None:

@@ -14,12 +14,14 @@ import requests
 
 from sklearn.metrics import average_precision_score
 
-from .common import DATA, RESULTS, Platt, compare_models, log, print_summary, tuned, write_results
+from .common import DATA, RESULTS, Platt, compare_models, risk_cuts, log, print_summary, tuned, write_results
 from . import satellite
 from .events import FLOODS, flood_events
 from .live import save_model
+from .typhoon import _dist_km
 
 HORIZON = 3
+GDACS_KM = 300
 FIRST, LAST = "2015-01-01", "2026-01-31"
 CACHE = DATA / "flood_cells"
 FORECASTS = DATA / "flood_forecasts"
@@ -205,6 +207,20 @@ def warned(days: list[dict], event_date: str) -> dict:
     return {"top_3_days": top, "usual": usual, "warned": bool(top >= 1.5 * usual)}
 
 
+def gdacs_label(rows: pd.DataFrame, g: pd.DataFrame, horizon: int = HORIZON, km: float = GDACS_KM) -> np.ndarray:
+    """1 when a GDACS flood starts within km of the location during the next horizon days. Rows need lat, lon, date."""
+    out = np.zeros(len(rows), dtype=int)
+    starts = g.start.dt.tz_localize(None).dt.normalize()
+    for (lat, lon), part in rows.groupby(["lat", "lon"]):
+        near = _dist_km(lat, lon, g.lat.to_numpy(float), g.lon.to_numpy(float)) <= km
+        days = pd.DatetimeIndex(starts[near].unique())
+        hit = pd.Series(0, index=pd.date_range(part.date.min(), part.date.max() + pd.Timedelta(days=horizon)))
+        hit.loc[hit.index.intersection(days)] = 1
+        ahead = hit[::-1].rolling(horizon).sum()[::-1].shift(-1)
+        out[rows.index.get_indexer(part.index)] = (ahead.reindex(part.date).to_numpy() > 0).astype(int)
+    return out
+
+
 def run() -> dict:
     cells, df, tr, va, te_all = load_sets()
     te = with_real_forecasts(te_all)  # the test uses forecasts as issued, never later actual rain
@@ -217,13 +233,16 @@ def run() -> dict:
         return d[cols].to_numpy(np.float32)
 
     ys = [d.y.astype(int).to_numpy() for d in (tr, va, te)]
-    res = compare_models(X(tr, MODEL_FEATURES), ys[0], X(va, MODEL_FEATURES), ys[1], X(te, MODEL_FEATURES), ys[2], base(va), base(te), MODEL_FEATURES,
+    gdacs = pd.read_parquet(DATA / "gdacs_floods.parquet")
+    wide = ((ys[0] == 1) | (gdacs_label(tr, gdacs) == 1)).astype(int)  # training only: selection, calibration and test stay on the news label
+    res = compare_models(X(tr, MODEL_FEATURES), wide, X(va, MODEL_FEATURES), ys[1], X(te, MODEL_FEATURES), ys[2], base(va), base(te), MODEL_FEATURES,
                          xgb_params=tuned("flood"))
     no_fc = LIVE_FEATURES + RATIO_FEATURES
-    plain = compare_models(X(tr, no_fc), ys[0], X(va, no_fc), ys[1], X(te, no_fc), ys[2], base(va), base(te), no_fc, xgb_params=tuned("flood"))
+    plain = compare_models(X(tr, no_fc), wide, X(va, no_fc), ys[1], X(te, no_fc), ys[2], base(va), base(te), no_fc, xgb_params=tuned("flood"))
     actual = te_all.loc[te.index]
     xgb = res["_fitted"]["XGBoost"]
     cal = Platt().fit(xgb.predict_proba(X(va, MODEL_FEATURES))[:, 1], ys[1])
+    res["risk_levels"] = risk_cuts(ys[1], cal(xgb.predict_proba(X(va, MODEL_FEATURES))[:, 1]))
     res["actual_rain_test_pr_auc"] = float(average_precision_score(actual.y, xgb.predict_proba(X(actual, MODEL_FEATURES))[:, 1]))
     res["no_forecast_test_pr_auc"] = plain["models"][plain["winner"]]["test"]["pr_auc"]
 

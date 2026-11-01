@@ -1,0 +1,37 @@
+{
+ "table": [
+  {
+   "name": "Current model",
+   "val_news": 0.36512324245844674,
+   "val_gdacs": 0.04792064613073496,
+   "test_news": 0.3818420293722032,
+   "test_gdacs": 0.04912069853644392,
+   "kept": "Baseline"
+  },
+  {
+   "name": "Add catchment rain",
+   "val_news": 0.366186536745236,
+   "val_gdacs": 0.04808907529945907,
+   "test_news": 0.37766130438776513,
+   "test_gdacs": 0.04789516807384171,
+   "kept": "No"
+  },
+  {
+   "name": "Wider label",
+   "val_news": 0.36730385638918994,
+   "val_gdacs": 0.0499016681317446,
+   "test_news": 0.3780395446983988,
+   "test_gdacs": 0.05190126820986418,
+   "kept": "Yes"
+  },
+  {
+   "name": "Both",
+   "val_news": 0.36593181229023086,
+   "val_gdacs": 0.04996510904991429,
+   "test_news": 0.3737921393967521,
+   "test_gdacs": 0.05056250564151891,
+   "kept": "Yes"
+  }
+ ],
+ "note": "Same rows, 5 seeds. Kept if validation against news rises by more than 2 standard deviations, or against GDACS without losing news."
+}

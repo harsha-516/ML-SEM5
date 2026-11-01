@@ -10,7 +10,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import average_precision_score
 
 from . import etas
-from .common import DATA, Platt, best_threshold, compare_models, evaluate, log, pr_points, print_summary, reliability, tuned, write_results
+from .common import DATA, Platt, best_threshold, compare_models, evaluate, log, pr_points, print_summary, reliability, risk_cuts, tuned, write_results
 from .events import quake_events
 from .live import save_model
 from .recal import Blend, rolling_platt
@@ -186,6 +186,7 @@ def run() -> dict:
     name = "Blend with ETAS"
     thr = best_threshold(y_va, mix_va)
     res["models"][name] = {"validation": evaluate(y_va, mix_va, thr), "test": evaluate(y_te, final_te, thr)}
+    res["risk_levels"] = risk_cuts(y_va, mix_va)
     res["winner"], res["pr_curve"], res["reliability"] = name, pr_points(y_te, final_te), reliability(y_te, final_te)
     cell = (te.lat.to_numpy() * 1000 + te.lon.to_numpy()).round(1)
     log("  Running pyCSEP tests")

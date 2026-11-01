@@ -43,6 +43,12 @@
  },
  {
   "source": "GDACS",
+  "text": "Tropical Cyclone IN-FA-26, Green alert",
+  "time": "2026-11-01T06:00:00",
+  "url": "https://www.gdacs.org/report.aspx?eventid=1001343&episodeid=36&eventtype=TC"
+ },
+ {
+  "source": "GDACS",
   "text": "Tropical Cyclone FOUR-26, Red alert",
   "time": "2026-11-01T06:00:00",
   "url": "https://www.gdacs.org/report.aspx?eventid=1001346&episodeid=2&eventtype=TC"
@@ -82,12 +88,6 @@
   "text": "Earthquake Of Magnitude 6.0 Hits Japan's Shima",
   "time": "2026-11-01T01:33+00:00",
   "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPUm4tUG9LT1VLdjM5X1M0RFJ4M01BRGY5VFgwd3FCRlFlRFRBNnNWdEVYWWZVR2VhbVEtTTQ4M0JfWTcwb1pHU3pRUHprQ1dQdHpmeHVBWHdybkNUN2tvNWU2UVYzUXRVOG04dUlkNng1MEY4dXVrWXdZOW1fbXpPVWhzSURuSGR2TFRYZ2o3eDdkUUw1SFpWbjE1ZVoyVDdCei13Mld30gGrAUFVX3lxTE9vOHpfQVhSLU5IUlpsdkQ0U2NKMGJFNDB5alFNcFhiN0sxRl9oS2UzN1AyVjBTeEJGNXhMT2hIU3NnZWpHUkRVRVMtU2EtZVNQdUxrWkNaSWVPbnNrNHg0RjM1WW5OUkZGQnhGWllubDBIUTVjVm44RV9QeVpnTWk5SjZLRkdzLXhVc25pcFJGaXBTblI3eEZJdl9jZFY0S1pqQ3QzYTdQNTdJZw?oc=5"
- },
- {
-  "source": "GDACS",
-  "text": "Earthquake in Chile, Green alert",
-  "time": "2026-11-01T01:24:52",
-  "url": "https://www.gdacs.org/report.aspx?eventid=1575011&episodeid=1743995&eventtype=EQ"
  },
  {
   "source": "USGS",

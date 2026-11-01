@@ -36,6 +36,10 @@ def flood():
         out.append(table("Event replays", ["Event", "Top chance, 3 days before", "Usual chance", "Warned", "Forecast source"],
                          [[x["id"], f"{x['top_3_days']:.1%}", f"{x['usual']:.1%}", "Yes" if x["warned"] else "No", x["forecast_source"]] for x in r["replays"]],
                          "Warning criterion: at least 1.5 times the usual chance."))
+    b = read("exp_basins")
+    if b:
+        out.append(table("Catchment rain and wider label", ["Version", "Validation, news", "Validation, GDACS", "Test, news", "Test, GDACS", "Kept"],
+                         [[x["name"], f3(x["val_news"]), f3(x["val_gdacs"]), f3(x["test_news"]), f3(x["test_gdacs"]), x["kept"]] for x in b["table"]], b["note"]))
     lab = (r or {}).get("label_check") or read("label_check")
     if lab:
         m, c = lab["modis_surges"], lab["modis_controls"]

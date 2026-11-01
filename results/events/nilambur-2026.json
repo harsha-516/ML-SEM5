@@ -7,11 +7,11 @@
  "lat": 11.3,
  "lon": 76.2,
  "summary": "Heavy rain caused a sudden rise on the Kottapuzha River.",
- "severity": 0.0762,
- "headline": "Model chance before event: 8%",
+ "severity": 0.0712,
+ "headline": "Model chance before event: 7%",
  "forecast_source": "archived forecast",
- "top_3_days": 0.0762,
- "usual": 0.0325,
+ "top_3_days": 0.0712,
+ "usual": 0.032,
  "warned": true,
  "news_query": "Nilambur flash flood Kerala",
  "news_match": "nilambur|kottapuzha|malappuram",
@@ -21,266 +21,266 @@
    "rain_mm": 1.4,
    "discharge": 104.2,
    "next3_mm": 20.3,
-   "chance": 0.0421
+   "chance": 0.0465
   },
   {
    "date": "2026-08-22",
    "rain_mm": 6.4,
    "discharge": 102.8,
    "next3_mm": 27.1,
-   "chance": 0.0571
+   "chance": 0.0594
   },
   {
    "date": "2026-08-23",
    "rain_mm": 8.4,
    "discharge": 94.9,
    "next3_mm": 38.9,
-   "chance": 0.0697
+   "chance": 0.0747
   },
   {
    "date": "2026-08-24",
    "rain_mm": 68.7,
    "discharge": 91.0,
    "next3_mm": 26.4,
-   "chance": 0.0721
+   "chance": 0.0639
   },
   {
    "date": "2026-08-25",
    "rain_mm": 21.7,
    "discharge": 90.6,
    "next3_mm": 14.2,
-   "chance": 0.0571
+   "chance": 0.0541
   },
   {
    "date": "2026-08-26",
    "rain_mm": 5.7,
    "discharge": 96.0,
    "next3_mm": 9.0,
-   "chance": 0.0491
+   "chance": 0.0443
   },
   {
    "date": "2026-08-27",
    "rain_mm": 0.9,
    "discharge": 100.4,
    "next3_mm": 8.5,
-   "chance": 0.0509
+   "chance": 0.0414
   },
   {
    "date": "2026-08-28",
    "rain_mm": 7.0,
    "discharge": 98.1,
    "next3_mm": 8.1,
-   "chance": 0.0485
+   "chance": 0.0407
   },
   {
    "date": "2026-08-29",
    "rain_mm": 5.2,
    "discharge": 94.9,
    "next3_mm": 8.0,
-   "chance": 0.0395
+   "chance": 0.0351
   },
   {
    "date": "2026-08-30",
    "rain_mm": 0.8,
    "discharge": 91.0,
    "next3_mm": 15.7,
-   "chance": 0.0487
+   "chance": 0.0417
   },
   {
    "date": "2026-08-31",
    "rain_mm": 3.6,
    "discharge": 86.5,
    "next3_mm": 17.9,
-   "chance": 0.0424
+   "chance": 0.0456
   },
   {
    "date": "2026-09-01",
    "rain_mm": 5.8,
    "discharge": 82.0,
    "next3_mm": 12.8,
-   "chance": 0.0325
+   "chance": 0.0328
   },
   {
    "date": "2026-09-02",
    "rain_mm": 3.8,
    "discharge": 77.9,
    "next3_mm": 16.4,
-   "chance": 0.0295
+   "chance": 0.0318
   },
   {
    "date": "2026-09-03",
    "rain_mm": 4.3,
    "discharge": 75.7,
    "next3_mm": 11.6,
-   "chance": 0.0227
+   "chance": 0.0209
   },
   {
    "date": "2026-09-04",
    "rain_mm": 3.9,
    "discharge": 71.4,
    "next3_mm": 10.0,
-   "chance": 0.0211
+   "chance": 0.0177
   },
   {
    "date": "2026-09-05",
    "rain_mm": 4.1,
    "discharge": 67.9,
    "next3_mm": 9.7,
-   "chance": 0.0195
+   "chance": 0.0169
   },
   {
    "date": "2026-09-06",
    "rain_mm": 1.2,
    "discharge": 65.2,
    "next3_mm": 9.5,
-   "chance": 0.0172
+   "chance": 0.0151
   },
   {
    "date": "2026-09-07",
    "rain_mm": 3.2,
    "discharge": 62.8,
    "next3_mm": 13.8,
-   "chance": 0.0179
+   "chance": 0.0171
   },
   {
    "date": "2026-09-08",
    "rain_mm": 1.6,
    "discharge": 59.4,
    "next3_mm": 16.0,
-   "chance": 0.0195
+   "chance": 0.0199
   },
   {
    "date": "2026-09-09",
    "rain_mm": 4.6,
    "discharge": 56.4,
    "next3_mm": 22.2,
-   "chance": 0.0224
+   "chance": 0.0217
   },
   {
    "date": "2026-09-10",
    "rain_mm": 3.1,
    "discharge": 54.0,
    "next3_mm": 13.9,
-   "chance": 0.0172
+   "chance": 0.0163
   },
   {
    "date": "2026-09-11",
    "rain_mm": 5.3,
    "discharge": 52.5,
    "next3_mm": 14.0,
-   "chance": 0.0173
+   "chance": 0.0155
   },
   {
    "date": "2026-09-12",
    "rain_mm": 1.2,
    "discharge": 50.0,
    "next3_mm": 26.2,
-   "chance": 0.0238
+   "chance": 0.0233
   },
   {
    "date": "2026-09-13",
    "rain_mm": 1.8,
    "discharge": 48.1,
    "next3_mm": 36.2,
-   "chance": 0.0326
+   "chance": 0.032
   },
   {
    "date": "2026-09-14",
    "rain_mm": 12.2,
    "discharge": 46.0,
    "next3_mm": 22.7,
-   "chance": 0.0204
+   "chance": 0.0203
   },
   {
    "date": "2026-09-15",
    "rain_mm": 7.3,
    "discharge": 46.5,
    "next3_mm": 17.5,
-   "chance": 0.0191
+   "chance": 0.0189
   },
   {
    "date": "2026-09-16",
    "rain_mm": 2.6,
    "discharge": 48.7,
    "next3_mm": 51.9,
-   "chance": 0.0712
+   "chance": 0.0776
   },
   {
    "date": "2026-09-17",
    "rain_mm": 11.7,
    "discharge": 50.2,
    "next3_mm": 40.9,
-   "chance": 0.0554
+   "chance": 0.0565
   },
   {
    "date": "2026-09-18",
    "rain_mm": 18.1,
    "discharge": 49.6,
    "next3_mm": 30.6,
-   "chance": 0.0466
+   "chance": 0.0482
   },
   {
    "date": "2026-09-19",
    "rain_mm": 12.8,
    "discharge": 48.4,
    "next3_mm": 46.1,
-   "chance": 0.0762
+   "chance": 0.0712
   },
   {
    "date": "2026-09-20",
    "rain_mm": 33.9,
    "discharge": 48.0,
    "next3_mm": 4.2,
-   "chance": 0.0219
+   "chance": 0.0252
   },
   {
    "date": "2026-09-21",
    "rain_mm": 9.5,
    "discharge": 46.8,
    "next3_mm": 2.7,
-   "chance": 0.011
+   "chance": 0.0158
   },
   {
    "date": "2026-09-22",
    "rain_mm": 1.5,
    "discharge": 46.9,
    "next3_mm": 15.7,
-   "chance": 0.0222
+   "chance": 0.0238
   },
   {
    "date": "2026-09-23",
    "rain_mm": 0.7,
    "discharge": 45.6,
    "next3_mm": 24.5,
-   "chance": 0.0336
+   "chance": 0.0312
   },
   {
    "date": "2026-09-24",
    "rain_mm": 15.6,
    "discharge": 46.3,
    "next3_mm": 16.7,
-   "chance": 0.0253
+   "chance": 0.0284
   },
   {
    "date": "2026-09-25",
    "rain_mm": 16.1,
    "discharge": 44.2,
    "next3_mm": 4.1,
-   "chance": 0.0123
+   "chance": 0.0151
   },
   {
    "date": "2026-09-26",
    "rain_mm": 0.6,
    "discharge": 45.1,
    "next3_mm": 3.3,
-   "chance": 0.0096
+   "chance": 0.0114
   },
   {
    "date": "2026-09-27",
    "rain_mm": 0.1,
    "discharge": 46.2,
    "next3_mm": 1.6,
-   "chance": 0.0076
+   "chance": 0.0083
   }
  ]
 }

@@ -11,23 +11,7 @@ from xgboost import XGBClassifier
 
 from hazards import flood
 from hazards.common import DATA, RESULTS, log, tuned
-from hazards.typhoon import _dist_km
-
-KM = 300
-
-
-def gdacs_label(rows: pd.DataFrame, g: pd.DataFrame, horizon: int = flood.HORIZON, km: float = KM) -> np.ndarray:
-    """1 when a GDACS flood starts within km of the location during the next horizon days. Rows need lat, lon, date."""
-    out = np.zeros(len(rows), dtype=int)
-    starts = g.start.dt.tz_localize(None).dt.normalize()
-    for (lat, lon), part in rows.groupby(["lat", "lon"]):
-        near = _dist_km(lat, lon, g.lat.to_numpy(float), g.lon.to_numpy(float)) <= km
-        days = pd.DatetimeIndex(starts[near].unique())
-        hit = pd.Series(0, index=pd.date_range(part.date.min(), part.date.max() + pd.Timedelta(days=horizon)))
-        hit.loc[hit.index.intersection(days)] = 1
-        ahead = hit[::-1].rolling(horizon).sum()[::-1].shift(-1)
-        out[rows.index.get_indexer(part.index)] = (ahead.reindex(part.date).to_numpy() > 0).astype(int)
-    return out
+from hazards.flood import GDACS_KM as KM, gdacs_label
 
 
 def main() -> None:

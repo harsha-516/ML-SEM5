@@ -73,6 +73,12 @@ def best_threshold(y_true, proba, beta: float = 2.0) -> float:
     return float(thr[int(np.argmax(f[:-1]))])
 
 
+def risk_cuts(y_true, proba) -> dict:
+    """Low, Medium and High boundaries from the validation precision-recall curve. Medium favours recall, High favours precision."""
+    medium, high = best_threshold(y_true, proba, 2.0), best_threshold(y_true, proba, 0.5)
+    return {"medium": min(medium, high), "high": max(medium, high)}
+
+
 def reliability(y_true, proba, bins: int = 10) -> list[dict]:
     """Observed rate per equal-count probability bin."""
     y_true, proba = np.asarray(y_true), np.asarray(proba)

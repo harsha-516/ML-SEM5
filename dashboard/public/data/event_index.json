@@ -14,8 +14,8 @@
   "title": "Assam monsoon floods",
   "place": "Sivasagar district, Assam",
   "date": "2026-07-20",
-  "headline": "Model chance before event: 64%",
-  "severity": 0.6359
+  "headline": "Model chance before event: 67%",
+  "severity": 0.6748
  },
  {
   "id": "biparjoy-2023",
@@ -32,8 +32,8 @@
   "title": "Budhi Gandaki flash flood, Nepal",
   "place": "Gorkha district, Nepal",
   "date": "2026-10-11",
-  "headline": "Model chance before event: 5%",
-  "severity": 0.0505
+  "headline": "Model chance before event: 6%",
+  "severity": 0.0621
  },
  {
   "id": "champi-2026",
@@ -77,8 +77,8 @@
   "title": "Nilambur flash flood, Kerala",
   "place": "Malappuram district, Kerala",
   "date": "2026-09-20",
-  "headline": "Model chance before event: 8%",
-  "severity": 0.0762
+  "headline": "Model chance before event: 7%",
+  "severity": 0.0712
  },
  {
   "id": "rasuwa-2026",
@@ -87,7 +87,7 @@
   "place": "Rasuwa district, Nepal",
   "date": "2026-08-26",
   "headline": "Model chance before event: 29%",
-  "severity": 0.2881
+  "severity": 0.2855
  },
  {
   "id": "yagi-2024",

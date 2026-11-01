@@ -27,10 +27,7 @@ def test_basin_features_never_read_unpublished_rain():
 
 
 def test_gdacs_label_looks_only_at_the_next_days_near_the_place():
-    import sys
-    from pathlib import Path
-    sys.path.insert(0, str(Path(__file__).parents[1] / "scripts"))
-    from label_experiments import gdacs_label
+    from hazards.flood import gdacs_label
     days = pd.date_range("2024-03-01", periods=10)
     rows = pd.DataFrame({"lat": 10.5, "lon": 80.5, "date": days})
     g = pd.DataFrame({"lat": [10.6, 40.0], "lon": [80.6, 120.0], "start": pd.to_datetime(["2024-03-05", "2024-03-02"], utc=True)})

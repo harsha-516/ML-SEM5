@@ -9,7 +9,7 @@ import pandas as pd
 from sklearn.metrics import average_precision_score, roc_auc_score
 from xgboost import XGBClassifier, XGBRegressor
 
-from .common import DATA, Platt, compare_models, conformal_margin, print_summary, tuned, write_results
+from .common import DATA, Platt, compare_models, conformal_margin, print_summary, risk_cuts, tuned, write_results
 from .events import cyclone_events
 from .live import save_model
 from .recal import rolling_margin
@@ -118,10 +118,12 @@ def run() -> dict:
                sets={"train": int(len(tr)), "validation": int(len(va)), "test": int(len(te))},
                periods={"train": "1980 to 2016", "validation": "2017 to 2021", "test": "2022 onward"},
                note="Recent IBTrACS records are provisional operational estimates, so 2026 storms are rougher than older best tracks.")
-    write_results("cyclone", res)
     reach = res["_fitted"]["XGBoost"]
+    reach_cal = Platt().fit(reach.predict_proba(X(va))[:, 1], va.y.to_numpy())
+    res["risk_levels"] = risk_cuts(va.y.to_numpy(), reach_cal(reach.predict_proba(X(va))[:, 1]))
+    write_results("cyclone", res)
     save_model("cyclone", {"features": FEATURES, "quantiles": m["quantiles"], "margin": m["live_margin"], "ri": m["ri"], "ri_cal": m["ri_cal"], "reach": reach,
-                           "reach_cal": Platt().fit(reach.predict_proba(X(va))[:, 1], va.y.to_numpy())})
+                           "reach_cal": reach_cal})
     cyclone_events(tracks, replay, m)
     return res
 

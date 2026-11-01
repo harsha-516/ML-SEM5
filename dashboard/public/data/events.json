@@ -34,6 +34,17 @@
  },
  {
   "type": "TC",
+  "name": "Tropical Cyclone IN-FA-26",
+  "alert": "Green",
+  "from": "2026-10-25T06:00:00",
+  "to": "2026-11-01T06:00:00",
+  "country": "Japan, Marshall Islands",
+  "lat": 22.3,
+  "lon": 144.1,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1001343&episodeid=36&eventtype=TC"
+ },
+ {
+  "type": "TC",
   "name": "Tropical Cyclone FOUR-26",
   "alert": "Red",
   "from": "2026-11-01T00:00:00",
@@ -64,17 +75,6 @@
   "lat": -21.698,
   "lon": -68.435,
   "url": "https://www.gdacs.org/report.aspx?eventid=1575011&episodeid=1743995&eventtype=EQ"
- },
- {
-  "type": "TC",
-  "name": "Tropical Cyclone IN-FA-26",
-  "alert": "Green",
-  "from": "2026-10-25T06:00:00",
-  "to": "2026-11-01T00:00:00",
-  "country": "Japan, Marshall Islands",
-  "lat": 22.8,
-  "lon": 144.3,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1001343&episodeid=35&eventtype=TC"
  },
  {
   "type": "EQ",
