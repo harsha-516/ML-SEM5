@@ -1,9 +1,13 @@
+"""Cut the Groundsource file to the project region."""
+
 import numpy as np
 import pandas as pd
 import pyarrow.parquet as pq
 import shapely
 
-t = pq.read_table("data/raw/groundsource_2026.parquet", columns=["area_km2", "geometry", "start_date", "end_date"]).to_pandas()
+t = pq.read_table(
+    "data/raw/groundsource_2026.parquet", columns=["area_km2", "geometry", "start_date", "end_date"]
+).to_pandas()
 g = shapely.from_wkb(t.pop("geometry").to_numpy())
 c = shapely.centroid(g)
 t["lon"], t["lat"] = shapely.get_x(c), shapely.get_y(c)
@@ -12,7 +16,7 @@ t["end"] = pd.to_datetime(t.end_date, errors="coerce")
 print("all", len(t), "bad dates", int(t.start.isna().sum()), t.start.min(), t.start.max())
 r = t[t.lat.between(-12, 50) & t.lon.between(60, 150)].copy()
 print("region", len(r), f"{len(r) / len(t):.1%}")
-print("area km2 quantiles", r.area_km2.quantile([.1, .5, .9, .99]).round(1).to_dict())
+print("area km2 quantiles", r.area_km2.quantile([0.1, 0.5, 0.9, 0.99]).round(1).to_dict())
 print("duration days median", (r.end - r.start).dt.days.median())
 print(r.groupby(r.start.dt.year).size().tail(20).to_string())
 r["cell"] = list(zip(np.floor(r.lat).astype(int), np.floor(r.lon).astype(int)))

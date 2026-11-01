@@ -11,6 +11,28 @@
   "url": "https://www.gdacs.org/report.aspx?eventid=1575070&episodeid=1744065&eventtype=EQ"
  },
  {
+  "type": "TC",
+  "name": "Tropical Cyclone IN-FA-26",
+  "alert": "Green",
+  "from": "2026-10-25T06:00:00",
+  "to": "2026-11-01T12:00:00",
+  "country": "Japan, Marshall Islands",
+  "lat": 22.1,
+  "lon": 143.6,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1001343&episodeid=37&eventtype=TC"
+ },
+ {
+  "type": "TC",
+  "name": "Tropical Cyclone MURASU-26",
+  "alert": "Red",
+  "from": "2026-11-01T00:00:00",
+  "to": "2026-11-01T12:00:00",
+  "country": "India",
+  "lat": 12.8,
+  "lon": 83.8,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1001346&episodeid=3&eventtype=TC"
+ },
+ {
   "type": "EQ",
   "name": "Earthquake in Vanuatu",
   "alert": "Green",
@@ -86,28 +108,6 @@
   "lat": -13.8672,
   "lon": 165.6167,
   "url": "https://www.gdacs.org/report.aspx?eventid=1575048&episodeid=1744035&eventtype=EQ"
- },
- {
-  "type": "TC",
-  "name": "Tropical Cyclone IN-FA-26",
-  "alert": "Green",
-  "from": "2026-10-25T06:00:00",
-  "to": "2026-11-01T06:00:00",
-  "country": "Japan, Marshall Islands",
-  "lat": 22.3,
-  "lon": 144.1,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1001343&episodeid=36&eventtype=TC"
- },
- {
-  "type": "TC",
-  "name": "Tropical Cyclone FOUR-26",
-  "alert": "Red",
-  "from": "2026-11-01T00:00:00",
-  "to": "2026-11-01T06:00:00",
-  "country": "India",
-  "lat": 12.2,
-  "lon": 84.8,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1001346&episodeid=2&eventtype=TC"
  },
  {
   "type": "EQ",

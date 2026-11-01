@@ -1,4 +1,5 @@
 """Himawari band 13 cloud-top features around a storm, read from JMA HSD segments on AWS."""
+
 from __future__ import annotations
 
 import bz2
@@ -35,8 +36,26 @@ def parse_hsd(raw: bytes) -> dict:
     c0, c1, c2, cc0, cc1, cc2, c, h, k = struct.unpack_from("<9d", raw, blocks[5] + 35)
     first = struct.unpack_from("<H", raw, blocks[7] + 5)[0]
     img = np.frombuffer(raw, "<u2", cols * lines, header).reshape(lines, cols)
-    return {"img": img, "cols": cols, "lines": lines, "first_line": first, "sub_lon": sub_lon, "cfac": cfac, "lfac": lfac, "coff": coff, "loff": loff,
-            "wave": wave, "gain": gain, "const": const, "err": err, "out": out, "coef": (c0, c1, c2), "c": c, "h": h, "k": k}
+    return {
+        "img": img,
+        "cols": cols,
+        "lines": lines,
+        "first_line": first,
+        "sub_lon": sub_lon,
+        "cfac": cfac,
+        "lfac": lfac,
+        "coff": coff,
+        "loff": loff,
+        "wave": wave,
+        "gain": gain,
+        "const": const,
+        "err": err,
+        "out": out,
+        "coef": (c0, c1, c2),
+        "c": c,
+        "h": h,
+        "k": k,
+    }
 
 
 def brightness(counts: np.ndarray, s: dict) -> np.ndarray:
@@ -64,7 +83,9 @@ def to_pixel(lat: np.ndarray, lon: np.ndarray, s: dict) -> tuple[np.ndarray, np.
     return s["coff"] + x * s["cfac"] / 2**16, s["loff"] + y * s["lfac"] / 2**16
 
 
-def disc(lat: float, lon: float, km: float = RADIUS_KM, step: float = 0.04) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+def disc(
+    lat: float, lon: float, km: float = RADIUS_KM, step: float = 0.04
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """Sample points within km of the centre, with their distance and bearing."""
     span = km / 111.0
     a = np.arange(-span, span + step, step)
@@ -83,7 +104,12 @@ def summarise(tb: np.ndarray, bearing: np.ndarray) -> dict:
     tb, bearing = tb[ok], bearing[ok]
     sector = ((bearing + np.pi) / (2 * np.pi) * 8).astype(int) % 8
     means = np.array([tb[sector == k].mean() for k in range(8) if (sector == k).any()])
-    return {"cold_frac": float((tb < COLD_K).mean()), "tb_mean": float(tb.mean()), "tb_min": float(tb.min()), "tb_asym": float(means.std())}
+    return {
+        "cold_frac": float((tb < COLD_K).mean()),
+        "tb_mean": float(tb.mean()),
+        "tb_min": float(tb.min()),
+        "tb_asym": float(means.std()),
+    }
 
 
 def segments_for(lat: float, lon: float, sub_lon: float = 140.7) -> list[int]:
@@ -95,12 +121,16 @@ def segments_for(lat: float, lon: float, sub_lon: float = 140.7) -> list[int]:
 
 
 def url(t, seg: int, of: int = 10) -> str:
+    """Address of one Himawari file on NOAA open data."""
     bucket, sat = ("noaa-himawari9", "H09") if t >= pd.Timestamp("2022-12-13 05:00") else ("noaa-himawari8", "H08")
-    return (f"https://{bucket}.s3.amazonaws.com/AHI-L1b-FLDK/{t:%Y/%m/%d/%H%M}/"
-            f"HS_{sat}_{t:%Y%m%d_%H%M}_B13_FLDK_R20_S{seg:02d}{of:02d}.DAT.bz2")
+    return (
+        f"https://{bucket}.s3.amazonaws.com/AHI-L1b-FLDK/{t:%Y/%m/%d/%H%M}/"
+        f"HS_{sat}_{t:%Y%m%d_%H%M}_B13_FLDK_R20_S{seg:02d}{of:02d}.DAT.bz2"
+    )
 
 
 def load_segment(session: requests.Session, t, seg: int, of: int = 10) -> dict | None:
+    """Download one image segment, with retries."""
     for attempt in range(4):
         try:
             r = session.get(url(t, seg, of), timeout=180)
@@ -124,6 +154,7 @@ def load_image(session: requests.Session, t, segs: list[int]) -> list[dict]:
 
 
 def crop_name(storm: str, t) -> str:
+    """File name of one storm picture."""
     return f"{storm}_{pd.Timestamp(t):%Y%m%d%H}"
 
 

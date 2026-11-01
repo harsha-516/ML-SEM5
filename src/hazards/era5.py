@@ -1,12 +1,12 @@
 """ERA5 environment around each storm fix. A fix only sees the newest field at or before its time."""
+
 from __future__ import annotations
 
 import numpy as np
 import pandas as pd
 import xarray as xr
 
-from .common import DATA, log
-from .typhoon import _dist_km
+from .common import DATA, dist_km, log
 
 FOLDER = DATA / "era5"
 NAMES = ["sst_c", "shear_kt", "pi_proxy"]
@@ -20,25 +20,38 @@ def field_index(field_times: np.ndarray, fix_times: np.ndarray) -> np.ndarray:
 
 
 def near_mean(lat2d: np.ndarray, lon2d: np.ndarray, field: np.ndarray, lat: float, lon: float, km: float) -> float:
-    d = _dist_km(lat, lon, lat2d, lon2d)
+    """Mean of a field within a radius of the point."""
+    d = dist_km(lat, lon, lat2d, lon2d)
     v = field[d <= km]
     return float(np.nanmean(v)) if np.isfinite(v).any() else np.nan
 
 
 def _open(path) -> xr.Dataset:
+    """Open an ERA5 file with standard coordinate names."""
     d = xr.open_dataset(path)
-    return d.rename({k: v for k, v in {"valid_time": "time", "pressure_level": "level", "latitude": "lat", "longitude": "lon"}.items() if k in d})
+    return d.rename(
+        {
+            k: v
+            for k, v in {"valid_time": "time", "pressure_level": "level", "latitude": "lat", "longitude": "lon"}.items()
+            if k in d
+        }
+    )
 
 
 def years_ready() -> list[int]:
     """Years with both wind and sea temperature on disk."""
-    return sorted(y for y in range(1980, 2030) if (FOLDER / f"wind_{y}.nc").exists() and (FOLDER / f"sst_{y}.nc").exists())
+    return sorted(
+        y for y in range(1980, 2030) if (FOLDER / f"wind_{y}.nc").exists() and (FOLDER / f"sst_{y}.nc").exists()
+    )
 
 
 def year_features(fixes: pd.DataFrame, year: int) -> pd.DataFrame:
+    """ERA5 features for the storm fixes of one year."""
     w, s = _open(FOLDER / f"wind_{year}.nc"), _open(FOLDER / f"sst_{year}.nc")
     t_w, t_s = w.time.to_numpy(), s.time.to_numpy()
-    shear = np.hypot(w.u.sel(level=200) - w.u.sel(level=850), w.v.sel(level=200) - w.v.sel(level=850)).to_numpy() * MS_TO_KT
+    shear = (
+        np.hypot(w.u.sel(level=200) - w.u.sel(level=850), w.v.sel(level=200) - w.v.sel(level=850)).to_numpy() * MS_TO_KT
+    )
     sst = s.sst.to_numpy()
     if sst.ndim == 4:  # recent ERA5 months can carry an extra experiment dimension
         sst = np.nanmean(sst, axis=1)

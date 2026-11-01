@@ -1,4 +1,5 @@
 """Calibration that follows time: each period is corrected using only periods that closed before it."""
+
 from __future__ import annotations
 
 import numpy as np
@@ -20,7 +21,9 @@ def rolling_platt(p: np.ndarray, y: np.ndarray, t: np.ndarray, span: int) -> np.
     return out
 
 
-def rolling_margin(y: np.ndarray, low: np.ndarray, high: np.ndarray, year: np.ndarray, span: int, level: float = 0.8) -> np.ndarray:
+def rolling_margin(
+    y: np.ndarray, low: np.ndarray, high: np.ndarray, year: np.ndarray, span: int, level: float = 0.8
+) -> np.ndarray:
     """Conformal margin for each year from the `span` years before it. Years with no history stay NaN."""
     y, low, high, year = map(np.asarray, (y, low, high, year))
     out = np.full(y.shape, np.nan)

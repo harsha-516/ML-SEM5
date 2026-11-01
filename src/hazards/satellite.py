@@ -1,4 +1,5 @@
 """IMERG Late rainfall from NASA, for the flood locations. Late is used throughout because Final arrives months later."""
+
 from __future__ import annotations
 
 import tempfile
@@ -22,10 +23,20 @@ session.headers.update({"Authorization": f"Bearer {dotenv_values(ROOT / '.env').
 
 
 def granules(short: str, first: str = FIRST, last: str = LAST) -> list[dict]:
+    """List NASA files for a product and date range."""
     out, page = [], 1
     while True:
-        r = requests.get("https://cmr.earthdata.nasa.gov/search/granules.json", timeout=60, params={
-            "short_name": short, "temporal": f"{first}T00:00:00Z,{last}T23:59:59Z", "page_size": 2000, "page_num": page, "sort_key": "start_date"})
+        r = requests.get(
+            "https://cmr.earthdata.nasa.gov/search/granules.json",
+            timeout=60,
+            params={
+                "short_name": short,
+                "temporal": f"{first}T00:00:00Z,{last}T23:59:59Z",
+                "page_size": 2000,
+                "page_num": page,
+                "sort_key": "start_date",
+            },
+        )
         r.raise_for_status()
         e = r.json()["feed"]["entry"]
         out += e
@@ -64,13 +75,12 @@ def imerg_day(title: str, cells: pd.DataFrame) -> np.ndarray:
     out = []
     for c in cells.itertuples():
         x, y2 = (c.lo - LON0) * 5, (c.la - LAT0) * 5
-        out.append(np.nanmean(a[x:x + 5, y2:y2 + 5]) if np.isfinite(a[x:x + 5, y2:y2 + 5]).any() else np.nan)
+        out.append(np.nanmean(a[x : x + 5, y2 : y2 + 5]) if np.isfinite(a[x : x + 5, y2 : y2 + 5]).any() else np.nan)
     return np.array(out)
 
 
-
-
 def title_of(g: dict) -> str:
+    """File title of one NASA record."""
     return g.get("producer_granule_id", g["title"].split(":")[-1]).removesuffix(".nc4")
 
 
@@ -93,16 +103,22 @@ def sync(folder: str, cells: pd.DataFrame, first: str) -> pd.DataFrame:
         log(f"IMERG {folder}: {len(jobs)} new days")
     files = sorted(out.glob("*.npy"))
     idx = pd.to_datetime([f.stem for f in files])
-    return pd.DataFrame(np.array([np.load(f) for f in files]), index=idx, columns=[(c.la + 0.5, c.lo + 0.5) for c in cells.itertuples()]).sort_index()
+    return pd.DataFrame(
+        np.array([np.load(f) for f in files]), index=idx, columns=[(c.la + 0.5, c.lo + 0.5) for c in cells.itertuples()]
+    ).sort_index()
 
 
 def save_grid(day: str, a: np.ndarray) -> None:
+    """Save one day of rain as compact integers."""
     folder = DATA / "imerg_grid"
     folder.mkdir(exist_ok=True)
-    np.savez_compressed(folder / f"{day}.npz", a=np.nan_to_num(np.round(a * 10), nan=65535).clip(0, 65535).astype(np.uint16))
+    np.savez_compressed(
+        folder / f"{day}.npz", a=np.nan_to_num(np.round(a * 10), nan=65535).clip(0, 65535).astype(np.uint16)
+    )
 
 
 def load_grid(path: Path) -> np.ndarray:
+    """Load one saved day of rain."""
     a = np.load(path)["a"].astype(np.float32)
     a[a == 65535] = np.nan
     return a / 10

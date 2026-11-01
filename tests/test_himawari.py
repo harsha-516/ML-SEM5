@@ -1,3 +1,5 @@
+"""Tests: Himawari geometry and cloud features."""
+
 import numpy as np
 
 from hazards.himawari import NAMES, disc, segments_for, summarise, to_pixel
@@ -18,7 +20,9 @@ def test_north_is_up_and_east_is_right():
 
 
 def test_segments_cover_position():
-    assert segments_for(20.0, 130.0) == [3] or segments_for(20.0, 130.0) == [2, 3] or segments_for(20.0, 130.0) == [3, 4]
+    assert (
+        segments_for(20.0, 130.0) == [3] or segments_for(20.0, 130.0) == [2, 3] or segments_for(20.0, 130.0) == [3, 4]
+    )
     assert all(1 <= s <= 10 for s in segments_for(-5.0, 120.0))
 
 
@@ -46,9 +50,27 @@ def test_too_much_missing_data_gives_no_features():
 
 def test_crop_is_north_up_and_centred():
     import hazards.himawari as hw
-    part = {"sub_lon": 140.7, "cfac": 20466275, "lfac": 20466275, "coff": 2750.5, "loff": 2750.5, "first_line": 1, "lines": 5500, "cols": 5500,
-            "img": np.tile(np.arange(5500, dtype=np.uint16)[:, None], (1, 5500)), "err": 65535, "out": 65534, "gain": 1.0, "const": 0.0, "wave": 10.4, "coef": (0.0, 1.0, 0.0),
-            "c": 299792458.0, "h": 6.62606957e-34, "k": 1.3806488e-23}
+
+    part = {
+        "sub_lon": 140.7,
+        "cfac": 20466275,
+        "lfac": 20466275,
+        "coff": 2750.5,
+        "loff": 2750.5,
+        "first_line": 1,
+        "lines": 5500,
+        "cols": 5500,
+        "img": np.tile(np.arange(5500, dtype=np.uint16)[:, None], (1, 5500)),
+        "err": 65535,
+        "out": 65534,
+        "gain": 1.0,
+        "const": 0.0,
+        "wave": 10.4,
+        "coef": (0.0, 1.0, 0.0),
+        "c": 299792458.0,
+        "h": 6.62606957e-34,
+        "k": 1.3806488e-23,
+    }
     orig = hw.brightness
     hw.brightness = lambda counts, s: counts.astype(float) / 5500 * 140 + 180
     try:

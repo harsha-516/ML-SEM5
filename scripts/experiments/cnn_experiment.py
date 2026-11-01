@@ -3,15 +3,16 @@
 The CNN score enters XGBoost as one feature. Training rows get scores from folds that left their storm out, so XGBoost never sees a score fitted on its own row.
 Runs on CPU.
 """
+
 import json
 
 import numpy as np
 import pandas as pd
 import torch
+from cyclone_experiments import compare, split_years
 from sklearn.model_selection import GroupKFold
 from torch import nn
 
-from cyclone_experiments import compare, split_years
 from hazards import cyclone
 from hazards import himawari as hw
 from hazards.common import DATA, RESULTS, log
@@ -22,10 +23,21 @@ torch.set_num_threads(6)
 
 
 def net() -> nn.Module:
+    """Small CNN with one output."""
+
     def block(a, b):
         return nn.Sequential(nn.Conv2d(a, b, 3, padding=1), nn.BatchNorm2d(b), nn.ReLU(), nn.MaxPool2d(2))
 
-    return nn.Sequential(block(1, 16), block(16, 32), block(32, 64), block(64, 64), nn.AdaptiveAvgPool2d(1), nn.Flatten(), nn.Dropout(0.3), nn.Linear(64, 1))
+    return nn.Sequential(
+        block(1, 16),
+        block(16, 32),
+        block(32, 64),
+        block(64, 64),
+        nn.AdaptiveAvgPool2d(1),
+        nn.Flatten(),
+        nn.Dropout(0.3),
+        nn.Linear(64, 1),
+    )
 
 
 def turn(x: torch.Tensor) -> torch.Tensor:
@@ -35,6 +47,7 @@ def turn(x: torch.Tensor) -> torch.Tensor:
 
 
 def fit_cnn(x: np.ndarray, y: np.ndarray, kind: str, seed: int) -> nn.Module:
+    """Train one CNN."""
     torch.manual_seed(seed)
     m = net()
     opt = torch.optim.AdamW(m.parameters(), lr=1e-3, weight_decay=1e-3)
@@ -54,15 +67,18 @@ def fit_cnn(x: np.ndarray, y: np.ndarray, kind: str, seed: int) -> nn.Module:
 
 @torch.no_grad()
 def score(m: nn.Module, x: np.ndarray) -> np.ndarray:
+    """CNN output for the pictures."""
     return np.concatenate([m(b).squeeze(1).numpy() for b in torch.tensor(x).split(256)])
 
 
 def images(d: pd.DataFrame) -> np.ndarray:
+    """Load the pictures for these rows."""
     names = [hw.crop_name(s, t) for s, t in zip(d.storm, d.time)]
     return np.stack([np.load(DATA / "himawari_crops" / f"{n}.npy") for n in names])[:, None].astype(np.float32) / 255
 
 
 def with_scores(tr, va, te, target) -> tuple:
+    """Add a CNN score column. Training rows get scores from folds that left out their storm."""
     kind = "class" if target != "wind" else "reg"
     ytr = tr[target].to_numpy(float) if kind == "class" else (tr.wind_24 - tr.wind).to_numpy(float) / 20
     a, b, c = images(tr), images(va), images(te)
@@ -75,6 +91,7 @@ def with_scores(tr, va, te, target) -> tuple:
 
 
 def main() -> None:
+    """Run the experiment and save the table."""
     log("CNN experiment start")
     tracks = cyclone.load_tracks([DATA / "ibtracs_NI.csv", DATA / "ibtracs_WP.csv"])
     d = build_table(tracks, first_year=1980, keep_strong=True)
@@ -100,9 +117,25 @@ def main() -> None:
         finally:
             cyclone.FEATURES = base
         show = (lambda v: f"{-v:.2f} kt") if target == "wind" else (lambda v: f"{v:.3f}")
-        rows.append({"target": name, "rows": len(tr) + len(va) + len(te), "plain_val": show(p[0]), "summary_val": show(q[0]), "cnn_val": show(r[0]), "plain_test": show(p[2]), "summary_test": show(q[2]), "cnn_test": show(r[2]), "kept": "Yes" if win else "No"})
+        rows.append(
+            {
+                "target": name,
+                "rows": len(tr) + len(va) + len(te),
+                "plain_val": show(p[0]),
+                "summary_val": show(q[0]),
+                "cnn_val": show(r[0]),
+                "plain_test": show(p[2]),
+                "summary_test": show(q[2]),
+                "cnn_test": show(r[2]),
+                "kept": "Yes" if win else "No",
+            }
+        )
         log(f"  {rows[-1]}")
-    out = {"table": rows, "years": {"train": a, "validation": b, "test": c}, "note": "Plain model, then cloud summaries, then a small CNN score. The CNN is kept only if validation beats the summaries by more than 2 standard deviations over 3 seeds."}
+    out = {
+        "table": rows,
+        "years": {"train": a, "validation": b, "test": c},
+        "note": "Plain model, then cloud summaries, then a small CNN score. The CNN is kept only if validation beats the summaries by more than 2 standard deviations over 3 seeds.",
+    }
     (RESULTS / "exp_cnn.json").write_text(json.dumps(out, indent=1))
     log("CNN experiment finish")
 

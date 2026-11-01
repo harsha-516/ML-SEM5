@@ -1,20 +1,56 @@
 [
  {
   "source": "The Hindu",
-  "text": "Cyclone Murasu: Orange alert in six Telangana districts, yellow alert in five on November 2",
-  "time": "2026-11-01T13:27+00:00",
-  "url": "https://www.thehindu.com/news/national/telangana/cyclone-murasu-orange-alert-in-six-telangana-districts-yellow-alert-in-five-on-november-2/article71652716.ece"
+  "text": "Collector declares November 2 holiday for schools, colleges over Cyclone Murasu",
+  "time": "2026-11-01T18:10+00:00",
+  "url": "https://www.thehindu.com/news/national/andhra-pradesh/collector-declares-november-2-holiday-for-schools-colleges-over-cyclone-murasu/article71654088.ece"
+ },
+ {
+  "source": "GDACS",
+  "text": "Earthquake in South Sandwich Islands Region, Green alert",
+  "time": "2026-11-01T17:11:56",
+  "url": "https://www.gdacs.org/report.aspx?eventid=1575107&episodeid=1744104&eventtype=EQ"
+ },
+ {
+  "source": "USGS",
+  "text": "M5.1 South Sandwich Islands region",
+  "time": "2026-11-01T17:11+00:00",
+  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tuqk"
+ },
+ {
+  "source": "GDACS",
+  "text": "Earthquake in Japan, Green alert",
+  "time": "2026-11-01T17:01:18",
+  "url": "https://www.gdacs.org/report.aspx?eventid=1575108&episodeid=1744105&eventtype=EQ"
+ },
+ {
+  "source": "USGS",
+  "text": "M4.7 78 km SSE of Yonakuni, Japan",
+  "time": "2026-11-01T17:01+00:00",
+  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tuqi"
  },
  {
   "source": "The Hindu",
-  "text": "Cyclone \u2018Murasu\u2019 drums up fresh worry for Andhra after Arnab; red alert sounded in five districts",
-  "time": "2026-11-01T13:18+00:00",
-  "url": "https://www.thehindu.com/news/national/andhra-pradesh/cyclone-murasu-drums-up-fresh-worry-for-andhra-after-arnab-red-alert-sounded-in-five-districts/article71652622.ece"
+  "text": "Odisha short of equipment, may use explosives to rescue landslide victims",
+  "time": "2026-11-01T16:23+00:00",
+  "url": "https://www.thehindu.com/news/national/odisha/odisha-short-of-equipment-may-use-explosives-to-rescue-landslide-victims/article71653468.ece"
+ },
+ {
+  "source": "The Hindu",
+  "text": "Cyclone-hit Godavari region records steady high voter turnout",
+  "time": "2026-11-01T16:17+00:00",
+  "url": "https://www.thehindu.com/news/national/andhra-pradesh/cyclone-hit-godavari-region-records-steady-high-voter-turnout/article71653649.ece"
+ },
+ {
+  "source": "The Hindu",
+  "text": "Days after Cyclone Arnab, Andhra Pradesh braces for Cyclonic Storm Murasu landfall",
+  "time": "2026-11-01T16:14+00:00",
+  "url": "https://www.thehindu.com/news/national/andhra-pradesh/days-after-cyclone-arnab-andhra-pradesh-braces-for-cyclonic-storm-murasu-landfall/article71653421.ece"
  },
  {
   "source": "JMA",
   "text": "In-fa: 80 knots, 955 hPa",
-  "time": "2026-11-01T12:45:00Z",
+  "time": "2026-11-01T15:45:00Z",
   "url": "https://www.jma.go.jp/bosai/map.html#contents=typhoon"
  },
  {
@@ -36,10 +72,16 @@
   "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tupq"
  },
  {
-  "source": "The Hindu",
-  "text": "Cyclone \u2018Murasu\u2019 forms over Bay of Bengal, southern Odisha on high alert",
-  "time": "2026-11-01T12:06+00:00",
-  "url": "https://www.thehindu.com/news/national/cyclone-murasu-forms-over-bay-of-bengal-southern-odisha-on-high-alert/article71652505.ece"
+  "source": "GDACS",
+  "text": "Tropical Cyclone IN-FA-26, Green alert",
+  "time": "2026-11-01T12:00:00",
+  "url": "https://www.gdacs.org/report.aspx?eventid=1001343&episodeid=37&eventtype=TC"
+ },
+ {
+  "source": "GDACS",
+  "text": "Tropical Cyclone MURASU-26, Red alert",
+  "time": "2026-11-01T12:00:00",
+  "url": "https://www.gdacs.org/report.aspx?eventid=1001346&episodeid=3&eventtype=TC"
  },
  {
   "source": "GDACS",
@@ -54,34 +96,10 @@
   "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tupp"
  },
  {
-  "source": "GDACS",
-  "text": "Earthquake in Vanuatu, Green alert",
-  "time": "2026-11-01T11:47:03",
-  "url": "https://www.gdacs.org/report.aspx?eventid=1575068&episodeid=1744061&eventtype=EQ"
- },
- {
   "source": "USGS",
   "text": "M6.0 165 km NW of Port-Olry, Vanuatu",
   "time": "2026-11-01T11:47+00:00",
   "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tupl"
- },
- {
-  "source": "GDACS",
-  "text": "Earthquake in United States, Green alert",
-  "time": "2026-11-01T11:30:21",
-  "url": "https://www.gdacs.org/report.aspx?eventid=1575067&episodeid=1744057&eventtype=EQ"
- },
- {
-  "source": "Lokmat Times",
-  "text": "Bolivia Declares Emergency Amid El Ni\u00f1o Threat, Addresses Drought and Flood Risks",
-  "time": "2026-11-01T09:55+00:00",
-  "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOYjRFZ1JGZWt5NllPX2U0cVlfTnRXQVhMWDlqak54cHVtXzRjREp6LWhkcnVpMzc4N3BjYl9hWHRnTURkLVo3cFM2b3NVNmFuVm40VUp2Vk96X2NsM2dMR01oazdMV0FWVFNqcUlTZVJ6MEpYN3dVOEo1UDBKQ2dMUzNPd012VFpJOFYydnJvMDl5bFFNRjdpWWJmV1JhR25KVnFMRXpuTVQxcG1VU1NhUnQ5djc1WTdOd3Z1TV9lajdfcjltOXRiU3JMb1PSAdIBQVVfeXFMT3h2TGtMT0VzamtoZzc0U1VNaVdpVW1nOTdxc0pvMVZkMVFZX1JlVHQzekVOOTBnLXBFRTliaElpTHR3OHJOQlpoeGFQeEZnVXR1TDFPSk5zcHRZdlNpcGhKVE9FNFNLaU1oT2hkMkZkcHlzVjZlVEFCUnNoM0JheWhBVVZXSk9YZF9URnoyQ3VnTndCYWpQZGZ4Vy05RHVSVEdxZkZNVmVuQ2c4b3R4cXFUQnNtMzdEX2R1cjdEa1VpYWJocG51RDdJd3NkMTB6NDNn?oc=5"
- },
- {
-  "source": "GDACS",
-  "text": "Earthquake in Taiwan, Green alert",
-  "time": "2026-11-01T08:20:07",
-  "url": "https://www.gdacs.org/report.aspx?eventid=1575057&episodeid=1744047&eventtype=EQ"
  },
  {
   "source": "USGS",
@@ -90,40 +108,10 @@
   "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tunq"
  },
  {
-  "source": "GDACS",
-  "text": "Earthquake in Vanuatu, Green alert",
-  "time": "2026-11-01T07:37:47",
-  "url": "https://www.gdacs.org/report.aspx?eventid=1575052&episodeid=1744041&eventtype=EQ"
- },
- {
-  "source": "USGS",
-  "text": "M4.7 191 km NW of Port-Olry, Vanuatu",
-  "time": "2026-11-01T07:37+00:00",
-  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tung"
- },
- {
-  "source": "The Daily Star",
-  "text": "Chattogram Flood Risk | Ctg building itself into climate danger",
-  "time": "2026-11-01T07:28+00:00",
-  "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNM1JnVWVNNEJWNzIxaTYyQzRYX19wT0ZwNTY5UDRGUFBFU2dSZHU0aERBRklWa0NtT2ROYjAxcm5YNEtHcU9qVHR3eU9aZzFIYU5nbGNqV2JMT0VSSnRvWFFRUkhrZkxYU0ZBeUVYV0hCTmZQSmNlM3E4Njh3blpzNFc3RUhrdmVEbjdHM3NzcjVnOVlOUFhQNDNmZWhpbEdDR25aSjF4bHdpRi1B?oc=5"
- },
- {
-  "source": "USGS",
-  "text": "M5.1 201 km NW of Port-Olry, Vanuatu",
-  "time": "2026-11-01T07:00+00:00",
-  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tund"
- },
- {
   "source": "Asia Insurance Review",
   "text": "Technology reshapes advice on earthquake risk",
   "time": "2026-11-01T05:02+00:00",
   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQZXEyNzZweWozNjF3NEUwWDJYN0Z1ZTNzSUFDV3hlUUF0NEIyWEp6dFJNNzVLTDVnS3FKTnlvUUFqcll5NHh0OGtObVVxMm5TRVR6eTQ5SGsyME1CcEdoWWFwLXA1ZE14TWtGUjdmOXlzdlh2S0JuQktuMTB2T1M1WER0SWNnRnptazc2UGxCSms1LWJUZXkyd2NWTWtfQXplbW13Z2RBeVRQOFhVQ0FPQTVB?oc=5"
- },
- {
-  "source": "Times Now",
-  "text": "Earthquake Of Magnitude 6.0 Hits Japan's Shima",
-  "time": "2026-11-01T02:33+00:00",
-  "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPbzh6X0FYUi1OSFJabHZENFNjSjBiRTQweWpRTXBYYjdLMUZfaEtlMzdQMlYwU3hCRjV4TE9oSFNzZ2VqR1JEVUVTLVNhLWVTUHVMa1pDWkllT25zazR4NEYzNVluTlJGRkJ4RlpZbmwwSFE1Y1ZuOEVfUHlaZ01pOUo2S0ZHcy14VXNuaXBSRmlwU25SN3hGSXZfY2RWNEtaakN0M2E3UDU3SWfSAasBQVVfeXFMT284el9BWFItTkhSWmx2RDRTY0owYkU0MHlqUU1wWGI3SzFGX2hLZTM3UDJWMFN4QkY1eExPaEhTc2dlakdSRFVFUy1TYS1lU1B1TGtaQ1pJZU9uc2s0eDRGMzVZbk5SRkZCeEZaWW5sMEhRNWNWbjhFX1B5WmdNaTlKNktGR3MteFVzbmlwUkZpcFNuUjd4Rkl2X2NkVjRLWmpDdDNhN1A1N0ln?oc=5"
  },
  {
   "source": "Borneo Bulletin",
@@ -132,15 +120,33 @@
   "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQQTdMZkNSamF4ZzFZZXl6bUdfZmV6Z2RiaDFKcld3WV9Kd3lna3c3SDR5R1AxUTF3SkFJVlFNalpNbnF2WlRTeU1QQVRYdElMbHgzM09VRjZDRHFnWHhrLWZrcUVyR3k1QXp2VERvclN6WnlZWmxYUW9KMnhrWEhkV3lUSUJBcTVIMFFmcWdIMTk?oc=5"
  },
  {
-  "source": "Volcano Discovery",
-  "text": "Moderate mag. 4.0 earthquake - 50 km northwest of Bandar-e Deyr, Bushehr, Iran, on Sunday, Nov 1, 2026, at 04:19 am (Tehran time)",
-  "time": "2026-11-01T02:15+00:00",
-  "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQbmZfS2tPVUtGTVkyXzQ3a2VPQW4wOXNDRkxWMGd1bnpXR3loMmtqdk4xOGFrT1lnM29oVW5Oa3VwbHFXdkM5UkNlVjdhaDNiZm9iOUhBU0RwaVFGMzB3MUZlYXRPRDFrVDYzUlI1WGhhRGZSOGVhZFFNMWVJOWtSZE1TQkVGVHpuNGFnUkg3d0dCbEpVQ01LY0o1T0dmWGp2Zkh1cXQ1dw?oc=5"
+  "source": "Times Now",
+  "text": "Earthquake Of Magnitude 6.0 Hits Japan's Shima",
+  "time": "2026-11-01T01:33+00:00",
+  "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPUm4tUG9LT1VLdjM5X1M0RFJ4M01BRGY5VFgwd3FCRlFlRFRBNnNWdEVYWWZVR2VhbVEtTTQ4M0JfWTcwb1pHU3pRUHprQ1dQdHpmeHVBWHdybkNUN2tvNWU2UVYzUXRVOG04dUlkNng1MEY4dXVrWXdZOW1fbXpPVWhzSURuSGR2TFRYZ2o3eDdkUUw1SFpWbjE1ZVoyVDdCei13Mld30gGrAUFVX3lxTE9vOHpfQVhSLU5IUlpsdkQ0U2NKMGJFNDB5alFNcFhiN0sxRl9oS2UzN1AyVjBTeEJGNXhMT2hIU3NnZWpHUkRVRVMtU2EtZVNQdUxrWkNaSWVPbnNrNHg0RjM1WW5OUkZGQnhGWllubDBIUTVjVm44RV9QeVpnTWk5SjZLRkdzLXhVc25pcFJGaXBTblI3eEZJdl9jZFY0S1pqQ3QzYTdQNTdJZw?oc=5"
  },
  {
-  "source": "Volcano Discovery",
-  "text": "Light mag. 3.8 earthquake - Tibet, China, on Sunday, Nov 1, 2026, at 06:05 am (Kolkata time)",
-  "time": "2026-10-31T22:20+00:00",
-  "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPcERlOElEZU9IbVoxVUJILTZzWGpMNmQtdWg5YU9rTThCTC1GSzl2bm5Pa2Y3Ym8wdFpWNmR2YzEwVGdGMjNkSktYVzFHMmcwVUtwMUs1MjhZdzRIZTlzakdaSUFyQVBJMi1sZlVUXzZ2Nlh1MHlKYnk3Y2h6NWs3azNXbTRMWHI0VWFDdURLblAxbWVoYVZZYmVJeDBQNVhvSEV0dVhaTmI4YmRaYnhYdnRFN01qT2ZEUHZJcW9iVDdNZzdWWENvR0tB?oc=5"
+  "source": "EnergyNow.com",
+  "text": "LNG Supply Cut Further After Cyclone Hits Australian Plants",
+  "time": "2026-10-31T22:06+00:00",
+  "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNUHQxUEZwYm5BM2MwRWdxd01FRHBDekZvVXBCY1NTX2xQb2VKQ2xkZ1RoQkFUUUFMNVN5WUZKT2NkTllFMUxCNWp1el9Ud2V3OFlwOHhvVlpEeFM1T1dDamg0Zzd0WDB0N2lpb0h4bmdRVmw3VEdkTzdDbnIycWxrYnJscDJxQjllZjg4eFpSWFBKcEkt?oc=5"
+ },
+ {
+  "source": "Asia Insurance Review",
+  "text": "Tokyo's flood defence: a city engineered to stay dry",
+  "time": "2026-10-31T19:18+00:00",
+  "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQeE5vbXp5WVBLYy1CQm0tbTFNNVlVWW1ySVhCRllmOFA3QnJGSkh5T1Bhb3ZfbjdkcmY1OFRwMU12aGZSTFVCdjd3bmpIOFlFUmtPYlFsV2dCMkxIS1lzQWJ1aDh4cmQyaktVZkctbVF4SXpmQmliOTd4cU1aQWNpYTVpSU1sMTZjQmxfdHBNODluLWlZS19wM0k5N1BhR29yLWxJS2ZHUHZtdHdMMkdiQ2E1SGYyWGd1Z2N2UGNsUQ?oc=5"
+ },
+ {
+  "source": "OpenGov Asia",
+  "text": "India Restores Telecom Connectivity After Cyclone Arnab",
+  "time": "2026-10-31T05:54+00:00",
+  "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQX3pOZ2tWWGlpS1dTVWVfMUNVT2w3QUFjeTlLWDAycjNhRUVMMkhham1LeDdRZFVQb21jUDR5MEVITFU3ZEQ0M3djNnVsVHBoYVowREdza3ZXdDRvS18wMW1QMENrd3pWS1dXYzlGb1gydko0Y0pvdVloUGFVOXlMRTJpMVhkbms?oc=5"
+ },
+ {
+  "source": "(Re)in Asia",
+  "text": "Cyclone Arnab largely spares Andhra Pradesh data centres as India\u2019s economic losses hit US$480m",
+  "time": "2026-10-30T18:10+00:00",
+  "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNSWVRaDZyX1hjem94NVRnUWFidmFFUkM0YXVncS1fUlZvXzRWLWxHeEhKLVJZSlVqNEszVHNMUUhMSVB5bWFmdm82b1VlbFJRdk95SGZzcXoxeFV3SXhEVVZIZ2xscEV1MmczMGtIQk5fREtNQmhyN2EyaXQtWE50dC0yczQ5aGx4cXl4WFRsbEZXeWxld0p5LWc1Q1VVanRVZFlvM0tOeTduMjFnVlhtbjNjYWNOdw?oc=5"
  }
 ]

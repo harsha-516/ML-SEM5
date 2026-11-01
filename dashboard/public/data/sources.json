@@ -1,5 +1,5 @@
 {
- "refreshed_at": "2026-11-01T13:33:03+00:00",
+ "refreshed_at": "2026-11-01T18:16:27+00:00",
  "forecasts_logged": 5186,
  "sources": [
   {
@@ -7,168 +7,168 @@
    "name": "USGS earthquakes",
    "use": "Earthquakes",
    "kind": "API",
-   "checked_at": "2026-11-01T13:32:23+00:00",
-   "last_ok": "2026-11-01T13:32:23+00:00",
+   "checked_at": "2026-11-01T18:16:13+00:00",
+   "last_ok": "2026-11-01T18:16:13+00:00",
    "state": "live",
-   "records": 137,
-   "latest": "M4.8 203 km NW of Port-Olry, Vanuatu",
-   "latency_ms": 1041
+   "records": 133,
+   "latest": "M5.1 South Sandwich Islands region",
+   "latency_ms": 602
   },
   {
    "id": "jma",
    "name": "JMA active storms",
    "use": "Cyclones",
    "kind": "API",
-   "checked_at": "2026-11-01T13:32:24+00:00",
-   "last_ok": "2026-11-01T13:32:24+00:00",
+   "checked_at": "2026-11-01T18:16:14+00:00",
+   "last_ok": "2026-11-01T18:16:14+00:00",
    "state": "live",
    "records": 1,
    "latest": "In-fa, 80 knots",
-   "latency_ms": 1200
+   "latency_ms": 1316
   },
   {
    "id": "ibtracs",
    "name": "IBTrACS storm tracks",
    "use": "Cyclones",
    "kind": "File",
-   "checked_at": "2026-11-01T13:32:26+00:00",
-   "last_ok": "2026-11-01T13:32:26+00:00",
+   "checked_at": "2026-11-01T18:16:15+00:00",
+   "last_ok": "2026-11-01T18:16:15+00:00",
    "state": "live",
    "records": null,
-   "latest": "File updated Fri, 30 Oct 2026 04:26:45 GMT",
-   "latency_ms": 1431
+   "latest": "File updated Sun, 01 Nov 2026 10:02:42 GMT",
+   "latency_ms": 1632
   },
   {
    "id": "gdacs",
    "name": "GDACS disaster alerts",
    "use": "All hazards",
    "kind": "API",
-   "checked_at": "2026-11-01T13:32:27+00:00",
-   "last_ok": "2026-11-01T13:32:27+00:00",
+   "checked_at": "2026-11-01T18:16:17+00:00",
+   "last_ok": "2026-11-01T18:16:17+00:00",
    "state": "live",
    "records": 100,
-   "latest": "Earthquake in Vanuatu Islands",
-   "latency_ms": 1183
+   "latest": "Earthquake in South Sandwich Islands Region",
+   "latency_ms": 1848
   },
   {
    "id": "discharge",
    "name": "GloFAS river discharge",
    "use": "Floods",
    "kind": "API",
-   "checked_at": "2026-11-01T13:32:28+00:00",
-   "last_ok": "2026-11-01T13:32:28+00:00",
+   "checked_at": "2026-11-01T18:16:19+00:00",
+   "last_ok": "2026-11-01T18:16:19+00:00",
    "state": "live",
    "records": 1,
    "latest": "Patna river discharge 7.73 m3/s",
-   "latency_ms": 876
+   "latency_ms": 780
   },
   {
    "id": "rain",
    "name": "Open-Meteo rainfall",
    "use": "Floods",
    "kind": "API",
-   "checked_at": "2026-11-01T13:32:29+00:00",
-   "last_ok": "2026-11-01T13:32:29+00:00",
+   "checked_at": "2026-11-01T18:16:20+00:00",
+   "last_ok": "2026-11-01T18:16:20+00:00",
    "state": "live",
    "records": 1,
    "latest": "Kathmandu rain today 1.8 mm",
-   "latency_ms": 2044
+   "latency_ms": 740
   },
   {
    "id": "gibs",
    "name": "NASA GIBS imagery",
    "use": "Maps",
    "kind": "Satellite",
-   "checked_at": "2026-11-01T13:32:31+00:00",
-   "last_ok": "2026-11-01T13:32:31+00:00",
+   "checked_at": "2026-11-01T18:16:20+00:00",
+   "last_ok": "2026-11-01T18:16:20+00:00",
    "state": "live",
    "records": null,
    "latest": "Imagery tile for 2026-10-30",
-   "latency_ms": 899
+   "latency_ms": 1059
   },
   {
    "id": "imerg",
    "name": "NASA IMERG rainfall",
    "use": "Floods",
    "kind": "Satellite",
-   "checked_at": "2026-11-01T13:32:32+00:00",
-   "last_ok": "2026-11-01T13:32:32+00:00",
+   "checked_at": "2026-11-01T18:16:21+00:00",
+   "last_ok": "2026-11-01T18:16:21+00:00",
    "state": "live",
    "records": null,
-   "latest": "Newest record 2026-11-01 07:30 UTC",
-   "latency_ms": 1418
+   "latest": "Newest record 2026-11-01 12:30 UTC",
+   "latency_ms": 785
   },
   {
    "id": "smap",
    "name": "NASA SMAP soil moisture",
    "use": "Floods",
    "kind": "Satellite",
-   "checked_at": "2026-11-01T13:32:33+00:00",
-   "last_ok": "2026-11-01T13:32:33+00:00",
+   "checked_at": "2026-11-01T18:16:22+00:00",
+   "last_ok": "2026-11-01T18:16:22+00:00",
    "state": "live",
    "records": null,
    "latest": "Newest record 2026-10-30 00:00 UTC",
-   "latency_ms": 851
+   "latency_ms": 928
   },
   {
    "id": "himawari",
    "name": "Himawari-9 clouds",
    "use": "Cyclones",
    "kind": "Satellite",
-   "checked_at": "2026-11-01T13:32:34+00:00",
-   "last_ok": "2026-11-01T13:32:34+00:00",
+   "checked_at": "2026-11-01T18:16:23+00:00",
+   "last_ok": "2026-11-01T18:16:23+00:00",
    "state": "live",
    "records": 5,
    "latest": "Files listed for 01 Nov 2026",
-   "latency_ms": 1642
+   "latency_ms": 1016
   },
   {
    "id": "bbc",
    "name": "BBC Asia",
    "use": "News",
    "kind": "RSS",
-   "checked_at": "2026-11-01T13:32:36+00:00",
-   "last_ok": "2026-11-01T13:32:36+00:00",
+   "checked_at": "2026-11-01T18:16:24+00:00",
+   "last_ok": "2026-11-01T18:16:24+00:00",
    "state": "live",
    "records": 19,
    "latest": "No hazard headlines right now",
-   "latency_ms": 437
+   "latency_ms": 372
   },
   {
    "id": "hindu",
    "name": "The Hindu",
    "use": "News",
    "kind": "RSS",
-   "checked_at": "2026-11-01T13:32:36+00:00",
-   "last_ok": "2026-11-01T13:32:36+00:00",
+   "checked_at": "2026-11-01T18:16:24+00:00",
+   "last_ok": "2026-11-01T18:16:24+00:00",
    "state": "live",
    "records": 60,
-   "latest": "3 hazard headlines",
-   "latency_ms": 395
+   "latest": "6 hazard headlines",
+   "latency_ms": 264
   },
   {
    "id": "toi",
    "name": "Times of India",
    "use": "News",
    "kind": "RSS",
-   "checked_at": "2026-11-01T13:32:37+00:00",
-   "last_ok": "2026-11-01T13:32:37+00:00",
+   "checked_at": "2026-11-01T18:16:25+00:00",
+   "last_ok": "2026-11-01T18:16:25+00:00",
    "state": "live",
    "records": 0,
    "latest": "No hazard headlines right now",
-   "latency_ms": 406
+   "latency_ms": 231
   },
   {
    "id": "gnews",
    "name": "Google News",
    "use": "News",
    "kind": "RSS",
-   "checked_at": "2026-11-01T13:32:37+00:00",
-   "last_ok": "2026-11-01T13:32:37+00:00",
+   "checked_at": "2026-11-01T18:16:25+00:00",
+   "last_ok": "2026-11-01T18:16:25+00:00",
    "state": "live",
    "records": 8,
    "latest": "Bangkok, other provinces on tidal flood alert",
-   "latency_ms": 938
+   "latency_ms": 790
   },
   {
    "id": "groundsource",

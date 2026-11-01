@@ -2,10 +2,11 @@
 
 Recent VIIRS days fill each other's orbit gaps, and Blue Marble fills whatever remains.
 """
+
 import io
 import json
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import numpy as np
@@ -14,11 +15,12 @@ from PIL import Image
 
 Z, TILE = 4, 256
 SIZE = TILE * 2**Z
-OUT = Path(__file__).resolve().parents[1] / "dashboard" / "public" / "data"
+OUT = Path(__file__).resolve().parents[2] / "dashboard" / "public" / "data"
 BASE = "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best"
 
 
 def tile(url: str) -> Image.Image | None:
+    """Download one map tile, with retries."""
     for _ in range(3):
         try:
             r = requests.get(url, timeout=40)
@@ -30,6 +32,7 @@ def tile(url: str) -> Image.Image | None:
 
 
 def layer(template: str) -> np.ndarray:
+    """Join all tiles of one layer into one picture."""
     canvas = Image.new("RGB", (SIZE, SIZE))
     cells = [(x, y) for y in range(2**Z) for x in range(2**Z)]
     with ThreadPoolExecutor(12) as ex:
@@ -40,11 +43,18 @@ def layer(template: str) -> np.ndarray:
 
 
 def main() -> None:
-    today = datetime.now(timezone.utc).date()
+    """Build the globe picture."""
+    today = datetime.now(UTC).date()
     days = [today - timedelta(days=n) for n in (2, 3)]
-    out = layer(f"{BASE}/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/{days[0]}/GoogleMapsCompatible_Level9/{{z}}/{{y}}/{{x}}.jpg")
-    older = layer(f"{BASE}/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/{days[1]}/GoogleMapsCompatible_Level9/{{z}}/{{y}}/{{x}}.jpg")
-    marble = layer(f"{BASE}/BlueMarble_ShadedRelief_Bathymetry/default/2004-08-01/GoogleMapsCompatible_Level8/{{z}}/{{y}}/{{x}}.jpeg")
+    out = layer(
+        f"{BASE}/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/{days[0]}/GoogleMapsCompatible_Level9/{{z}}/{{y}}/{{x}}.jpg"
+    )
+    older = layer(
+        f"{BASE}/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/{days[1]}/GoogleMapsCompatible_Level9/{{z}}/{{y}}/{{x}}.jpg"
+    )
+    marble = layer(
+        f"{BASE}/BlueMarble_ShadedRelief_Bathymetry/default/2004-08-01/GoogleMapsCompatible_Level8/{{z}}/{{y}}/{{x}}.jpeg"
+    )
     gap = out.sum(axis=2) < 24
     out[gap] = older[gap]
     gap = out.sum(axis=2) < 24

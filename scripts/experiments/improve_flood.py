@@ -1,4 +1,5 @@
 """Which new flood features earn their place? Choices use validation; test is printed for the record."""
+
 import json
 
 import numpy as np
@@ -26,7 +27,9 @@ for c in cells.itertuples():
     f["discharge_rank"] = q.rolling(365, min_periods=180).rank(pct=True)
     next3 = w.rain.rolling(3).sum().shift(-3)
     f["next3_rain"] = next3
-    f["next3_ratio"] = next3 / w.rain.rolling(3).sum().rolling(365, min_periods=180).quantile(0.95).shift(1).clip(lower=1)
+    f["next3_ratio"] = next3 / w.rain.rolling(3).sum().rolling(365, min_periods=180).quantile(0.95).shift(1).clip(
+        lower=1
+    )
     f["y"] = flood.surge_label(n)
     f["lat"], f["lon"], f["date"] = c.la + 0.5, c.lo + 0.5, f.index
     rows.append(f.dropna(subset=["y"]))
@@ -41,7 +44,15 @@ fc = ["next3_rain", "next3_ratio"]
 
 
 def run(name, cols):
-    m = XGBClassifier(n_estimators=300, tree_method="hist", n_jobs=-1, random_state=42, scale_pos_weight=(tr.y == 0).sum() / (tr.y == 1).sum(), **best)
+    """Train with these columns and print the scores."""
+    m = XGBClassifier(
+        n_estimators=300,
+        tree_method="hist",
+        n_jobs=-1,
+        random_state=42,
+        scale_pos_weight=(tr.y == 0).sum() / (tr.y == 1).sum(),
+        **best,
+    )
     m.fit(tr[cols].to_numpy(np.float32), tr.y.astype(int))
     v, t = m.predict_proba(va[cols].to_numpy(np.float32))[:, 1], m.predict_proba(te[cols].to_numpy(np.float32))[:, 1]
     print(f"{name:30s} val {ap(va.y, v):.3f} test {ap(te.y, t):.3f}", flush=True)
@@ -54,7 +65,10 @@ run("+ rain in next 3 days", base + fc)
 m = run("+ both", base + ratio + fc)
 cols = base + ratio + fc
 print(sorted(zip(m.feature_importances_.round(3), cols), reverse=True)[:8])
-print("share of surges by month, test:", te[te.y == 1].date.dt.month.value_counts(normalize=True).sort_index().round(2).to_dict())
+print(
+    "share of surges by month, test:",
+    te[te.y == 1].date.dt.month.value_counts(normalize=True).sort_index().round(2).to_dict(),
+)
 
 # Honest test: replace actual later rain with rain forecasts as they were issued.
 parts = []
@@ -69,7 +83,14 @@ print("rows", len(te), "matched", len(t2), "locations", t2.groupby(["lat", "lon"
 scale = (t2.next3_rain / t2.next3_ratio).replace([np.inf, -np.inf], np.nan)
 t3 = t2.assign(next3_rain=t2.real, next3_ratio=t2.real / scale)
 cols2 = base + ratio
-m2 = XGBClassifier(n_estimators=300, tree_method="hist", n_jobs=-1, random_state=42, scale_pos_weight=(tr.y == 0).sum() / (tr.y == 1).sum(), **best).fit(tr[cols2].to_numpy(np.float32), tr.y.astype(int))
+m2 = XGBClassifier(
+    n_estimators=300,
+    tree_method="hist",
+    n_jobs=-1,
+    random_state=42,
+    scale_pos_weight=(tr.y == 0).sum() / (tr.y == 1).sum(),
+    **best,
+).fit(tr[cols2].to_numpy(np.float32), tr.y.astype(int))
 print("same rows, no forecast    ", round(ap(t2.y, m2.predict_proba(t2[cols2].to_numpy(np.float32))[:, 1]), 3))
 print("same rows, actual rain    ", round(ap(t2.y, m.predict_proba(t2[cols].to_numpy(np.float32))[:, 1]), 3))
 print("same rows, real forecasts ", round(ap(t3.y, m.predict_proba(t3[cols].to_numpy(np.float32))[:, 1]), 3))

@@ -1,4 +1,5 @@
 """Earthquake: chance of M5+ in a 1 degree cell over the next 30 days."""
+
 from __future__ import annotations
 
 import io
@@ -10,7 +11,20 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import average_precision_score
 
 from . import etas
-from .common import DATA, Platt, best_threshold, compare_models, evaluate, log, pr_points, print_summary, reliability, risk_cuts, tuned, write_results
+from .common import (
+    DATA,
+    Platt,
+    best_threshold,
+    compare_models,
+    evaluate,
+    log,
+    pr_points,
+    print_summary,
+    reliability,
+    risk_cuts,
+    tuned,
+    write_results,
+)
 from .events import quake_events
 from .live import save_model
 from .recal import Blend, rolling_platt
@@ -19,10 +33,24 @@ BOX = dict(lat0=-12, lat1=50, lon0=60, lon1=150)
 START = pd.Timestamp("1973-01-01", tz="UTC")
 WINDOW_DAYS = 30
 MIN_ROW_WINDOW = 90  # about 1980: rows start after feature history exists
-FEATURES = ["n_30", "n_90", "n_360", "n_1800", "max_mag_90", "days_since_m5", "log_energy_360",
-            "mean_depth_360", "neighbour_n_90", "neighbour_n_360", "m5_rate_so_far", "etas_trigger", "lat", "lon"]
+FEATURES = [
+    "n_30",
+    "n_90",
+    "n_360",
+    "n_1800",
+    "max_mag_90",
+    "days_since_m5",
+    "log_energy_360",
+    "mean_depth_360",
+    "neighbour_n_90",
+    "neighbour_n_360",
+    "m5_rate_so_far",
+    "etas_trigger",
+    "lat",
+    "lon",
+]
 TRAIN_END = pd.Timestamp("2016-01-01", tz="UTC")
-RECAL_WINDOWS = 48  # about 4 years, chosen on late validation in scripts/recal_experiments.py
+RECAL_WINDOWS = 48  # about 4 years, chosen on late validation in scripts/experiments/recal_experiments.py
 ETAS_ALPHA, ETAS_P, ETAS_C_DAYS, ETAS_LAGS = 1.0, 1.1, 0.01, 60
 
 
@@ -33,12 +61,26 @@ def fetch_catalog() -> pd.DataFrame:
         return pd.read_parquet(path)
     frames = []
     for year in range(1973, pd.Timestamp.now().year + 1):
-        r = requests.get("https://earthquake.usgs.gov/fdsnws/event/1/query", timeout=120, params={
-            "format": "csv", "starttime": f"{year}-01-01", "endtime": f"{year + 1}-01-01", "minmagnitude": 4.5,
-            "minlatitude": BOX["lat0"], "maxlatitude": BOX["lat1"], "minlongitude": BOX["lon0"],
-            "maxlongitude": BOX["lon1"], "eventtype": "earthquake", "orderby": "time-asc"})
+        r = requests.get(
+            "https://earthquake.usgs.gov/fdsnws/event/1/query",
+            timeout=120,
+            params={
+                "format": "csv",
+                "starttime": f"{year}-01-01",
+                "endtime": f"{year + 1}-01-01",
+                "minmagnitude": 4.5,
+                "minlatitude": BOX["lat0"],
+                "maxlatitude": BOX["lat1"],
+                "minlongitude": BOX["lon0"],
+                "maxlongitude": BOX["lon1"],
+                "eventtype": "earthquake",
+                "orderby": "time-asc",
+            },
+        )
         r.raise_for_status()
-        frames.append(pd.read_csv(io.StringIO(r.text), usecols=["time", "latitude", "longitude", "depth", "mag", "magType"]))
+        frames.append(
+            pd.read_csv(io.StringIO(r.text), usecols=["time", "latitude", "longitude", "depth", "mag", "magType"])
+        )
     cat = pd.concat(frames, ignore_index=True)
     cat["time"] = pd.to_datetime(cat["time"], utc=True, format="ISO8601")
     cat = cat.drop_duplicates().sort_values("time").reset_index(drop=True)
@@ -56,6 +98,7 @@ def _roll(a: np.ndarray, n: int) -> np.ndarray:
 
 
 def _neigh(a: np.ndarray) -> np.ndarray:
+    """Sum each grid cell with its neighbours."""
     out = np.zeros_like(a)
     for dy in (-1, 0, 1):
         for dx in (-1, 0, 1):
@@ -80,8 +123,12 @@ def etas_trigger(productivity: np.ndarray) -> np.ndarray:
     return out + 0.25 * _neigh(out)
 
 
-def build_table(cat: pd.DataFrame, n_windows: int | None = None, min_row: int = MIN_ROW_WINDOW,
-                train_end: pd.Timestamp | None = None) -> pd.DataFrame:
+def build_table(
+    cat: pd.DataFrame,
+    n_windows: int | None = None,
+    min_row: int = MIN_ROW_WINDOW,
+    train_end: pd.Timestamp | None = None,
+) -> pd.DataFrame:
     """One row per active cell and window. Features use only earlier windows; quiet windows stay in."""
     H, W = BOX["lat1"] - BOX["lat0"], BOX["lon1"] - BOX["lon0"]
     w = ((cat["time"] - START).dt.total_seconds() // (WINDOW_DAYS * 86400)).astype(int).to_numpy()
@@ -108,17 +155,27 @@ def build_table(cat: pd.DataFrame, n_windows: int | None = None, min_row: int = 
     n90, n360 = _roll(n, 3), _roll(n, 12)
     max90 = np.zeros_like(maxmag)
     for k in range(1, K):
-        max90[k] = maxmag[max(k - 3, 0):k].max(axis=0)
+        max90[k] = maxmag[max(k - 3, 0) : k].max(axis=0)
     since = np.full((H, W), 1e6, np.float32)
     since_all = np.zeros_like(n)
     for k in range(K):
         since_all[k] = since
         since = np.where(m5[k] > 0, 0, since + 1)
     rate = _roll((m5 > 0).astype(np.float32), K) / np.maximum(np.arange(K), 1).reshape(-1, 1, 1)
-    table = dict(n_30=_roll(n, 1), n_90=n90, n_360=n360, n_1800=_roll(n, 60), max_mag_90=max90,
-                 days_since_m5=np.minimum(since_all * WINDOW_DAYS, 20000), log_energy_360=np.log1p(_roll(energy, 12)),
-                 mean_depth_360=_roll(depthsum, 12) / np.maximum(n360, 1), neighbour_n_90=_neigh(n90),
-                 neighbour_n_360=_neigh(n360), m5_rate_so_far=rate, etas_trigger=etas_trigger(productivity))
+    table = dict(
+        n_30=_roll(n, 1),
+        n_90=n90,
+        n_360=n360,
+        n_1800=_roll(n, 60),
+        max_mag_90=max90,
+        days_since_m5=np.minimum(since_all * WINDOW_DAYS, 20000),
+        log_energy_360=np.log1p(_roll(energy, 12)),
+        mean_depth_360=_roll(depthsum, 12) / np.maximum(n360, 1),
+        neighbour_n_90=_neigh(n90),
+        neighbour_n_360=_neigh(n360),
+        m5_rate_so_far=rate,
+        etas_trigger=etas_trigger(productivity),
+    )
     label = m5 > 0
 
     # The cell list comes from training-period events only, so test events cannot choose cells.
@@ -127,8 +184,12 @@ def build_table(cat: pd.DataFrame, n_windows: int | None = None, min_row: int = 
     rows = []
     for k in range(min_row, K):
         d = {f: v[k, cells[:, 0], cells[:, 1]] for f, v in table.items()}
-        d.update(lat=cells[:, 0] + BOX["lat0"] + 0.5, lon=cells[:, 1] + BOX["lon0"] + 0.5, window=k,
-                 y=label[k, cells[:, 0], cells[:, 1]].astype(np.int8))
+        d.update(
+            lat=cells[:, 0] + BOX["lat0"] + 0.5,
+            lon=cells[:, 1] + BOX["lon0"] + 0.5,
+            window=k,
+            y=label[k, cells[:, 0], cells[:, 1]].astype(np.int8),
+        )
         rows.append(pd.DataFrame(d))
     df = pd.concat(rows, ignore_index=True)
     df["start"] = START + pd.to_timedelta(df["window"] * WINDOW_DAYS, unit="D")
@@ -154,6 +215,7 @@ def load_sets():
 
 def _rule_scores(tr, va, te):
     """Older fixed-setting rule: long-run rate plus trigger load, combined by a two-weight logistic fit."""
+
     def Z(d):
         return np.column_stack([np.log(d.m5_rate_so_far + 1e-4), np.log1p(d.etas_trigger)])
 
@@ -162,6 +224,7 @@ def _rule_scores(tr, va, te):
 
 
 def run() -> dict:
+    """Train, compare and save the earthquake models."""
     cat, tr, va, te, current = load_sets()
 
     def X(d):
@@ -170,7 +233,18 @@ def run() -> dict:
     fitted = etas.fit(cat, START, START + pd.Timedelta(days=MIN_ROW_WINDOW * WINDOW_DAYS), TRAIN_END)
     base_va = etas.table_forecast(fitted, cat, va, START, WINDOW_DAYS)
     base_te = etas.table_forecast(fitted, cat, te, START, WINDOW_DAYS)
-    res = compare_models(X(tr), tr.y.to_numpy(), X(va), va.y.to_numpy(), X(te), te.y.to_numpy(), base_va, base_te, FEATURES, xgb_params=tuned("earthquake"))
+    res = compare_models(
+        X(tr),
+        tr.y.to_numpy(),
+        X(va),
+        va.y.to_numpy(),
+        X(te),
+        te.y.to_numpy(),
+        base_va,
+        base_te,
+        FEATURES,
+        xgb_params=tuned("earthquake"),
+    )
     res["rate_only_test_pr_auc"] = float(average_precision_score(te.y, te.m5_rate_so_far))
     res["rule_test_pr_auc"] = float(average_precision_score(te.y, _rule_scores(tr, va, te)[1]))
     xgb = res["_fitted"]["XGBoost"]
@@ -180,7 +254,7 @@ def run() -> dict:
     mix_va, mix_te = blend(ml_va, base_va), blend(ml_te, base_te)
     t = np.r_[va.window.to_numpy(), te.window.to_numpy()]
     y_all, mix_all = np.r_[y_va, y_te], np.r_[mix_va, mix_te]
-    final_te = rolling_platt(mix_all, y_all, t, RECAL_WINDOWS)[len(va):]
+    final_te = rolling_platt(mix_all, y_all, t, RECAL_WINDOWS)[len(va) :]
     recent = t > t.max() - RECAL_WINDOWS
     cal = Platt().fit(mix_all[recent], y_all[recent])  # the newest closed windows correct live scores
     name = "Blend with ETAS"
@@ -190,11 +264,16 @@ def run() -> dict:
     res["winner"], res["pr_curve"], res["reliability"] = name, pr_points(y_te, final_te), reliability(y_te, final_te)
     cell = (te.lat.to_numpy() * 1000 + te.lon.to_numpy()).round(1)
     log("  Running pyCSEP tests")
-    res["etas"] = {**{k: v for k, v in fitted.items() if not k.startswith("_")},
-                   "validation_pr_auc": float(average_precision_score(y_va, base_va)), "test_pr_auc": float(average_precision_score(y_te, base_te)),
-                   "ml_gain_nats_per_row": etas.binary_gain(y_te, final_te, base_te),
-                   "csep_ml": etas.consistency(y_te, final_te, cell), "csep_etas": etas.consistency(y_te, base_te, cell),
-                   "count_ml": etas.exact_count(y_te, final_te), "count_etas": etas.exact_count(y_te, base_te)}
+    res["etas"] = {
+        **{k: v for k, v in fitted.items() if not k.startswith("_")},
+        "validation_pr_auc": float(average_precision_score(y_va, base_va)),
+        "test_pr_auc": float(average_precision_score(y_te, base_te)),
+        "ml_gain_nats_per_row": etas.binary_gain(y_te, final_te, base_te),
+        "csep_ml": etas.consistency(y_te, final_te, cell),
+        "csep_etas": etas.consistency(y_te, base_te, cell),
+        "count_ml": etas.exact_count(y_te, final_te),
+        "count_etas": etas.exact_count(y_te, base_te),
+    }
     shown = pd.concat([te, current])
     shown_etas = pd.Series(etas.table_forecast(fitted, cat, shown, START, WINDOW_DAYS), index=shown.index)
 
@@ -203,16 +282,32 @@ def run() -> dict:
 
     p = score(current)
     quake_events(shown, cat, score)
-    res.update(hazard="earthquake", unit="1 degree cell, 30-day window", label="M5.0+ in next 30 days",
-               baseline_name="ETAS fitted by maximum likelihood",
-               catalog_events=int(len(cat)), cells=int(len(current)),
-               sets={"train": int(len(tr)), "validation": int(len(va)), "test": int(len(te))},
-               periods={"train": "1980 to 2015", "validation": "2016 to 2019", "test": "2020 onward"},
-               current_window_start=str(current.start.iloc[0].date()), scored_at=pd.Timestamp.now(tz="UTC").isoformat(timespec="seconds"),
-               current_risk=[{"lat": float(a), "lon": float(b), "p": round(float(c), 4)}
-                             for a, b, c in zip(current.lat, current.lon, p)])
+    res.update(
+        hazard="earthquake",
+        unit="1 degree cell, 30-day window",
+        label="M5.0+ in next 30 days",
+        baseline_name="ETAS fitted by maximum likelihood",
+        catalog_events=len(cat),
+        cells=len(current),
+        sets={"train": len(tr), "validation": len(va), "test": len(te)},
+        periods={"train": "1980 to 2015", "validation": "2016 to 2019", "test": "2020 onward"},
+        current_window_start=str(current.start.iloc[0].date()),
+        scored_at=pd.Timestamp.now(tz="UTC").isoformat(timespec="seconds"),
+        current_risk=[
+            {"lat": float(a), "lon": float(b), "p": round(float(c), 4)} for a, b, c in zip(current.lat, current.lon, p)
+        ],
+    )
     write_results("earthquake", res)
-    save_model("earthquake", {"features": FEATURES, "model": xgb, "cal": cal, "blend": blend, "etas": {"params": fitted["params"], "_u": fitted["_u"]}})
+    save_model(
+        "earthquake",
+        {
+            "features": FEATURES,
+            "model": xgb,
+            "cal": cal,
+            "blend": blend,
+            "etas": {"params": fitted["params"], "_u": fitted["_u"]},
+        },
+    )
     return res
 
 

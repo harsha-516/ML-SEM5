@@ -1,3 +1,5 @@
+"""Tests: News and forecast log."""
+
 import json
 
 from hazards import refresh
@@ -20,7 +22,9 @@ def test_empty_feed_gives_no_items():
 
 
 def test_forecast_log_is_not_duplicated_on_a_second_run(tmp_path, monkeypatch):
-    (tmp_path / "flood.json").write_text(json.dumps({"generated_at": "v1", "current_risk": [{"lat": 1.5, "lon": 2.5, "p": 0.2}]}))
+    (tmp_path / "flood.json").write_text(
+        json.dumps({"generated_at": "v1", "current_risk": [{"lat": 1.5, "lon": 2.5, "p": 0.2}]})
+    )
     monkeypatch.setattr(refresh, "RESULTS", tmp_path)
     db = tmp_path / "f.sqlite"
     assert refresh.log_forecasts(db) == 1

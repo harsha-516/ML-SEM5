@@ -1,3 +1,5 @@
+"""Tests: Rolling recalibration."""
+
 import numpy as np
 
 from hazards.etas import exact_count

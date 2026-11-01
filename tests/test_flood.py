@@ -1,7 +1,17 @@
+"""Tests: Flood label, features and leakage."""
+
 import numpy as np
 import pandas as pd
 
-from hazards.flood import choose_cells, forecast_features, live_row, real_forecast, surge_label, warned, weather_features
+from hazards.flood import (
+    choose_cells,
+    forecast_features,
+    live_row,
+    real_forecast,
+    surge_label,
+    warned,
+    weather_features,
+)
 
 
 def test_label_looks_forward_and_ignores_today():
@@ -34,7 +44,15 @@ def test_ratio_features_exist_and_ignore_the_future():
     b = a.copy()
     b.iloc[450:] = 999.0
     fa, fb = weather_features(a), weather_features(b)
-    for c in ("rain_1_ratio", "rain_3_ratio", "rain_7_ratio", "rain_30_ratio", "wet_days_7", "wet_days_30", "discharge_rank"):
+    for c in (
+        "rain_1_ratio",
+        "rain_3_ratio",
+        "rain_7_ratio",
+        "rain_30_ratio",
+        "wet_days_7",
+        "wet_days_30",
+        "discharge_rank",
+    ):
         assert fa[c].iloc[300:].notna().all()
         pd.testing.assert_series_equal(fa[c].iloc[:450], fb[c].iloc[:450])
 
@@ -52,7 +70,9 @@ def test_reanalysis_next3_sums_the_three_following_days_only():
 
 def test_real_forecast_uses_lead1_tomorrow_lead2_and_lead3_after():
     days = pd.date_range("2024-01-01", periods=6)
-    d = pd.DataFrame({"lead1": [0, 1, 0, 0, 0, 0.0], "lead2": [0, 0, 10, 0, 0, 0.0], "lead3": [0, 0, 0, 100, 0, 0.0]}, index=days)
+    d = pd.DataFrame(
+        {"lead1": [0, 1, 0, 0, 0, 0.0], "lead2": [0, 0, 10, 0, 0, 0.0], "lead3": [0, 0, 0, 100, 0, 0.0]}, index=days
+    )
     r = real_forecast(d)
     assert r.iloc[0] == 111
     assert r.iloc[-3:].isna().all()
@@ -77,8 +97,13 @@ def test_warning_needs_one_and_a_half_times_the_usual_chance():
 
 
 def test_cells_are_spaced_and_chosen_before_2022():
-    e = pd.DataFrame({"lat": [10.5] * 300 + [10.6] * 300 + [40.5] * 300, "lon": [80.5] * 600 + [100.5] * 300,
-                      "start": pd.to_datetime(["2018-06-01"] * 600 + ["2023-06-01"] * 300)})
+    e = pd.DataFrame(
+        {
+            "lat": [10.5] * 300 + [10.6] * 300 + [40.5] * 300,
+            "lon": [80.5] * 600 + [100.5] * 300,
+            "start": pd.to_datetime(["2018-06-01"] * 600 + ["2023-06-01"] * 300),
+        }
+    )
     c = choose_cells(e)
     assert len(c) == 1 and c.la[0] == 10
 
@@ -86,9 +111,11 @@ def test_cells_are_spaced_and_chosen_before_2022():
 def test_satellite_features_respect_publication_lag():
     import sys
     from pathlib import Path
-    sys.path.insert(0, str(Path(__file__).parents[1] / "scripts"))
-    from hazards.flood import imerg_features
+
+    sys.path.insert(0, str(Path(__file__).parents[1] / "scripts" / "experiments"))
     from satellite_experiments import smap_features
+
+    from hazards.flood import imerg_features
 
     days = pd.date_range("2023-01-01", periods=400)
     a = pd.Series(1.0, index=days)

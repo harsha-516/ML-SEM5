@@ -1,4 +1,6 @@
-from datetime import datetime, timedelta, timezone
+"""Tests: Telegram bot text, alert rules and commands."""
+
+from datetime import UTC, datetime, timedelta
 
 import numpy as np
 
@@ -6,8 +8,16 @@ from hazards import bot
 from hazards.common import risk_cuts
 
 CUTS = {"medium": 0.1, "high": 0.3}
-NOW = datetime(2026, 11, 1, tzinfo=timezone.utc)
-MAP = {"risk_levels": CUTS, "scored_at": "2026-11-01T00:00:00", "current_risk": [{"lat": 25.5, "lon": 85.5, "p": 0.4}, {"lat": 12.5, "lon": 80.5, "p": 0.05}, {"lat": 35.5, "lon": 139.5, "p": 0.9}]}
+NOW = datetime(2026, 11, 1, tzinfo=UTC)
+MAP = {
+    "risk_levels": CUTS,
+    "scored_at": "2026-11-01T00:00:00",
+    "current_risk": [
+        {"lat": 25.5, "lon": 85.5, "p": 0.4},
+        {"lat": 12.5, "lon": 80.5, "p": 0.05},
+        {"lat": 35.5, "lon": 139.5, "p": 0.9},
+    ],
+}
 
 
 def test_level_uses_both_cuts():
@@ -81,7 +91,9 @@ def test_every_alert_says_model_based_and_official_instructions():
 
 
 def test_earthquake_text_never_gives_a_time():
-    t = bot.text_for("earthquake", "india", {"level": "High", "p": 0.4, "lat": 25.5, "lon": 85.5, "issued": "2026-11-01"})
+    t = bot.text_for(
+        "earthquake", "india", {"level": "High", "p": 0.4, "lat": 25.5, "lon": 85.5, "issued": "2026-11-01"}
+    )
     assert "never a predicted time" in t and "will occur" not in t
 
 
@@ -99,7 +111,7 @@ def test_new_high_after_a_quiet_spell_alerts_at_once(tmp_path):
     con = bot.connect(tmp_path / "b.sqlite")
     con.execute("insert into subscribers values (1, 'flood', 'india')")
     states = iter(["High", "Low", "High"])
-    look = lambda h, r: {"level": next(states), "p": 0.4, "lat": 25.5, "lon": 85.5, "issued": "x"}  # noqa: E731
+    look = lambda h, r: {"level": next(states), "p": 0.4, "lat": 25.5, "lon": 85.5, "issued": "x"}
     assert [bot.queue_alerts(con, NOW, look) for _ in range(3)] == [1, 0, 1]
 
 
@@ -107,7 +119,7 @@ def test_unavailable_never_reads_as_quiet_and_keeps_state(tmp_path):
     assert "does not mean there is no risk" in bot.text_for("cyclone", "india", bot.UNAVAILABLE)
     con = bot.connect(tmp_path / "b.sqlite")
     con.execute("insert into subscribers values (1, 'flood', 'india')")
-    high = lambda h, r: {"level": "High", "p": 0.4, "lat": 25.5, "lon": 85.5, "issued": "x"}  # noqa: E731
+    high = lambda h, r: {"level": "High", "p": 0.4, "lat": 25.5, "lon": 85.5, "issued": "x"}
     bot.queue_alerts(con, NOW, high)
     assert bot.queue_alerts(con, NOW, lambda h, r: bot.UNAVAILABLE) == 0
     assert con.execute("select level from alert_state").fetchone() == ("High",)
@@ -129,7 +141,9 @@ def test_north_indian_failure_is_unknown_only_for_regions_it_covers(tmp_path, mo
     f = tmp_path / "storms.json"
     monkeypatch.setattr(bot, "STORMS", f)
     monkeypatch.setattr(bot, "read_results", lambda h: {"risk_levels": CUTS})
-    f.write_text('{"status": "ok", "north_indian": "failed: Timeout", "fetched_at": "2026-11-01T00:00:00+00:00", "storms": []}')
+    f.write_text(
+        '{"status": "ok", "north_indian": "failed: Timeout", "fetched_at": "2026-11-01T00:00:00+00:00", "storms": []}'
+    )
     assert bot.status("cyclone", "bayofbengal", NOW)["unavailable"]
     assert bot.status("cyclone", "japan", NOW) is None
 
@@ -146,7 +160,7 @@ def test_unscored_storm_at_typhoon_force_is_high():
 
 def test_subscribe_alert_is_logged_once(tmp_path):
     con = bot.connect(tmp_path / "b.sqlite")
-    look = lambda h, r: {"level": "High", "p": 0.4, "lat": 25.5, "lon": 85.5, "issued": "x"}  # noqa: E731
+    look = lambda h, r: {"level": "High", "p": 0.4, "lat": 25.5, "lon": 85.5, "issued": "x"}
     assert "Subscribed" in bot.handle(con, 1, "/subscribe flood india", look)
     assert bot.queue_alerts(con, NOW, look) == 1 and bot.queue_alerts(con, NOW, look) == 0
     assert con.execute("select count(*), sum(sent) from alerts").fetchone() == (1, 0)

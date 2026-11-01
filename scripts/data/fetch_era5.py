@@ -2,12 +2,13 @@
 
 The CDS rejects extra queued requests per dataset and asks for sequential use, so each dataset
 runs one request at a time. Jobs already queued for this account are reused, and files are cached,
-so a restart resumes. Usage: python scripts/fetch_era5.py [oldest_year]
+so a restart resumes. Usage: python scripts/data/fetch_era5.py [oldest_year]
 """
+
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 from dotenv import dotenv_values
@@ -15,7 +16,7 @@ from ecmwf.datastores import Client
 
 from hazards.common import log
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "data" / "raw" / "era5"
 AREA = [50, 40, -15, 180]
 DATASET = {"wind": "reanalysis-era5-pressure-levels", "sst": "reanalysis-era5-single-levels"}
@@ -23,14 +24,23 @@ DATASET = {"wind": "reanalysis-era5-pressure-levels", "sst": "reanalysis-era5-si
 
 def months_for(year: int) -> list[str]:
     """ERA5 lags by about 6 days, so the current year stops at the last complete month."""
-    edge = datetime.now(timezone.utc) - timedelta(days=7)
+    edge = datetime.now(UTC) - timedelta(days=7)
     last = 12 if year < edge.year else edge.month - 1
     return [f"{m:02d}" for m in range(1, last + 1)]
 
 
 def request(kind: str, year: int) -> dict:
-    base = {"product_type": ["reanalysis"], "year": [str(year)], "month": months_for(year), "day": [f"{d:02d}" for d in range(1, 32)],
-            "time": ["00:00", "12:00"], "area": AREA, "grid": [2.0, 2.0], "data_format": "netcdf"}
+    """CDS request for one data kind and year."""
+    base = {
+        "product_type": ["reanalysis"],
+        "year": [str(year)],
+        "month": months_for(year),
+        "day": [f"{d:02d}" for d in range(1, 32)],
+        "time": ["00:00", "12:00"],
+        "area": AREA,
+        "grid": [2.0, 2.0],
+        "data_format": "netcdf",
+    }
     if kind == "wind":
         return {**base, "variable": ["u_component_of_wind", "v_component_of_wind"], "pressure_level": ["200", "850"]}
     return {**base, "variable": ["sea_surface_temperature"]}
@@ -42,13 +52,20 @@ def open_jobs(client: Client, kind: str) -> dict:
     for i in client.get_jobs(status=["accepted", "running", "successful"], limit=50).request_ids:
         r = client.get_remote(i)
         q = r.request
-        if r.collection_id == DATASET[kind] and len(q.get("year", [])) == 1 and q.get("grid") == [2.0, 2.0] and len(q.get("day", [])) == 31 \
-                and q.get("month") == months_for(int(q["year"][0])) and q.get("area") == AREA:
+        if (
+            r.collection_id == DATASET[kind]
+            and len(q.get("year", [])) == 1
+            and q.get("grid") == [2.0, 2.0]
+            and len(q.get("day", [])) == 31
+            and q.get("month") == months_for(int(q["year"][0]))
+            and q.get("area") == AREA
+        ):
             out.setdefault(int(q["year"][0]), r)
     return out
 
 
 def fetch(client: Client, kind: str, year: int) -> str:
+    """Download one year file unless it exists."""
     path = OUT / f"{kind}_{year}.nc"
     if path.exists():
         return f"{path.name} cached"
@@ -67,17 +84,21 @@ def fetch(client: Client, kind: str, year: int) -> str:
 
 
 def worker(client: Client, kind: str, years: list[int]) -> None:
-    queued = open_jobs(client, kind)  # jobs already at the server come first, or the queue limit blocks every new request
+    """Download the listed years of one kind."""
+    queued = open_jobs(
+        client, kind
+    )  # jobs already at the server come first, or the queue limit blocks every new request
     order = sorted(years, key=lambda y: (y not in queued, -y))
     for n, y in enumerate(order, start=1):
         log(f"ERA5 {kind} {n}/{len(order)}: {fetch(client, kind, y)}")
 
 
 def main() -> None:
+    """Start the downloads."""
     oldest = int(sys.argv[1]) if len(sys.argv) > 1 else 2000
     client = Client(url="https://cds.climate.copernicus.eu/api", key=dotenv_values(ROOT / ".env")["CDSAPI_KEY"].strip())
     OUT.mkdir(exist_ok=True)
-    now = datetime.now(timezone.utc).year
+    now = datetime.now(UTC).year
     years = list(range(now, oldest - 1, -1))
     log(f"ERA5 fetch start: {len(years)} years for each of 2 datasets, {now} back to {oldest}")
     with ThreadPoolExecutor(2) as pool:

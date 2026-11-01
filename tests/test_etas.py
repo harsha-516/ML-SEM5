@@ -1,7 +1,17 @@
-import numpy as np
-import pandas as pd
+"""Tests: ETAS model and forecast."""
 
-from hazards.etas import Params, binary_gain, consistency, excess, grid_forecast, log_likelihood, make_pairs, omori_integral
+import numpy as np
+
+from hazards.etas import (
+    Params,
+    binary_gain,
+    consistency,
+    excess,
+    grid_forecast,
+    log_likelihood,
+    make_pairs,
+    omori_integral,
+)
 
 
 def test_omori_integral_matches_numeric_sum():
@@ -42,7 +52,9 @@ def test_recent_big_event_raises_only_nearby_cells():
     t, la, lo, m = np.array([990.0]), np.array([10.5]), np.array([80.5]), np.array([7.5])
     p = Params(mu=0.01, k=0.05, alpha=1.5, c=0.05, p=1.1, d=10.0)
     r = grid_forecast(p, field(), t, la, lo, m, 1000.0, 30, np.array([10.5, 40.5]), np.array([80.5, 140.5]))
-    quiet = grid_forecast(p, field(), t[:0], la[:0], lo[:0], m[:0], 1000.0, 30, np.array([10.5, 40.5]), np.array([80.5, 140.5]))
+    quiet = grid_forecast(
+        p, field(), t[:0], la[:0], lo[:0], m[:0], 1000.0, 30, np.array([10.5, 40.5]), np.array([80.5, 140.5])
+    )
     assert r[0] > 10 * quiet[0]
     assert abs(r[1] - quiet[1]) < 1e-6
 

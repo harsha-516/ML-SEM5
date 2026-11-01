@@ -1,11 +1,17 @@
+"""Tests: Earthquake table and leakage."""
+
 import pandas as pd
 
 from hazards.earthquake import START, build_table
 
 
 def cat(rows):
-    return pd.DataFrame([{"time": START + pd.Timedelta(days=d), "latitude": la, "longitude": lo, "depth": 10.0, "mag": m}
-                         for d, la, lo, m in rows])
+    return pd.DataFrame(
+        [
+            {"time": START + pd.Timedelta(days=d), "latitude": la, "longitude": lo, "depth": 10.0, "mag": m}
+            for d, la, lo, m in rows
+        ]
+    )
 
 
 def test_quiet_windows_are_negative_rows():

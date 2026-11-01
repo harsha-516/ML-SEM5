@@ -1,4 +1,5 @@
 """Test new earthquake features: activity change, magnitude mix and longer memory. Choices use validation."""
+
 import json
 
 import numpy as np
@@ -38,6 +39,7 @@ extra["region_m5_5y"] = two
 
 
 def add(d):
+    """Add the new candidate features."""
     d = d.copy()
     a, b = (d.lat - q.BOX["lat0"] - 0.5).astype(int).to_numpy(), (d.lon - q.BOX["lon0"] - 0.5).astype(int).to_numpy()
     k = d.window.to_numpy()
@@ -52,7 +54,15 @@ tr2 = tr[tr.start >= pd.Timestamp("1990-01-01", tz="UTC")]
 
 
 def run(name, cols, data):
-    m = XGBClassifier(n_estimators=300, tree_method="hist", n_jobs=-1, random_state=42, scale_pos_weight=(data.y == 0).sum() / (data.y == 1).sum(), **best)
+    """Train with these columns and print the scores."""
+    m = XGBClassifier(
+        n_estimators=300,
+        tree_method="hist",
+        n_jobs=-1,
+        random_state=42,
+        scale_pos_weight=(data.y == 0).sum() / (data.y == 1).sum(),
+        **best,
+    )
     m.fit(data[cols].to_numpy(np.float32), data.y)
     v, t = m.predict_proba(va[cols].to_numpy(np.float32))[:, 1], m.predict_proba(te[cols].to_numpy(np.float32))[:, 1]
     print(f"{name:32s} val {ap(va.y, v):.3f} test {ap(te.y, t):.3f}", flush=True)

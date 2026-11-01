@@ -1,3 +1,5 @@
+"""Tests: ERA5 features and year splits."""
+
 import sys
 from pathlib import Path
 
@@ -37,7 +39,8 @@ def test_conformal_margin_lifts_coverage_to_target():
 def test_split_years_is_time_ordered_and_keeps_test_from_2022():
     import sys
     from pathlib import Path
-    sys.path.insert(0, str(Path(__file__).parents[1] / "scripts"))
+
+    sys.path.insert(0, str(Path(__file__).parents[1] / "scripts" / "experiments"))
     from cyclone_experiments import split_years
 
     a, b, c = split_years(list(range(2012, 2027)))
@@ -47,7 +50,8 @@ def test_split_years_is_time_ordered_and_keeps_test_from_2022():
 
 
 def test_split_years_never_leaves_a_set_empty():
-    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts" / "experiments"))
     from cyclone_experiments import split_years
+
     assert split_years([2024, 2025, 2026]) == ([2024], [2025], [2026])
     assert split_years([2023, 2024, 2025, 2026]) == ([2023, 2024], [2025], [2026])

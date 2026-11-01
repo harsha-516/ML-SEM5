@@ -1,8 +1,9 @@
 """Fetch satellite rain and soil moisture for the 60 flood locations, one cached file per day.
 
 IMERG Late is used for all years, never Final, because Final is gauge-adjusted months later and could not run live.
-Usage: python scripts/fetch_satellite.py imerg|smap
+Usage: python scripts/data/fetch_satellite.py imerg|smap
 """
+
 import sys
 import tempfile
 import time
@@ -16,17 +17,21 @@ import requests
 
 from hazards import flood
 from hazards.common import DATA, log
-
-from hazards.satellite import FIRST, LAST, LAT0, LAT1, LON0, LON1, granules, imerg_day, session
+from hazards.satellite import LAT0, LAT1, LON0, LON1, granules, imerg_day, session
 
 
 def fetch_imerg() -> None:
+    """Download IMERG rain for every location."""
     cells = flood.choose_cells(pd.read_parquet(DATA / "groundsource_region.parquet"))
     out = DATA / "imerg"
     out.mkdir(exist_ok=True)
     todo = []
     for g in granules("GPM_3IMERGDL"):
-        title = g["producer_granule_id"].removesuffix(".nc4") if "producer_granule_id" in g else g["title"].split(":")[-1].removesuffix(".nc4")
+        title = (
+            g["producer_granule_id"].removesuffix(".nc4")
+            if "producer_granule_id" in g
+            else g["title"].split(":")[-1].removesuffix(".nc4")
+        )
         day = title.split(".")[4][:8]
         if not (out / f"{day}.npy").exists():
             todo.append((day, title))
@@ -56,6 +61,7 @@ def ease2(lat: float, lon: float) -> tuple[float, float]:
 
 
 def smap_slab(link: str, var: str) -> np.ndarray:
+    """Read the project region of one SMAP variable."""
     r0, c0 = ease2(LAT1, LON0)
     r1, c1 = ease2(LAT0, LON1)
     box = f"[{int(r0)}:{int(r1) + 1}][{int(c0)}:{int(c1) + 1}]"
@@ -80,6 +86,7 @@ def smap_slab(link: str, var: str) -> np.ndarray:
 
 
 def smap_day(link: str, cells: pd.DataFrame) -> np.ndarray:
+    """Soil moisture at each location for one day."""
     a = smap_slab(link, "soil_moisture")
     a[(a < 0) | (a > 1)] = np.nan
     r0, c0 = ease2(LAT1, LON0)
@@ -87,12 +94,16 @@ def smap_day(link: str, cells: pd.DataFrame) -> np.ndarray:
     for c in cells.itertuples():
         ra, cb = ease2(c.la + 1, c.lo)
         rb, cc = ease2(c.la, c.lo + 1)
-        v = a[int(round(ra)) - int(r0):int(round(rb)) - int(r0) + 1, int(round(cb)) - int(c0):int(round(cc)) - int(c0) + 1]
+        v = a[
+            int(round(ra)) - int(r0) : int(round(rb)) - int(r0) + 1,
+            int(round(cb)) - int(c0) : int(round(cc)) - int(c0) + 1,
+        ]
         out.append(np.nanmean(v) if np.isfinite(v).any() else np.nan)
     return np.array(out)
 
 
 def smap_links() -> dict:
+    """Map each day to its SMAP file."""
     links = {}
     for g in granules("SPL3SMP_E"):
         hrefs = [x["href"] for x in g["links"] if "opendap.earthdata" in x.get("href", "")]
@@ -114,6 +125,7 @@ def check_smap() -> None:
 
 
 def fetch_smap() -> None:
+    """Download SMAP soil moisture for every location."""
     cells = flood.choose_cells(pd.read_parquet(DATA / "groundsource_region.parquet"))
     out = DATA / "smap"
     out.mkdir(exist_ok=True)

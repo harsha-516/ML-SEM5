@@ -1,4 +1,5 @@
 """Build src/hazards/places.csv from GeoNames (CC BY 4.0): towns over 15,000 people in the bot's Asia box."""
+
 import csv
 import io
 import zipfile
@@ -10,14 +11,19 @@ OUT = "src/hazards/places.csv"
 
 
 def get(name: str) -> bytes:
+    """Download one GeoNames file."""
     r = requests.get(f"{BASE}/{name}", timeout=120)
     r.raise_for_status()
     return r.content
 
 
 def main() -> None:
+    """Write the town table."""
     admin = dict(line.split("\t")[:2] for line in get("admin1CodesASCII.txt").decode().splitlines())
-    countries = {p[0]: p[4] for p in (line.split("\t") for line in get("countryInfo.txt").decode().splitlines() if not line.startswith("#"))}
+    countries = {
+        p[0]: p[4]
+        for p in (line.split("\t") for line in get("countryInfo.txt").decode().splitlines() if not line.startswith("#"))
+    }
     rows = []
     with zipfile.ZipFile(io.BytesIO(get("cities15000.zip"))) as z:
         for line in z.read("cities15000.txt").decode().splitlines():

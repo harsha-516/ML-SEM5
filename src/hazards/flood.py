@@ -3,6 +3,7 @@
 Groundsource events come from news, so raw counts grow with coverage and favour big cities.
 Comparing each location with its own trailing year removes most of that drift.
 """
+
 from __future__ import annotations
 
 import json
@@ -11,24 +12,42 @@ import time
 import numpy as np
 import pandas as pd
 import requests
-
 from sklearn.metrics import average_precision_score
 
-from .common import DATA, RESULTS, Platt, compare_models, risk_cuts, log, print_summary, tuned, write_results
 from . import satellite
+from .common import DATA, RESULTS, Platt, compare_models, dist_km, log, print_summary, risk_cuts, tuned, write_results
 from .events import FLOODS, flood_events
 from .live import save_model
-from .typhoon import _dist_km
 
 HORIZON = 3
 GDACS_KM = 300
 FIRST, LAST = "2015-01-01", "2026-01-31"
 CACHE = DATA / "flood_cells"
 FORECASTS = DATA / "flood_forecasts"
-FEATURES = ["rain_1", "rain_3", "rain_7", "rain_30", "discharge", "discharge_anom", "discharge_change_3",
-            "month_sin", "month_cos", "recent_reports_30", "lat", "lon"]
+FEATURES = [
+    "rain_1",
+    "rain_3",
+    "rain_7",
+    "rain_30",
+    "discharge",
+    "discharge_anom",
+    "discharge_change_3",
+    "month_sin",
+    "month_cos",
+    "recent_reports_30",
+    "lat",
+    "lon",
+]
 LIVE_FEATURES = [f for f in FEATURES if f != "recent_reports_30"]  # Groundsource stops in February 2026
-RATIO_FEATURES = ["rain_1_ratio", "rain_3_ratio", "rain_7_ratio", "rain_30_ratio", "wet_days_7", "wet_days_30", "discharge_rank"]
+RATIO_FEATURES = [
+    "rain_1_ratio",
+    "rain_3_ratio",
+    "rain_7_ratio",
+    "rain_30_ratio",
+    "wet_days_7",
+    "wet_days_30",
+    "discharge_rank",
+]
 FORECAST_FEATURES = ["next3_rain", "next3_ratio"]
 IMERG_FEATURES = ["imerg_3", "imerg_7", "imerg_30", "imerg_7_ratio"]
 MODEL_FEATURES = LIVE_FEATURES + RATIO_FEATURES + FORECAST_FEATURES + IMERG_FEATURES
@@ -38,13 +57,20 @@ IMERG_LAG = 2  # days until a daily IMERG Late file is published
 def choose_cells(events: pd.DataFrame, n: int = 60, min_events: int = 1000, spacing: int = 3) -> pd.DataFrame:
     """Busiest 1 degree cells, at most one per spacing-degree block, chosen from pre-2022 data only."""
     e = events[(events.start >= "2015-01-01") & (events.start < "2022-01-01")]
-    c = e.assign(la=np.floor(e.lat).astype(int), lo=np.floor(e.lon).astype(int)).groupby(["la", "lo"]).size().rename("n").reset_index()
+    c = (
+        e.assign(la=np.floor(e.lat).astype(int), lo=np.floor(e.lon).astype(int))
+        .groupby(["la", "lo"])
+        .size()
+        .rename("n")
+        .reset_index()
+    )
     c = c[c.n >= min_events // 4].sort_values("n", ascending=False)
     c["block"] = (c.la // spacing).astype(str) + "_" + (c.lo // spacing).astype(str)
     return c.drop_duplicates("block").head(n).reset_index(drop=True)
 
 
 def daily_counts(events: pd.DataFrame, la: int, lo: int, days: pd.DatetimeIndex) -> pd.Series:
+    """Daily report counts for one grid cell."""
     e = events[(np.floor(events.lat) == la) & (np.floor(events.lon) == lo)]
     return e.groupby(e.start.dt.normalize()).size().reindex(days, fill_value=0).astype(float)
 
@@ -103,12 +129,17 @@ def weather_features(w: pd.DataFrame) -> pd.DataFrame:
 
 
 def fetch_cell(lat: float, lon: float, path) -> pd.DataFrame:
+    """Load the weather history of one location, using the cache."""
     if path.exists():
         return pd.read_parquet(path)
     base = dict(latitude=lat, longitude=lon, start_date=FIRST, end_date=LAST)
     for attempt in range(6):
-        a = requests.get("https://archive-api.open-meteo.com/v1/archive", params={**base, "daily": "precipitation_sum"}, timeout=90)
-        b = requests.get("https://flood-api.open-meteo.com/v1/flood", params={**base, "daily": "river_discharge"}, timeout=90)
+        a = requests.get(
+            "https://archive-api.open-meteo.com/v1/archive", params={**base, "daily": "precipitation_sum"}, timeout=90
+        )
+        b = requests.get(
+            "https://flood-api.open-meteo.com/v1/flood", params={**base, "daily": "river_discharge"}, timeout=90
+        )
         if a.status_code == 200 and b.status_code == 200:
             break
         if 429 in (a.status_code, b.status_code):
@@ -116,8 +147,10 @@ def fetch_cell(lat: float, lon: float, path) -> pd.DataFrame:
         time.sleep(5 * (attempt + 1))
     a.raise_for_status()
     b.raise_for_status()
-    w = pd.DataFrame({"rain": a.json()["daily"]["precipitation_sum"], "discharge": b.json()["daily"]["river_discharge"]},
-                     index=pd.to_datetime(a.json()["daily"]["time"]))
+    w = pd.DataFrame(
+        {"rain": a.json()["daily"]["precipitation_sum"], "discharge": b.json()["daily"]["river_discharge"]},
+        index=pd.to_datetime(a.json()["daily"]["time"]),
+    )
     w["rain"] = pd.to_numeric(w["rain"]).fillna(0.0)
     w["discharge"] = pd.to_numeric(w["discharge"])
     w.to_parquet(path)
@@ -125,12 +158,17 @@ def fetch_cell(lat: float, lon: float, path) -> pd.DataFrame:
 
 
 def load_imerg(cells: pd.DataFrame) -> pd.DataFrame:
+    """Load saved IMERG rain for each location."""
     files = sorted((DATA / "imerg").glob("*.npy"))
-    return pd.DataFrame(np.array([np.load(f) for f in files]), index=pd.to_datetime([f.stem for f in files]),
-                        columns=[(c.la + 0.5, c.lo + 0.5) for c in cells.itertuples()]).sort_index()
+    return pd.DataFrame(
+        np.array([np.load(f) for f in files]),
+        index=pd.to_datetime([f.stem for f in files]),
+        columns=[(c.la + 0.5, c.lo + 0.5) for c in cells.itertuples()],
+    ).sort_index()
 
 
 def build_table(events: pd.DataFrame, cells: pd.DataFrame) -> pd.DataFrame:
+    """Build the location-day table for all locations."""
     CACHE.mkdir(exist_ok=True)
     frames = []
     imerg = load_imerg(cells)
@@ -154,6 +192,7 @@ def build_table(events: pd.DataFrame, cells: pd.DataFrame) -> pd.DataFrame:
 
 
 def load_sets():
+    """Load events and split the table by time into train, validation and test."""
     events = pd.read_parquet(DATA / "groundsource_region.parquet")
     cells = choose_cells(events)
     df = build_table(events, cells)
@@ -171,8 +210,10 @@ def with_real_forecasts(d: pd.DataFrame) -> pd.DataFrame:
 
 def live_row(rain: pd.Series, discharge: pd.Series, today: pd.Timestamp) -> pd.Series:
     """Feature row at the end of today. Only the forecast features read rain after today."""
-    w = pd.concat([rain.reindex(discharge.index).fillna(0.0).rename("rain"), discharge.rename("discharge")], axis=1).loc[:today]
-    ahead = rain.loc[today + pd.Timedelta(days=1):today + pd.Timedelta(days=HORIZON)]
+    w = pd.concat(
+        [rain.reindex(discharge.index).fillna(0.0).rename("rain"), discharge.rename("discharge")], axis=1
+    ).loc[:today]
+    ahead = rain.loc[today + pd.Timedelta(days=1) : today + pd.Timedelta(days=HORIZON)]
     if len(ahead) < HORIZON:
         raise ValueError("forecast does not reach 3 days ahead")
     f = weather_features(w).join(forecast_features(w, pd.Series({today: float(ahead.sum())})))
@@ -183,19 +224,34 @@ def live_features(lat: float, lon: float, imerg: pd.Series) -> pd.Series:
     """Newest feature row for one location: reanalysis history, recent forecast-model rain and a real 3-day forecast."""
     today = pd.Timestamp(pd.Timestamp.now(tz="UTC").date())
     start, end = str((today - pd.Timedelta(days=420)).date()), str(today.date())
-    old = requests.get("https://archive-api.open-meteo.com/v1/archive", timeout=60, params=dict(
-        latitude=lat, longitude=lon, daily="precipitation_sum", start_date=start, end_date=end))
-    new = requests.get("https://api.open-meteo.com/v1/forecast", timeout=60, params=dict(
-        latitude=lat, longitude=lon, daily="precipitation_sum", past_days=10, forecast_days=HORIZON + 1))
-    q = requests.get("https://flood-api.open-meteo.com/v1/flood", timeout=60, params=dict(
-        latitude=lat, longitude=lon, daily="river_discharge", start_date=start, end_date=end))
+    old = requests.get(
+        "https://archive-api.open-meteo.com/v1/archive",
+        timeout=60,
+        params=dict(latitude=lat, longitude=lon, daily="precipitation_sum", start_date=start, end_date=end),
+    )
+    new = requests.get(
+        "https://api.open-meteo.com/v1/forecast",
+        timeout=60,
+        params=dict(latitude=lat, longitude=lon, daily="precipitation_sum", past_days=10, forecast_days=HORIZON + 1),
+    )
+    q = requests.get(
+        "https://flood-api.open-meteo.com/v1/flood",
+        timeout=60,
+        params=dict(latitude=lat, longitude=lon, daily="river_discharge", start_date=start, end_date=end),
+    )
     for r in (old, new, q):
         r.raise_for_status()
 
     def series(r, key):
-        return pd.Series(pd.to_numeric(pd.Series(r.json()["daily"][key])).to_numpy(), index=pd.to_datetime(r.json()["daily"]["time"]))
+        return pd.Series(
+            pd.to_numeric(pd.Series(r.json()["daily"][key])).to_numpy(), index=pd.to_datetime(r.json()["daily"]["time"])
+        )
 
-    row = live_row(series(new, "precipitation_sum").combine_first(series(old, "precipitation_sum")).fillna(0.0), series(q, "river_discharge"), today)
+    row = live_row(
+        series(new, "precipitation_sum").combine_first(series(old, "precipitation_sum")).fillna(0.0),
+        series(q, "river_discharge"),
+        today,
+    )
     sat = imerg_features(imerg.reindex(pd.date_range(imerg.index.min(), today)))
     return pd.concat([row, sat.loc[today]])
 
@@ -212,7 +268,7 @@ def gdacs_label(rows: pd.DataFrame, g: pd.DataFrame, horizon: int = HORIZON, km:
     out = np.zeros(len(rows), dtype=int)
     starts = g.start.dt.tz_localize(None).dt.normalize()
     for (lat, lon), part in rows.groupby(["lat", "lon"]):
-        near = _dist_km(lat, lon, g.lat.to_numpy(float), g.lon.to_numpy(float)) <= km
+        near = dist_km(lat, lon, g.lat.to_numpy(float), g.lon.to_numpy(float)) <= km
         days = pd.DatetimeIndex(starts[near].unique())
         hit = pd.Series(0, index=pd.date_range(part.date.min(), part.date.max() + pd.Timedelta(days=horizon)))
         hit.loc[hit.index.intersection(days)] = 1
@@ -222,28 +278,56 @@ def gdacs_label(rows: pd.DataFrame, g: pd.DataFrame, horizon: int = HORIZON, km:
 
 
 def run() -> dict:
+    """Train, compare and save the flood models."""
     cells, df, tr, va, te_all = load_sets()
     te = with_real_forecasts(te_all)  # the test uses forecasts as issued, never later actual rain
     rate = tr.assign(m=tr.date.dt.month).groupby(["lat", "lon", "m"]).y.mean().rename("r").reset_index()
 
     def base(d):
-        return d.assign(m=d.date.dt.month).merge(rate, how="left", on=["lat", "lon", "m"]).r.fillna(tr.y.mean()).to_numpy()
+        return (
+            d.assign(m=d.date.dt.month).merge(rate, how="left", on=["lat", "lon", "m"]).r.fillna(tr.y.mean()).to_numpy()
+        )
 
     def X(d, cols):
         return d[cols].to_numpy(np.float32)
 
     ys = [d.y.astype(int).to_numpy() for d in (tr, va, te)]
     gdacs = pd.read_parquet(DATA / "gdacs_floods.parquet")
-    wide = ((ys[0] == 1) | (gdacs_label(tr, gdacs) == 1)).astype(int)  # training only: selection, calibration and test stay on the news label
-    res = compare_models(X(tr, MODEL_FEATURES), wide, X(va, MODEL_FEATURES), ys[1], X(te, MODEL_FEATURES), ys[2], base(va), base(te), MODEL_FEATURES,
-                         xgb_params=tuned("flood"))
+    wide = ((ys[0] == 1) | (gdacs_label(tr, gdacs) == 1)).astype(
+        int
+    )  # training only: selection, calibration and test stay on the news label
+    res = compare_models(
+        X(tr, MODEL_FEATURES),
+        wide,
+        X(va, MODEL_FEATURES),
+        ys[1],
+        X(te, MODEL_FEATURES),
+        ys[2],
+        base(va),
+        base(te),
+        MODEL_FEATURES,
+        xgb_params=tuned("flood"),
+    )
     no_fc = LIVE_FEATURES + RATIO_FEATURES
-    plain = compare_models(X(tr, no_fc), wide, X(va, no_fc), ys[1], X(te, no_fc), ys[2], base(va), base(te), no_fc, xgb_params=tuned("flood"))
+    plain = compare_models(
+        X(tr, no_fc),
+        wide,
+        X(va, no_fc),
+        ys[1],
+        X(te, no_fc),
+        ys[2],
+        base(va),
+        base(te),
+        no_fc,
+        xgb_params=tuned("flood"),
+    )
     actual = te_all.loc[te.index]
     xgb = res["_fitted"]["XGBoost"]
     cal = Platt().fit(xgb.predict_proba(X(va, MODEL_FEATURES))[:, 1], ys[1])
     res["risk_levels"] = risk_cuts(ys[1], cal(xgb.predict_proba(X(va, MODEL_FEATURES))[:, 1]))
-    res["actual_rain_test_pr_auc"] = float(average_precision_score(actual.y, xgb.predict_proba(X(actual, MODEL_FEATURES))[:, 1]))
+    res["actual_rain_test_pr_auc"] = float(
+        average_precision_score(actual.y, xgb.predict_proba(X(actual, MODEL_FEATURES))[:, 1])
+    )
     res["no_forecast_test_pr_auc"] = plain["models"][plain["winner"]]["test"]["pr_auc"]
 
     def score_day(f, lat, lon):
@@ -253,18 +337,27 @@ def run() -> dict:
     sat = satellite.sync("imerg_events", spots, "2025-04-01")
 
     def build(w, fc, lat, lon):
-        return weather_features(w).join(forecast_features(w, fc)).join(imerg_features(sat[(np.floor(lat) + 0.5, np.floor(lon) + 0.5)]))
+        return (
+            weather_features(w)
+            .join(forecast_features(w, fc))
+            .join(imerg_features(sat[(np.floor(lat) + 0.5, np.floor(lon) + 0.5)]))
+        )
 
     res["replays"] = flood_events(score_day, build, real_forecast, warned)
     res["current_risk"] = score_current(cells, xgb, cal)
     res["scored_at"] = pd.Timestamp.now(tz="UTC").isoformat(timespec="seconds")
-    res.update(hazard="flood", unit="location-day", label="Flood reports surge in the next 3 days",
-               baseline_name="Location and month historical rate", locations=int(df.groupby(["lat", "lon"]).ngroups),
-               sets={"train": int(len(tr)), "validation": int(len(va)), "test": int(len(te))},
-               periods={"train": "2016 to 2021", "validation": "2022 to 2023", "test": "2024 to January 2026"},
-               forecast_note="Training and validation use reanalysis rain for the next 3 days. Test uses forecasts as issued.",
-               note="Labels come from news reports, so a surge means more reported flooding, not a measured river level. "
-                    "Quiet or poorly covered places are under-represented.")
+    res.update(
+        hazard="flood",
+        unit="location-day",
+        label="Flood reports surge in the next 3 days",
+        baseline_name="Location and month historical rate",
+        locations=int(df.groupby(["lat", "lon"]).ngroups),
+        sets={"train": len(tr), "validation": len(va), "test": len(te)},
+        periods={"train": "2016 to 2021", "validation": "2022 to 2023", "test": "2024 to January 2026"},
+        forecast_note="Training and validation use reanalysis rain for the next 3 days. Test uses forecasts as issued.",
+        note="Labels come from news reports, so a surge means more reported flooding, not a measured river level. "
+        "Quiet or poorly covered places are under-represented.",
+    )
     label = RESULTS / "label_check.json"
     if label.exists():
         res["label_check"] = json.loads(label.read_text())
@@ -274,6 +367,7 @@ def run() -> dict:
 
 
 def score_current(cells: pd.DataFrame, xgb, cal) -> list[dict]:
+    """Score today for every location."""
     current = []
     imerg = satellite.sync("imerg", cells, str((pd.Timestamp.now() - pd.Timedelta(days=30)).date()))
     for c in cells.itertuples():
@@ -284,8 +378,15 @@ def score_current(cells: pd.DataFrame, xgb, cal) -> list[dict]:
             log(f"  Flood live score skipped at {lat}, {lon}: {type(exc).__name__}")
             continue
         row = np.array([[lat if k == "lat" else lon if k == "lon" else f[k] for k in MODEL_FEATURES]], dtype=np.float32)
-        current.append({"lat": lat, "lon": lon, "p": round(float(cal(xgb.predict_proba(row)[:, 1])[0]), 4),
-                        "rain_7_mm": round(float(f["rain_7"]), 1), "next3_mm": round(float(f["next3_rain"]), 1)})
+        current.append(
+            {
+                "lat": lat,
+                "lon": lon,
+                "p": round(float(cal(xgb.predict_proba(row)[:, 1])[0]), 4),
+                "rain_7_mm": round(float(f["rain_7"]), 1),
+                "next3_mm": round(float(f["next3_rain"]), 1),
+            }
+        )
     return current
 
 

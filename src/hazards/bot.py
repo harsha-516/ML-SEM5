@@ -1,11 +1,12 @@
 """Telegram bot: risk replies, subscriptions and logged alerts. Run with python -m hazards.bot."""
+
 from __future__ import annotations
 
 import csv
 import json
 import sqlite3
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from functools import lru_cache
 from pathlib import Path
 
@@ -30,41 +31,83 @@ TYPHOON_10MIN_KT = 56  # 64 kt on the 1-minute scale
 UNAVAILABLE = {"unavailable": True}
 NORTH_INDIAN_EAST = 100  # IBTrACS is the only live source west of here
 REGIONS = {
-    "india": (6, 36, 68, 98), "bangladesh": (20, 27, 88, 93), "nepal": (26, 31, 80, 89), "pakistan": (23, 37, 60, 77), "srilanka": (5, 10, 79, 83),
-    "myanmar": (9, 29, 92, 102), "thailand": (5, 21, 97, 106), "vietnam": (8, 24, 102, 110), "philippines": (4, 21, 116, 127), "indonesia": (-11, 6, 95, 141),
-    "malaysia": (0, 8, 99, 120), "china": (18, 54, 73, 135), "japan": (24, 46, 122, 146), "taiwan": (21, 26, 119, 123), "bayofbengal": (5, 23, 80, 95),
-    "westpacific": (0, 40, 120, 180), "asia": (-15, 60, 60, 180),
+    "india": (6, 36, 68, 98),
+    "bangladesh": (20, 27, 88, 93),
+    "nepal": (26, 31, 80, 89),
+    "pakistan": (23, 37, 60, 77),
+    "srilanka": (5, 10, 79, 83),
+    "myanmar": (9, 29, 92, 102),
+    "thailand": (5, 21, 97, 106),
+    "vietnam": (8, 24, 102, 110),
+    "philippines": (4, 21, 116, 127),
+    "indonesia": (-11, 6, 95, 141),
+    "malaysia": (0, 8, 99, 120),
+    "china": (18, 54, 73, 135),
+    "japan": (24, 46, 122, 146),
+    "taiwan": (21, 26, 119, 123),
+    "bayofbengal": (5, 23, 80, 95),
+    "westpacific": (0, 40, 120, 180),
+    "asia": (-15, 60, 60, 180),
 }
-COUNTRIES = {"srilanka": "Sri Lanka", **{r: r.title() for r in ("india", "bangladesh", "nepal", "pakistan", "myanmar", "thailand", "vietnam", "philippines", "indonesia", "malaysia", "china", "japan", "taiwan")}}
+COUNTRIES = {
+    "srilanka": "Sri Lanka",
+    **{
+        r: r.title()
+        for r in (
+            "india",
+            "bangladesh",
+            "nepal",
+            "pakistan",
+            "myanmar",
+            "thailand",
+            "vietnam",
+            "philippines",
+            "indonesia",
+            "malaysia",
+            "china",
+            "japan",
+            "taiwan",
+        )
+    },
+}
 NAMES = {"srilanka": "Sri Lanka", "bayofbengal": "Bay of Bengal", "westpacific": "West Pacific"}
-SAFETY = {"cyclone": "Secure loose items and keep away from the coast if told to.", "flood": "Avoid low ground and river banks.",
-          "earthquake": "Know your safe spots and keep an emergency kit ready."}
+SAFETY = {
+    "cyclone": "Secure loose items and keep away from the coast if told to.",
+    "flood": "Avoid low ground and river banks.",
+    "earthquake": "Know your safe spots and keep an emergency kit ready.",
+}
 NOTICE = "This alert is model-based. Follow official agency evacuation instructions."
-HELP = ("Commands\n/risk <hazard> <region>\n/subscribe <hazard> <region>\n/unsubscribe <hazard> <region>\n/help\n\n"
-        f"Hazards: {', '.join(HAZARDS)}\nRegions: {', '.join(REGIONS)}\n\n"
-        "Earthquake output is a risk level for a region and 30-day window, never a prediction of when an earthquake will occur. Risk levels are not comparable across hazards.\n\nPlace names: GeoNames, CC BY 4.0.")
+HELP = (
+    "Commands\n/risk <hazard> <region>\n/subscribe <hazard> <region>\n/unsubscribe <hazard> <region>\n/help\n\n"
+    f"Hazards: {', '.join(HAZARDS)}\nRegions: {', '.join(REGIONS)}\n\n"
+    "Earthquake output is a risk level for a region and 30-day window, never a prediction of when an earthquake will occur. Risk levels are not comparable across hazards.\n\nPlace names: GeoNames, CC BY 4.0."
+)
 
 
 def fresh(stamp: str | None, hours: float, now: datetime) -> bool:
+    """True when a timestamp is newer than the given number of hours."""
     try:
         t = datetime.fromisoformat(stamp.replace("Z", "+00:00"))
     except (AttributeError, ValueError):
         return False
-    t = t if t.tzinfo else t.replace(tzinfo=timezone.utc)
+    t = t if t.tzinfo else t.replace(tzinfo=UTC)
     return (now - t).total_seconds() <= hours * 3600
 
 
 def level(p: float, cuts: dict) -> str:
+    """Turn a chance into Low, Medium or High using the validation cut-offs."""
     return "High" if p >= cuts["high"] else "Medium" if p >= cuts["medium"] else "Low"
 
 
 def inside(lat: float, lon: float, region: str) -> bool:
+    """True when a point lies in the region box."""
     a, b, c, d = REGIONS[region]
     return a <= lat <= b and c <= lon <= d
 
 
 @lru_cache(maxsize=1)
 def load_places() -> tuple[list[dict], np.ndarray]:
+    """Load the town table and its coordinates once."""
     with open(PLACES, encoding="utf-8", newline="") as f:
         rows = list(csv.DictReader(f))
     return rows, np.radians([[float(r["lat"]), float(r["lon"])] for r in rows])
@@ -106,16 +149,25 @@ def place(lat: float, lon: float) -> str:
 
 
 def read_results(hazard: str, base: Path = RESULTS) -> dict:
+    """Read one hazard results file."""
     return json.loads((base / f"{hazard}.json").read_text())
 
 
 def map_status(hazard: str, region: str, r: dict) -> dict | None:
     """Highest chance in a region from a flood or earthquake map."""
-    rows = [x for x in r["current_risk"] if inside(x["lat"], x["lon"], region) and in_country(x["lat"], x["lon"], region)]
+    rows = [
+        x for x in r["current_risk"] if inside(x["lat"], x["lon"], region) and in_country(x["lat"], x["lon"], region)
+    ]
     if not rows:
         return None
     top = max(rows, key=lambda x: x["p"])
-    return {"level": level(top["p"], r["risk_levels"]), "p": top["p"], "lat": top["lat"], "lon": top["lon"], "issued": r.get("scored_at", "")[:10]}
+    return {
+        "level": level(top["p"], r["risk_levels"]),
+        "p": top["p"],
+        "lat": top["lat"],
+        "lon": top["lon"],
+        "issued": r.get("scored_at", "")[:10],
+    }
 
 
 def storm_status(region: str, storms: list[dict], cuts: dict) -> dict | None:
@@ -127,15 +179,31 @@ def storm_status(region: str, storms: list[dict], cuts: dict) -> dict | None:
     base = {"lat": top["lat"], "lon": top["lon"], "name": top["name"]}
     if not top.get("model"):
         high = top.get("wind_kt", 0) >= TYPHOON_10MIN_KT
-        return {**base, "level": "High" if high else "Medium", "p": None, "issued": top.get("issued", ""), "scored": False, "wind": top.get("wind_kt", 0)}
+        return {
+            **base,
+            "level": "High" if high else "Medium",
+            "p": None,
+            "issued": top.get("issued", ""),
+            "scored": False,
+            "wind": top.get("wind_kt", 0),
+        }
     m = top["model"]
     p = m["reach_64_chance"]
-    return {**base, "level": "High" if p is None else level(p, cuts), "p": p, "issued": m["from"], "scored": True, "wind": m["wind_now_1min"], "low": m["low"], "high": m["high"]}
+    return {
+        **base,
+        "level": "High" if p is None else level(p, cuts),
+        "p": p,
+        "issued": m["from"],
+        "scored": True,
+        "wind": m["wind_now_1min"],
+        "low": m["low"],
+        "high": m["high"],
+    }
 
 
 def status(hazard: str, region: str, now: datetime | None = None) -> dict | None:
     """Current state of a region. Failed or old data returns UNAVAILABLE, never a quiet answer."""
-    now = now or datetime.now(timezone.utc)
+    now = now or datetime.now(UTC)
     try:
         r = read_results(hazard)
         if hazard == "cyclone":
@@ -153,28 +221,42 @@ def status(hazard: str, region: str, now: datetime | None = None) -> dict | None
 
 
 def text_for(hazard: str, region: str, s: dict | None) -> str:
+    """Write the message for one hazard and region, with the safety wording."""
     zone = NAMES.get(region, region.title())
     if s is not None and s.get("unavailable"):
         return f"{hazard.title()}, {zone}: data is unavailable or out of date, so risk is unknown. This does not mean there is no risk. Check official sources."
     if s is None:
-        return f"{hazard.title()}, {zone}: no active storm." if hazard == "cyclone" else f"{hazard.title()}, {zone}: this region has no scored location."
+        return (
+            f"{hazard.title()}, {zone}: no active storm."
+            if hazard == "cyclone"
+            else f"{hazard.title()}, {zone}: this region has no scored location."
+        )
     if hazard == "cyclone" and not s["scored"]:
         detail = f"Storm {s['name']}, {place(s['lat'], s['lon'])}, {s['wind']:.0f} kt from the agency feed. The model could not score it."
     elif hazard == "cyclone":
         chance = "already at typhoon force" if s["p"] is None else f"{s['p']:.0%} chance of reaching 64 kt in 24 hours"
         detail = f"Storm {s['name']}, {place(s['lat'], s['lon'])}, {s['wind']:.0f} kt now, {chance}. 24 hour wind range {s['low']:.0f} to {s['high']:.0f} kt."
     elif hazard == "flood":
-        detail = f"Highest area {place(s['lat'], s['lon'])}: {s['p']:.0%} chance of a flood report surge in the next 3 days."
+        detail = (
+            f"Highest area {place(s['lat'], s['lon'])}: {s['p']:.0%} chance of a flood report surge in the next 3 days."
+        )
     else:
         detail = f"Highest area, a square roughly 100 km wide centred {place(s['lat'], s['lon'])}: {s['p']:.0%} chance of M5.0+ in the 30-day window. This is a risk level for a region and time window, never a predicted time."
     return f"{hazard.title()} risk, {zone}: {s['level']}\nPrediction time: {s['issued']}\n{detail}\n{SAFETY[hazard]}\n{NOTICE}"
 
 
 def connect(path: Path = DB) -> sqlite3.Connection:
+    """Open the bot database and create its tables if needed."""
     con = sqlite3.connect(path)
-    con.execute("create table if not exists subscribers (chat_id integer, hazard text, region text, primary key (chat_id, hazard, region))")
-    con.execute("create table if not exists alert_state (chat_id integer, hazard text, region text, level text, event text, primary key (chat_id, hazard, region))")
-    con.execute("create table if not exists alerts (id integer primary key, chat_id integer, hazard text, region text, level text, issued text, message text, created text, sent integer default 0)")
+    con.execute(
+        "create table if not exists subscribers (chat_id integer, hazard text, region text, primary key (chat_id, hazard, region))"
+    )
+    con.execute(
+        "create table if not exists alert_state (chat_id integer, hazard text, region text, level text, event text, primary key (chat_id, hazard, region))"
+    )
+    con.execute(
+        "create table if not exists alerts (id integer primary key, chat_id integer, hazard text, region text, level text, issued text, message text, created text, sent integer default 0)"
+    )
     return con
 
 
@@ -188,6 +270,7 @@ def should_send(prev: tuple | None, last_sent: str | None, lvl: str, event: str,
 
 
 def queue_alerts(con: sqlite3.Connection, now: datetime, look=status) -> int:
+    """Store a new alert for each subscriber whose status needs one. Returns how many."""
     n = 0
     for chat, hazard, region in con.execute("select chat_id, hazard, region from subscribers").fetchall():
         s = look(hazard, region)
@@ -197,11 +280,17 @@ def queue_alerts(con: sqlite3.Connection, now: datetime, look=status) -> int:
         if s is None and hazard != "cyclone":
             continue
         lvl, event = ("Low", "") if s is None else (s["level"], s.get("name", ""))
-        prev = con.execute("select level, event from alert_state where chat_id = ? and hazard = ? and region = ?", key).fetchone()
-        last = con.execute("select created from alerts where chat_id = ? and hazard = ? and region = ? order by id desc limit 1", key).fetchone()
+        prev = con.execute(
+            "select level, event from alert_state where chat_id = ? and hazard = ? and region = ?", key
+        ).fetchone()
+        last = con.execute(
+            "select created from alerts where chat_id = ? and hazard = ? and region = ? order by id desc limit 1", key
+        ).fetchone()
         if should_send(prev, last[0] if last else None, lvl, event, now):
-            con.execute("insert into alerts (chat_id, hazard, region, level, issued, message, created) values (?,?,?,?,?,?,?)",
-                        (chat, hazard, region, lvl, s["issued"], text_for(hazard, region, s), now.isoformat()))
+            con.execute(
+                "insert into alerts (chat_id, hazard, region, level, issued, message, created) values (?,?,?,?,?,?,?)",
+                (chat, hazard, region, lvl, s["issued"], text_for(hazard, region, s), now.isoformat()),
+            )
             n += 1
         con.execute("insert or replace into alert_state values (?,?,?,?,?)", (*key, lvl, event))
     con.commit()
@@ -209,6 +298,7 @@ def queue_alerts(con: sqlite3.Connection, now: datetime, look=status) -> int:
 
 
 def handle(con: sqlite3.Connection, chat: int, text: str, look=status) -> str:
+    """Answer one incoming command and return the reply text."""
     parts = text.strip().split()
     cmd = parts[0].split("@")[0].lower() if parts else ""
     if cmd in ("/start", "/help"):
@@ -245,6 +335,7 @@ class Telegram:
 
 
 def send_pending(con: sqlite3.Connection, bot: Telegram) -> None:
+    """Send stored alerts and mark each one as sent."""
     for i, chat, message in con.execute("select id, chat_id, message from alerts where sent = 0").fetchall():
         if bot.send(chat, message):
             con.execute("update alerts set sent = 1 where id = ?", (i,))
@@ -252,6 +343,7 @@ def send_pending(con: sqlite3.Connection, bot: Telegram) -> None:
 
 
 def main() -> None:
+    """Poll Telegram for commands and check for alerts on a schedule."""
     token = (dotenv_values(ROOT / ".env").get("TELEGRAM_BOT_TOKEN") or "").strip()
     bot, con, offset, checked = Telegram(token), connect(), 0, 0.0
     log("Telegram bot start")
@@ -264,7 +356,7 @@ def main() -> None:
                     bot.send(m["chat"]["id"], handle(con, m["chat"]["id"], m["text"]))
             if time.time() - checked > CHECK_S:
                 checked = time.time()
-                if queue_alerts(con, datetime.now(timezone.utc)):
+                if queue_alerts(con, datetime.now(UTC)):
                     log("Telegram alerts queued")
                 send_pending(con, bot)
         except (requests.RequestException, OSError, ValueError, KeyError) as exc:

@@ -1,6 +1,7 @@
 [project]
 name = "hazards"
 version = "0.1.0"
+description = "Tarang: flood, earthquake and cyclone risk models for South and East Asia, with a website and Telegram bot"
 requires-python = ">=3.12"
 dependencies = ["pandas", "numpy", "pyarrow", "scikit-learn", "xgboost", "imbalanced-learn", "requests", "python-dotenv", "xarray", "netCDF4", "h5py", "shap", "matplotlib", "defusedxml", "shapely", "cdsapi", "pillow", "pyshp", "torch", "joblib", "scipy"]
 [project.optional-dependencies]
@@ -12,3 +13,6 @@ build-backend = "setuptools.build_meta"
 where = ["src"]
 [tool.pytest.ini_options]
 pythonpath = ["src"]
+[tool.ruff]
+line-length = 120
+src = ["src"]

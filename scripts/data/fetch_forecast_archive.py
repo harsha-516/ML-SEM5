@@ -1,4 +1,5 @@
 """Download rain forecasts as issued 1, 2 and 3 days ahead, for an honest flood test."""
+
 import time
 
 import pandas as pd
@@ -19,9 +20,18 @@ for c in cells.itertuples():
     h = None
     for attempt in range(8):
         try:
-            r = requests.get("https://previous-runs-api.open-meteo.com/v1/forecast", timeout=120, params={
-                "latitude": c.la + 0.5, "longitude": c.lo + 0.5, "timezone": "GMT", "start_date": "2024-01-01", "end_date": "2026-01-31",
-                "hourly": "precipitation_previous_day1,precipitation_previous_day2,precipitation_previous_day3"})
+            r = requests.get(
+                "https://previous-runs-api.open-meteo.com/v1/forecast",
+                timeout=120,
+                params={
+                    "latitude": c.la + 0.5,
+                    "longitude": c.lo + 0.5,
+                    "timezone": "GMT",
+                    "start_date": "2024-01-01",
+                    "end_date": "2026-01-31",
+                    "hourly": "precipitation_previous_day1,precipitation_previous_day2,precipitation_previous_day3",
+                },
+            )
             if r.status_code == 200:
                 h = r.json()["hourly"]
                 break

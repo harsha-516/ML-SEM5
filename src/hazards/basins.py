@@ -1,4 +1,5 @@
 """Upstream river basins for each flood location, from HydroBASINS level 6, and catchment rain from the IMERG grid."""
+
 from __future__ import annotations
 
 from collections import defaultdict
@@ -9,9 +10,8 @@ import shapefile
 import shapely
 from shapely.geometry import box, shape
 
-from .common import DATA, log
+from .common import DATA, dist_km, log
 from .satellite import LAT0, LON0, load_grid
-from .typhoon import _dist_km
 
 FOLDER = DATA / "hydrobasins"
 MAX_KM = 1000  # rain further away takes longer to arrive than the features look back
@@ -39,6 +39,7 @@ def grid_points() -> tuple[np.ndarray, np.ndarray]:
 
 
 def load_basins() -> tuple[dict, dict]:
+    """Read the basin shapefiles. Returns basin shapes and the basin each one drains into."""
     geom, down = {}, {}
     for path in sorted(FOLDER.glob("*.shp")):
         with shapefile.Reader(str(path)) as r:
@@ -63,7 +64,11 @@ def masks(cells: pd.DataFrame) -> dict:
         here = box(c.lo, c.la, c.lo + 1, c.la + 1)
         hit = {ids[i] for i in tree.query(here) if geom[ids[i]].intersection(here).area > 0.1 * here.area * 0.2}
         lat, lon = c.la + 0.5, c.lo + 0.5
-        keep = [b for b in upstream(hit, down) if b in hit or _dist_km(lat, lon, geom[b].centroid.y, geom[b].centroid.x) <= MAX_KM]
+        keep = [
+            b
+            for b in upstream(hit, down)
+            if b in hit or dist_km(lat, lon, geom[b].centroid.y, geom[b].centroid.x) <= MAX_KM
+        ]
         if keep:
             area = shapely.union_all([geom[b] for b in keep])
             m = shapely.contains_xy(area, gx, gy)
@@ -94,5 +99,7 @@ def features(s: pd.Series, lag: int = LAG) -> pd.DataFrame:
     r = s.asfreq("D").shift(lag)
     f = pd.DataFrame({f"basin_{n}": r.rolling(n, min_periods=max(1, n - 2)).sum() for n in (3, 7, 14)})
     for n in (7, 14):
-        f[f"basin_{n}_ratio"] = f[f"basin_{n}"] / f[f"basin_{n}"].rolling(365, min_periods=180).quantile(0.95).shift(1).clip(lower=1)
+        f[f"basin_{n}_ratio"] = f[f"basin_{n}"] / f[f"basin_{n}"].rolling(365, min_periods=180).quantile(0.95).shift(
+            1
+        ).clip(lower=1)
     return f

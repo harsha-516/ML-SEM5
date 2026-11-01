@@ -1,3 +1,5 @@
+"""Tests: Best-track parser and typhoon label."""
+
 import pandas as pd
 
 from hazards.typhoon import build_table, parse_bst

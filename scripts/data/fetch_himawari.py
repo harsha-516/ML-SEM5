@@ -1,7 +1,8 @@
 """Himawari features for storm fixes, newest first, cached so a restart resumes.
 
-Usage: python scripts/fetch_himawari.py [hours] [first_date]. Defaults: 3 hours, back to 2016.
+Usage: python scripts/data/fetch_himawari.py [hours] [first_date]. Defaults: 3 hours, back to 2016.
 """
+
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -10,7 +11,8 @@ import numpy as np
 import pandas as pd
 import requests
 
-from hazards import cyclone, himawari as hw
+from hazards import cyclone
+from hazards import himawari as hw
 from hazards.common import DATA, log
 from hazards.typhoon import build_table
 
@@ -21,6 +23,7 @@ FIRST = sys.argv[2] if len(sys.argv) > 2 else "2016-01-01"
 
 
 def main() -> None:
+    """Download storm pictures and save cloud summaries."""
     tracks = cyclone.load_tracks([DATA / "ibtracs_NI.csv", DATA / "ibtracs_WP.csv"])
     d = build_table(tracks, first_year=1980, keep_strong=True)
     d = d[d.wind.notna() & (d.time >= FIRST) & ((d.lon - 140.7).abs() <= hw.MAX_DLON)][["storm", "time", "lat", "lon"]]
@@ -52,11 +55,13 @@ def main() -> None:
 
     with ThreadPoolExecutor(6) as pool:
         for b in range(0, len(times), 60):
-            for out in pool.map(one, times[b:b + 60]):
+            for out in pool.map(one, times[b : b + 60]):
                 rows.extend(out)
             save()
             n = min(b + 60, len(times))
-            log(f"  Himawari {n}/{len(times)} times, down to {pd.Timestamp(times[n - 1])}, {(time.time() - start) / 60:.0f} min")
+            log(
+                f"  Himawari {n}/{len(times)} times, down to {pd.Timestamp(times[n - 1])}, {(time.time() - start) / 60:.0f} min"
+            )
             if time.time() - start > HOURS * 3600:
                 log(f"Himawari fetch stopped at the {HOURS:g} hour limit")
                 break

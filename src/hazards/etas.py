@@ -5,6 +5,7 @@ Rate at time t and place x:
 f is a power-law spatial kernel with fixed tail q. u(x) is a background density, refined by stochastic declustering.
 Forecasts use known events only, so aftershock cascades inside a window are not simulated.
 """
+
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
@@ -34,6 +35,7 @@ class Params:
 
 
 def excess(m: np.ndarray) -> np.ndarray:
+    """Magnitude above the reference magnitude."""
     return m - M0
 
 
@@ -61,7 +63,9 @@ def distance2(a: np.ndarray, b: np.ndarray, c: np.ndarray, d: np.ndarray) -> np.
     return x * x + y * y
 
 
-def make_pairs(t: np.ndarray, lat: np.ndarray, lon: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+def make_pairs(
+    t: np.ndarray, lat: np.ndarray, lon: np.ndarray
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """Child, parent, days and squared km for each parent within the time and distance limits."""
     child, parent, gap, r2 = [], [], [], []
     start = 0
@@ -79,6 +83,7 @@ def make_pairs(t: np.ndarray, lat: np.ndarray, lon: np.ndarray) -> tuple[np.ndar
 
 
 def cell_area(lat: np.ndarray) -> np.ndarray:
+    """Area of a one degree cell at this latitude, in square kilometres."""
     return (np.pi * EARTH / 180) ** 2 * np.cos(np.radians(lat))
 
 
@@ -90,6 +95,7 @@ def density(u: np.ndarray, lat: np.ndarray, lon: np.ndarray) -> np.ndarray:
 
 
 def _rates(par: Params, u, t, lat, lon, m, pairs) -> tuple[np.ndarray, np.ndarray]:
+    """Background and triggered rates at each event."""
     child, parent, gap, r2 = pairs
     e = excess(m)
     d2 = (par.d * 10 ** (0.5 * e)) ** 2
@@ -99,13 +105,17 @@ def _rates(par: Params, u, t, lat, lon, m, pairs) -> tuple[np.ndarray, np.ndarra
 
 
 def log_likelihood(par: Params, u, t, lat, lon, m, pairs, t0: float, t1: float) -> float:
+    """ETAS log-likelihood of the events inside the fitting period."""
     back, trig = _rates(par, u, t, lat, lon, m, pairs)
     use = t >= t0
     e = excess(m)
     d2 = (par.d * 10 ** (0.5 * e)) ** 2
     span = np.clip(t1 - t, 0, MAX_DAYS)
     lost = np.where(t < t0, omori_integral(np.clip(t0 - t, 0, MAX_DAYS), par.c, par.p), 0.0)
-    total = par.mu * (t1 - t0) + (par.k * np.exp(par.alpha * e) * (omori_integral(span, par.c, par.p) - lost) * within(MAX_KM, d2)).sum()
+    total = (
+        par.mu * (t1 - t0)
+        + (par.k * np.exp(par.alpha * e) * (omori_integral(span, par.c, par.p) - lost) * within(MAX_KM, d2)).sum()
+    )
     return float(np.log(back[use] + trig[use] + 1e-300).sum() - total)
 
 
@@ -121,6 +131,7 @@ def smooth(counts: np.ndarray) -> np.ndarray:
 
 
 def background(lat, lon, weight, shape) -> np.ndarray:
+    """Grid the background rate from weighted events."""
     y = np.clip((lat - LAT0).astype(int), 0, shape[0] - 1)
     x = np.clip((lon - LON0).astype(int), 0, shape[1] - 1)
     c = np.zeros(shape)
@@ -154,8 +165,14 @@ def fit(cat: pd.DataFrame, origin: pd.Timestamp, first: pd.Timestamp, last: pd.T
             log(f"  ETAS likelihood call {steps[0]}: {-v:,.1f}")
         return v if np.isfinite(v) else 1e12
 
-    bounds = [(np.log(1e-3), np.log(50)), (np.log(1e-5), np.log(1)), (np.log(0.2), np.log(3)), (np.log(1e-3), np.log(2)),
-              (np.log(0.8), np.log(2)), (np.log(0.5), np.log(100))]
+    bounds = [
+        (np.log(1e-3), np.log(50)),
+        (np.log(1e-5), np.log(1)),
+        (np.log(0.2), np.log(3)),
+        (np.log(1e-3), np.log(2)),
+        (np.log(0.8), np.log(2)),
+        (np.log(0.5), np.log(100)),
+    ]
     for n in range(rounds):
         r = minimize(loss, x0, method="L-BFGS-B", bounds=bounds, options={"maxiter": 60, "maxfun": 600})
         x0 = r.x
@@ -163,8 +180,16 @@ def fit(cat: pd.DataFrame, origin: pd.Timestamp, first: pd.Timestamp, last: pd.T
         back, trig = _rates(par, u, t, lat, lon, m, pairs)
         share = back / (back + trig + 1e-300)
         u = background(lat[use], lon[use], share[use], shape)
-        log(f"  ETAS round {n + 1}: {asdict(par)}, log-likelihood {-r.fun:,.1f}, background share {share[use].mean():.3f}")
-    return {"params": asdict(par), "log_likelihood": float(-r.fun), "events": int(use.sum()), "background_share": float(share[use].mean()), "_u": u}
+        log(
+            f"  ETAS round {n + 1}: {asdict(par)}, log-likelihood {-r.fun:,.1f}, background share {share[use].mean():.3f}"
+        )
+    return {
+        "params": asdict(par),
+        "log_likelihood": float(-r.fun),
+        "events": int(use.sum()),
+        "background_share": float(share[use].mean()),
+        "_u": u,
+    }
 
 
 def grid_forecast(par: Params, u, t, lat, lon, m, start: float, days: float, cell_lat, cell_lon) -> np.ndarray:
@@ -177,7 +202,11 @@ def grid_forecast(par: Params, u, t, lat, lon, m, start: float, days: float, cel
         return out
     e = excess(m)
     d2 = (par.d * 10 ** (0.5 * e)) ** 2
-    time_part = par.k * np.exp(par.alpha * e) * (omori_integral(start - t + days, par.c, par.p) - omori_integral(start - t, par.c, par.p))
+    time_part = (
+        par.k
+        * np.exp(par.alpha * e)
+        * (omori_integral(start - t + days, par.c, par.p) - omori_integral(start - t, par.c, par.p))
+    )
     radius = np.sqrt(area / np.pi)
     for i in range(len(t)):
         r2 = distance2(lat[i], lon[i], cell_lat, cell_lon)
@@ -189,7 +218,9 @@ def grid_forecast(par: Params, u, t, lat, lon, m, start: float, days: float, cel
     return out
 
 
-def table_forecast(result: dict, cat: pd.DataFrame, table: pd.DataFrame, origin: pd.Timestamp, window_days: int) -> np.ndarray:
+def table_forecast(
+    result: dict, cat: pd.DataFrame, table: pd.DataFrame, origin: pd.Timestamp, window_days: int
+) -> np.ndarray:
     """Chance of at least one M5+ for every row of an earthquake table, aligned with its rows."""
     par, u = Params(**result["params"]), result["_u"]
     e = cat[cat.mag >= M0].sort_values("time")
@@ -201,7 +232,9 @@ def table_forecast(result: dict, cat: pd.DataFrame, table: pd.DataFrame, origin:
     ids = np.unique(w)
     for n, k in enumerate(ids, start=1):
         row = w == k
-        out[row] = 1 - np.exp(-grid_forecast(par, u, t, lat, lon, m, float(k * window_days), window_days, la[row], lo[row]))
+        out[row] = 1 - np.exp(
+            -grid_forecast(par, u, t, lat, lon, m, float(k * window_days), window_days, la[row], lo[row])
+        )
         if n % 20 == 0:
             log(f"  ETAS forecast window {n}/{len(ids)}")
     return out
@@ -233,7 +266,16 @@ def consistency(y: np.ndarray, proba: np.ndarray, cell: np.ndarray, sims: int = 
     total, n = float(rate.sum()), float(seen.sum())
     delta1, delta2 = 1 - poisson.cdf(n - 1, total), poisson.cdf(n, total)
     like = _poisson_likelihood_test(rate, seen, num_simulations=sims, seed=42, use_observed_counts=False, verbose=False)
-    spatial = _poisson_likelihood_test(rate, seen, num_simulations=sims, seed=42, use_observed_counts=True, normalize_likelihood=True, verbose=False)
-    return {"expected": total, "observed": n, "n_test_low": float(delta2), "n_test_high": float(delta1),
-            "l_test_quantile": float(like[0]), "l_test_observed": float(like[1]),
-            "s_test_quantile": float(spatial[0]), "s_test_observed": float(spatial[1])}
+    spatial = _poisson_likelihood_test(
+        rate, seen, num_simulations=sims, seed=42, use_observed_counts=True, normalize_likelihood=True, verbose=False
+    )
+    return {
+        "expected": total,
+        "observed": n,
+        "n_test_low": float(delta2),
+        "n_test_high": float(delta1),
+        "l_test_quantile": float(like[0]),
+        "l_test_observed": float(like[1]),
+        "s_test_quantile": float(spatial[0]),
+        "s_test_observed": float(spatial[1]),
+    }

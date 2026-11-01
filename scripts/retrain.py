@@ -1,8 +1,9 @@
-"""Retrain one hazard, compare with the current version on the same test, and promote only if better.
+"""Retrain one hazard, compare with the current version on validation, and promote only if better.
 
 Usage: python scripts/retrain.py cyclone|flood|earthquake
 Run by hand. A worse or equal model is rolled back, including its saved model file.
 """
+
 import json
 import shutil
 import sys
@@ -17,17 +18,19 @@ RUN = {"cyclone": cyclone.run, "flood": flood.run, "earthquake": earthquake.run}
 
 
 def best(path: Path) -> float:
+    """Score of the winning model in a results file."""
     r = json.loads(path.read_text())
-    return r["models"][r["winner"]]["test"]["pr_auc"]
+    return r["models"][r["winner"]]["validation"]["pr_auc"]
 
 
 def main(hazard: str) -> None:
+    """Retrain one hazard and keep the old model if the new one is worse."""
     result, model = RESULTS / f"{hazard}.json", MODELS / f"{hazard}.joblib"
     keep = Path(tempfile.mkdtemp())
     shutil.copy(result, keep / result.name)
     shutil.copy(model, keep / model.name)
     old = best(result)
-    log(f"Retrain {hazard} start: current test PR-AUC {old:.4f}")
+    log(f"Retrain {hazard} start: current validation PR-AUC {old:.4f}")
     RUN[hazard]()
     new = best(result)
     if new > old:
