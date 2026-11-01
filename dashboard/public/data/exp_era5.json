@@ -2,44 +2,49 @@
  "table": [
   {
    "target": "Reach 64 kt",
-   "rows": 2397,
-   "without_val": "0.627",
-   "with_val": "0.675",
-   "without_test": "0.695",
-   "with_test": "0.722",
-   "kept": "Yes"
+   "rows": 5590,
+   "without_val": "0.714",
+   "with_val": "0.718",
+   "without_test": "0.689",
+   "with_test": "0.690",
+   "kept": "No"
   },
   {
    "target": "24 h wind",
-   "rows": 3365,
-   "without_val": "11.08 kt",
-   "with_val": "10.71 kt",
-   "without_test": "11.82 kt",
-   "with_test": "11.71 kt",
+   "rows": 7614,
+   "without_val": "10.40 kt",
+   "with_val": "10.33 kt",
+   "without_test": "11.23 kt",
+   "with_test": "11.04 kt",
    "kept": "Yes"
   },
   {
    "target": "Rapid intensification",
-   "rows": 3365,
-   "without_val": "0.254",
-   "with_val": "0.312",
-   "without_test": "0.418",
-   "with_test": "0.388",
-   "kept": "Yes"
+   "rows": 7614,
+   "without_val": "0.447",
+   "with_val": "0.460",
+   "without_test": "0.316",
+   "with_test": "0.334",
+   "kept": "No"
   }
  ],
  "years": {
   "train": [
-   2022,
-   2023,
-   2024
+   2017,
+   2018,
+   2019
   ],
   "validation": [
-   2025
+   2020,
+   2021
   ],
   "test": [
+   2022,
+   2023,
+   2024,
+   2025,
    2026
   ]
  },
- "note": "Same rows with and without. Train 2022 to 2024, validation 2025 to 2025, test 2026 to 2026. Kept only if validation improves by more than 2 standard deviations over 3 seeds. ERA5 arrives 5 or more days late, so this measures physical value and could not run live."
+ "note": "Same rows with and without. Train 2017 to 2019, validation 2020 to 2021, test 2022 to 2026. Kept only if validation improves by more than 2 standard deviations over 3 seeds. ERA5 arrives 5 or more days late, so this measures physical value and could not run live."
 }

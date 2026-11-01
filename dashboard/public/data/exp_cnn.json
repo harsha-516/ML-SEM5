@@ -1,0 +1,51 @@
+{
+ "table": [
+  {
+   "target": "Reach 64 kt",
+   "rows": 2270,
+   "plain_val": "0.578",
+   "summary_val": "0.731",
+   "cnn_val": "0.737",
+   "plain_test": "0.712",
+   "summary_test": "0.757",
+   "cnn_test": "0.755",
+   "kept": "No"
+  },
+  {
+   "target": "24 h wind",
+   "rows": 3199,
+   "plain_val": "10.77 kt",
+   "summary_val": "10.14 kt",
+   "cnn_val": "10.13 kt",
+   "plain_test": "11.83 kt",
+   "summary_test": "10.96 kt",
+   "cnn_test": "10.86 kt",
+   "kept": "No"
+  },
+  {
+   "target": "Rapid intensification",
+   "rows": 3199,
+   "plain_val": "0.333",
+   "summary_val": "0.361",
+   "cnn_val": "0.363",
+   "plain_test": "0.409",
+   "summary_test": "0.496",
+   "cnn_test": "0.455",
+   "kept": "No"
+  }
+ ],
+ "years": {
+  "train": [
+   2022,
+   2023,
+   2024
+  ],
+  "validation": [
+   2025
+  ],
+  "test": [
+   2026
+  ]
+ },
+ "note": "Plain model, then cloud summaries, then a small CNN score. The CNN is kept only if validation beats the summaries by more than 2 standard deviations over 3 seeds."
+}

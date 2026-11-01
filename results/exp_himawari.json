@@ -2,34 +2,36 @@
  "table": [
   {
    "target": "Reach 64 kt",
-   "rows": 1180,
-   "without_val": "0.614",
-   "with_val": "0.645",
-   "without_test": "0.605",
-   "with_test": "0.677",
-   "kept": "No"
+   "rows": 2270,
+   "without_val": "0.578",
+   "with_val": "0.731",
+   "without_test": "0.712",
+   "with_test": "0.757",
+   "kept": "Yes"
   },
   {
    "target": "24 h wind",
-   "rows": 1705,
-   "without_val": "11.79 kt",
-   "with_val": "11.03 kt",
-   "without_test": "15.39 kt",
-   "with_test": "15.00 kt",
+   "rows": 3199,
+   "without_val": "10.77 kt",
+   "with_val": "10.14 kt",
+   "without_test": "11.83 kt",
+   "with_test": "10.96 kt",
    "kept": "Yes"
   },
   {
    "target": "Rapid intensification",
-   "rows": 1705,
-   "without_val": "0.187",
-   "with_val": "0.223",
-   "without_test": "0.183",
-   "with_test": "0.222",
+   "rows": 3199,
+   "without_val": "0.333",
+   "with_val": "0.361",
+   "without_test": "0.409",
+   "with_test": "0.496",
    "kept": "No"
   }
  ],
  "years": {
   "train": [
+   2022,
+   2023,
    2024
   ],
   "validation": [
@@ -39,5 +41,5 @@
    2026
   ]
  },
- "note": "Same rows with and without. Train 2024 to 2024, validation 2025 to 2025, test 2026 to 2026. Kept only if validation improves by more than 2 standard deviations over 3 seeds. Cloud is read at best-track positions, which are corrected after the storm; live positions would be rougher."
+ "note": "Same rows with and without. Train 2022 to 2024, validation 2025 to 2025, test 2026 to 2026. Kept only if validation improves by more than 2 standard deviations over 3 seeds. Cloud is read at best-track positions, which are corrected after the storm; live positions would be rougher."
 }

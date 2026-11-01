@@ -28,6 +28,18 @@ def test_map_status_takes_the_highest_inside_the_region():
     assert bot.map_status("flood", "pakistan", MAP) is None
 
 
+def test_map_status_keeps_points_inside_the_country():
+    r = {**MAP, "current_risk": [{"lat": 22.5, "lon": 88.5, "p": 0.9}, {"lat": 23.7, "lon": 90.4, "p": 0.2}]}
+    assert bot.map_status("flood", "bangladesh", r)["p"] == 0.2
+    assert bot.map_status("flood", "india", r)["p"] == 0.9
+    assert bot.map_status("flood", "bayofbengal", r)["p"] == 0.9
+
+
+def test_storm_regions_stay_as_boxes_so_a_sea_storm_is_not_lost():
+    m = {"wind_now_1min": 40.0, "reach_64_chance": 0.05, "from": "t", "low": 30.0, "high": 50.0}
+    assert bot.storm_status("india", [{"lat": 13.0, "lon": 90.0, "name": "A", "model": m}], CUTS)["name"] == "A"
+
+
 def test_storm_at_typhoon_force_is_high_and_weak_storm_uses_chance():
     m = {"wind_now_1min": 40.0, "reach_64_chance": 0.05, "from": "t", "low": 30.0, "high": 50.0}
     s = {"lat": 15.0, "lon": 130.0, "name": "A", "model": m}

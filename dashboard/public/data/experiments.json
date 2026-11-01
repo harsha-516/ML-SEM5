@@ -14,33 +14,33 @@
    "rows": [
     [
      "Reach 64 kt",
-     "2,397",
-     "0.627",
-     "0.675",
-     "0.695",
-     "0.722",
-     "Yes"
+     "5,590",
+     "0.714",
+     "0.718",
+     "0.689",
+     "0.690",
+     "No"
     ],
     [
      "24 h wind",
-     "3,365",
-     "11.08 kt",
-     "10.71 kt",
-     "11.82 kt",
-     "11.71 kt",
+     "7,614",
+     "10.40 kt",
+     "10.33 kt",
+     "11.23 kt",
+     "11.04 kt",
      "Yes"
     ],
     [
      "Rapid intensification",
-     "3,365",
-     "0.254",
-     "0.312",
-     "0.418",
-     "0.388",
-     "Yes"
+     "7,614",
+     "0.447",
+     "0.460",
+     "0.316",
+     "0.334",
+     "No"
     ]
    ],
-   "note": "Same rows with and without. Train 2022 to 2024, validation 2025 to 2025, test 2026 to 2026. Kept only if validation improves by more than 2 standard deviations over 3 seeds. ERA5 arrives 5 or more days late, so this measures physical value and could not run live."
+   "note": "Same rows with and without. Train 2017 to 2019, validation 2020 to 2021, test 2022 to 2026. Kept only if validation improves by more than 2 standard deviations over 3 seeds. ERA5 arrives 5 or more days late, so this measures physical value and could not run live."
   },
   {
    "title": "Himawari cloud features",
@@ -56,33 +56,83 @@
    "rows": [
     [
      "Reach 64 kt",
-     "1,180",
-     "0.614",
-     "0.645",
-     "0.605",
-     "0.677",
-     "No"
+     "2,270",
+     "0.578",
+     "0.731",
+     "0.712",
+     "0.757",
+     "Yes"
     ],
     [
      "24 h wind",
-     "1,705",
-     "11.79 kt",
-     "11.03 kt",
-     "15.39 kt",
-     "15.00 kt",
+     "3,199",
+     "10.77 kt",
+     "10.14 kt",
+     "11.83 kt",
+     "10.96 kt",
      "Yes"
     ],
     [
      "Rapid intensification",
-     "1,705",
-     "0.187",
-     "0.223",
-     "0.183",
-     "0.222",
+     "3,199",
+     "0.333",
+     "0.361",
+     "0.409",
+     "0.496",
      "No"
     ]
    ],
-   "note": "Same rows with and without. Train 2024 to 2024, validation 2025 to 2025, test 2026 to 2026. Kept only if validation improves by more than 2 standard deviations over 3 seeds. Cloud is read at best-track positions, which are corrected after the storm; live positions would be rougher."
+   "note": "Same rows with and without. Train 2022 to 2024, validation 2025 to 2025, test 2026 to 2026. Kept only if validation improves by more than 2 standard deviations over 3 seeds. Cloud is read at best-track positions, which are corrected after the storm; live positions would be rougher."
+  },
+  {
+   "title": "Small CNN on Himawari pictures",
+   "columns": [
+    "Target",
+    "Rows",
+    "Plain, validation",
+    "Summaries, validation",
+    "CNN, validation",
+    "Plain, test",
+    "Summaries, test",
+    "CNN, test",
+    "Kept"
+   ],
+   "rows": [
+    [
+     "Reach 64 kt",
+     "2,270",
+     "0.578",
+     "0.731",
+     "0.737",
+     "0.712",
+     "0.757",
+     "0.755",
+     "No"
+    ],
+    [
+     "24 h wind",
+     "3,199",
+     "10.77 kt",
+     "10.14 kt",
+     "10.13 kt",
+     "11.83 kt",
+     "10.96 kt",
+     "10.86 kt",
+     "No"
+    ],
+    [
+     "Rapid intensification",
+     "3,199",
+     "0.333",
+     "0.361",
+     "0.363",
+     "0.409",
+     "0.496",
+     "0.455",
+     "No"
+    ]
+   ],
+   "note": "Plain model, then cloud summaries, then a small CNN score. The CNN is kept only if validation beats the summaries by more than 2 standard deviations over 3 seeds."
   },
   {
    "title": "24 h wind range",

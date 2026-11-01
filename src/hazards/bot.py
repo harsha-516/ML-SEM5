@@ -35,6 +35,7 @@ REGIONS = {
     "malaysia": (0, 8, 99, 120), "china": (18, 54, 73, 135), "japan": (24, 46, 122, 146), "taiwan": (21, 26, 119, 123), "bayofbengal": (5, 23, 80, 95),
     "westpacific": (0, 40, 120, 180), "asia": (-15, 60, 60, 180),
 }
+COUNTRIES = {"srilanka": "Sri Lanka", **{r: r.title() for r in ("india", "bangladesh", "nepal", "pakistan", "myanmar", "thailand", "vietnam", "philippines", "indonesia", "malaysia", "china", "japan", "taiwan")}}
 NAMES = {"srilanka": "Sri Lanka", "bayofbengal": "Bay of Bengal", "westpacific": "West Pacific"}
 SAFETY = {"cyclone": "Secure loose items and keep away from the coast if told to.", "flood": "Avoid low ground and river banks.",
           "earthquake": "Know your safe spots and keep an emergency kit ready."}
@@ -69,22 +70,37 @@ def load_places() -> tuple[list[dict], np.ndarray]:
     return rows, np.radians([[float(r["lat"]), float(r["lon"])] for r in rows])
 
 
-def place(lat: float, lon: float) -> str:
-    """Area name from the nearest town. Without the table the message keeps coordinates."""
-    try:
-        rows, xy = load_places()
-    except OSError:
-        return f"{lat}, {lon}"
+def nearest(lat: float, lon: float) -> tuple[dict, float, np.ndarray]:
+    """Nearest town, its distance in km and its position in radians."""
+    rows, xy = load_places()
     a, b = np.radians(lat), np.radians(lon)
     h = np.sin((xy[:, 0] - a) / 2) ** 2 + np.cos(a) * np.cos(xy[:, 0]) * np.sin((xy[:, 1] - b) / 2) ** 2
     i = int(np.argmin(h))
-    km = 2 * 6371 * np.arcsin(np.sqrt(h[i]))
-    r = rows[i]
+    return rows[i], 2 * 6371 * np.arcsin(np.sqrt(h[i])), xy[i]
+
+
+def in_country(lat: float, lon: float, region: str) -> bool:
+    """Boxes cross borders, so a country region keeps points whose nearest town is in that country."""
+    if region not in COUNTRIES:
+        return True
+    try:
+        return nearest(lat, lon)[0]["country"] == COUNTRIES[region]
+    except OSError:
+        return True
+
+
+def place(lat: float, lon: float) -> str:
+    """Area name from the nearest town. Without the table the message keeps coordinates."""
+    try:
+        r, km, town = nearest(lat, lon)
+    except OSError:
+        return f"{lat}, {lon}"
+    a, b = np.radians(lat), np.radians(lon)
     parts = list(dict.fromkeys(x for x in (r["name"], r["state"], r["country"]) if x))
     name = ", ".join(parts)
     if km <= NEAR_KM:
         return f"near {name}"
-    dlat, dlon = xy[i, 0] - a, xy[i, 1] - b  # bearing runs from the town to the point
+    dlat, dlon = town[0] - a, town[1] - b  # bearing runs from the town to the point
     bearing = np.degrees(np.arctan2(-dlon * np.cos(a), -dlat)) % 360
     return f"about {round(km, -1):.0f} km {COMPASS[int((bearing + 22.5) // 45) % 8]} of {name}"
 
@@ -95,7 +111,7 @@ def read_results(hazard: str, base: Path = RESULTS) -> dict:
 
 def map_status(hazard: str, region: str, r: dict) -> dict | None:
     """Highest chance in a region from a flood or earthquake map."""
-    rows = [x for x in r["current_risk"] if inside(x["lat"], x["lon"], region)]
+    rows = [x for x in r["current_risk"] if inside(x["lat"], x["lon"], region) and in_country(x["lat"], x["lon"], region)]
     if not rows:
         return None
     top = max(rows, key=lambda x: x["p"])

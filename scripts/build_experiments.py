@@ -59,6 +59,10 @@ def cyclone():
         if e:
             out.append(table(title, ["Target", "Rows", "Without, validation", "With, validation", "Without, test", "With, test", "Kept"],
                              [[x["target"], f"{x['rows']:,}", x["without_val"], x["with_val"], x["without_test"], x["with_test"], x["kept"]] for x in e["table"]], e["note"]))
+    c = read("exp_cnn")
+    if c:
+        out.append(table("Small CNN on Himawari pictures", ["Target", "Rows", "Plain, validation", "Summaries, validation", "CNN, validation", "Plain, test", "Summaries, test", "CNN, test", "Kept"],
+                         [[x["target"], f"{x['rows']:,}", x["plain_val"], x["summary_val"], x["cnn_val"], x["plain_test"], x["summary_test"], x["cnn_test"], x["kept"]] for x in c["table"]], c["note"]))
     if r:
         i = r["intensity"]
         out.append(table("24 h wind range", ["Measure", "Value"],
