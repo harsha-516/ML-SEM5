@@ -150,7 +150,7 @@ def text_for(hazard: str, region: str, s: dict | None) -> str:
     elif hazard == "flood":
         detail = f"Highest area {place(s['lat'], s['lon'])}: {s['p']:.0%} chance of a flood report surge in the next 3 days."
     else:
-        detail = f"Highest area, a 1 degree cell {place(s['lat'], s['lon'])}: {s['p']:.0%} chance of M5.0+ in the 30-day window. This is a risk level for a region and time window, never a predicted time."
+        detail = f"Highest area, a square roughly 100 km wide centred {place(s['lat'], s['lon'])}: {s['p']:.0%} chance of M5.0+ in the 30-day window. This is a risk level for a region and time window, never a predicted time."
     return f"{hazard.title()} risk, {zone}: {s['level']}\nPrediction time: {s['issued']}\n{detail}\n{SAFETY[hazard]}\n{NOTICE}"
 
 
