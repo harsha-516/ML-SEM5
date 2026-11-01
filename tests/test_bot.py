@@ -174,3 +174,7 @@ def test_bad_commands_get_guidance(tmp_path):
     assert "Unknown" in bot.handle(con, 1, "hello")
     assert "bay" in bot.handle(con, 1, "/help@tarang_ML_bot").lower()
     assert "no active storm" in bot.handle(con, 1, "/risk cyclone bay of bengal", lambda h, r: None)
+
+
+def test_connect_creates_the_data_folder_on_a_new_computer(tmp_path):
+    assert bot.connect(tmp_path / "new" / "b.sqlite").execute("select count(*) from subscribers").fetchone() == (0,)

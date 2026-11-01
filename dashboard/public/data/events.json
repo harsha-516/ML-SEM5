@@ -1,6 +1,28 @@
 [
  {
   "type": "EQ",
+  "name": "Earthquake in South Sandwich Islands Region",
+  "alert": "Green",
+  "from": "2026-11-01T17:11:56",
+  "to": "2026-11-01T17:11:56",
+  "country": "South Sandwich Islands Region",
+  "lat": -56.2566,
+  "lon": -27.1985,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1575107&episodeid=1744104&eventtype=EQ"
+ },
+ {
+  "type": "EQ",
+  "name": "Earthquake in Japan",
+  "alert": "Green",
+  "from": "2026-11-01T17:01:18",
+  "to": "2026-11-01T17:01:18",
+  "country": "Japan",
+  "lat": 23.8055,
+  "lon": 123.2705,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1575108&episodeid=1744105&eventtype=EQ"
+ },
+ {
+  "type": "EQ",
   "name": "Earthquake in Vanuatu Islands",
   "alert": "Green",
   "from": "2026-11-01T12:08:30",
@@ -1076,27 +1098,5 @@
   "lat": -28.355,
   "lon": -59.2593,
   "url": "https://www.gdacs.org/report.aspx?eventid=1104250&episodeid=4&eventtype=FL"
- },
- {
-  "type": "FL",
-  "name": "Flood in Thailand",
-  "alert": "Green",
-  "from": "2026-10-18T01:00:00",
-  "to": "2026-10-28T01:00:00",
-  "country": "Thailand",
-  "lat": 18.1323,
-  "lon": 100.1488,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1104241&episodeid=3&eventtype=FL"
- },
- {
-  "type": "FL",
-  "name": "Flood in Ecuador",
-  "alert": "Green",
-  "from": "2026-09-15T01:00:00",
-  "to": "2026-10-28T01:00:00",
-  "country": "Ecuador",
-  "lat": -2.1901,
-  "lon": -79.8869,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1104167&episodeid=11&eventtype=FL"
  }
 ]

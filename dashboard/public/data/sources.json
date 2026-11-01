@@ -1,5 +1,5 @@
 {
- "refreshed_at": "2026-11-01T18:16:27+00:00",
+ "refreshed_at": "2026-11-01T18:43:11+00:00",
  "forecasts_logged": 5186,
  "sources": [
   {
@@ -7,168 +7,168 @@
    "name": "USGS earthquakes",
    "use": "Earthquakes",
    "kind": "API",
-   "checked_at": "2026-11-01T18:16:13+00:00",
-   "last_ok": "2026-11-01T18:16:13+00:00",
+   "checked_at": "2026-11-01T18:42:51+00:00",
+   "last_ok": "2026-11-01T18:42:51+00:00",
    "state": "live",
    "records": 133,
    "latest": "M5.1 South Sandwich Islands region",
-   "latency_ms": 602
+   "latency_ms": 746
   },
   {
    "id": "jma",
    "name": "JMA active storms",
    "use": "Cyclones",
    "kind": "API",
-   "checked_at": "2026-11-01T18:16:14+00:00",
-   "last_ok": "2026-11-01T18:16:14+00:00",
+   "checked_at": "2026-11-01T18:42:52+00:00",
+   "last_ok": "2026-11-01T18:42:52+00:00",
    "state": "live",
    "records": 1,
    "latest": "In-fa, 80 knots",
-   "latency_ms": 1316
+   "latency_ms": 3051
   },
   {
    "id": "ibtracs",
    "name": "IBTrACS storm tracks",
    "use": "Cyclones",
    "kind": "File",
-   "checked_at": "2026-11-01T18:16:15+00:00",
-   "last_ok": "2026-11-01T18:16:15+00:00",
+   "checked_at": "2026-11-01T18:42:55+00:00",
+   "last_ok": "2026-11-01T18:42:55+00:00",
    "state": "live",
    "records": null,
    "latest": "File updated Sun, 01 Nov 2026 10:02:42 GMT",
-   "latency_ms": 1632
+   "latency_ms": 2392
   },
   {
    "id": "gdacs",
    "name": "GDACS disaster alerts",
    "use": "All hazards",
    "kind": "API",
-   "checked_at": "2026-11-01T18:16:17+00:00",
-   "last_ok": "2026-11-01T18:16:17+00:00",
+   "checked_at": "2026-11-01T18:42:57+00:00",
+   "last_ok": "2026-11-01T18:42:57+00:00",
    "state": "live",
    "records": 100,
    "latest": "Earthquake in South Sandwich Islands Region",
-   "latency_ms": 1848
+   "latency_ms": 1519
   },
   {
    "id": "discharge",
    "name": "GloFAS river discharge",
    "use": "Floods",
    "kind": "API",
-   "checked_at": "2026-11-01T18:16:19+00:00",
-   "last_ok": "2026-11-01T18:16:19+00:00",
+   "checked_at": "2026-11-01T18:42:59+00:00",
+   "last_ok": "2026-11-01T18:42:59+00:00",
    "state": "live",
    "records": 1,
    "latest": "Patna river discharge 7.73 m3/s",
-   "latency_ms": 780
+   "latency_ms": 942
   },
   {
    "id": "rain",
    "name": "Open-Meteo rainfall",
    "use": "Floods",
    "kind": "API",
-   "checked_at": "2026-11-01T18:16:20+00:00",
-   "last_ok": "2026-11-01T18:16:20+00:00",
+   "checked_at": "2026-11-01T18:43:00+00:00",
+   "last_ok": "2026-11-01T18:43:00+00:00",
    "state": "live",
    "records": 1,
    "latest": "Kathmandu rain today 1.8 mm",
-   "latency_ms": 740
+   "latency_ms": 899
   },
   {
    "id": "gibs",
    "name": "NASA GIBS imagery",
    "use": "Maps",
    "kind": "Satellite",
-   "checked_at": "2026-11-01T18:16:20+00:00",
-   "last_ok": "2026-11-01T18:16:20+00:00",
+   "checked_at": "2026-11-01T18:43:01+00:00",
+   "last_ok": "2026-11-01T18:43:01+00:00",
    "state": "live",
    "records": null,
    "latest": "Imagery tile for 2026-10-30",
-   "latency_ms": 1059
+   "latency_ms": 1538
   },
   {
    "id": "imerg",
    "name": "NASA IMERG rainfall",
    "use": "Floods",
    "kind": "Satellite",
-   "checked_at": "2026-11-01T18:16:21+00:00",
-   "last_ok": "2026-11-01T18:16:21+00:00",
+   "checked_at": "2026-11-01T18:43:02+00:00",
+   "last_ok": "2026-11-01T18:43:02+00:00",
    "state": "live",
    "records": null,
    "latest": "Newest record 2026-11-01 12:30 UTC",
-   "latency_ms": 785
+   "latency_ms": 1201
   },
   {
    "id": "smap",
    "name": "NASA SMAP soil moisture",
    "use": "Floods",
    "kind": "Satellite",
-   "checked_at": "2026-11-01T18:16:22+00:00",
-   "last_ok": "2026-11-01T18:16:22+00:00",
+   "checked_at": "2026-11-01T18:43:03+00:00",
+   "last_ok": "2026-11-01T18:43:03+00:00",
    "state": "live",
    "records": null,
    "latest": "Newest record 2026-10-30 00:00 UTC",
-   "latency_ms": 928
+   "latency_ms": 935
   },
   {
    "id": "himawari",
    "name": "Himawari-9 clouds",
    "use": "Cyclones",
    "kind": "Satellite",
-   "checked_at": "2026-11-01T18:16:23+00:00",
-   "last_ok": "2026-11-01T18:16:23+00:00",
+   "checked_at": "2026-11-01T18:43:04+00:00",
+   "last_ok": "2026-11-01T18:43:04+00:00",
    "state": "live",
    "records": 5,
    "latest": "Files listed for 01 Nov 2026",
-   "latency_ms": 1016
+   "latency_ms": 1218
   },
   {
    "id": "bbc",
    "name": "BBC Asia",
    "use": "News",
    "kind": "RSS",
-   "checked_at": "2026-11-01T18:16:24+00:00",
-   "last_ok": "2026-11-01T18:16:24+00:00",
+   "checked_at": "2026-11-01T18:43:06+00:00",
+   "last_ok": "2026-11-01T18:43:06+00:00",
    "state": "live",
    "records": 19,
    "latest": "No hazard headlines right now",
-   "latency_ms": 372
+   "latency_ms": 653
   },
   {
    "id": "hindu",
    "name": "The Hindu",
    "use": "News",
    "kind": "RSS",
-   "checked_at": "2026-11-01T18:16:24+00:00",
-   "last_ok": "2026-11-01T18:16:24+00:00",
+   "checked_at": "2026-11-01T18:43:06+00:00",
+   "last_ok": "2026-11-01T18:43:06+00:00",
    "state": "live",
    "records": 60,
-   "latest": "6 hazard headlines",
-   "latency_ms": 264
+   "latest": "5 hazard headlines",
+   "latency_ms": 308
   },
   {
    "id": "toi",
    "name": "Times of India",
    "use": "News",
    "kind": "RSS",
-   "checked_at": "2026-11-01T18:16:25+00:00",
-   "last_ok": "2026-11-01T18:16:25+00:00",
+   "checked_at": "2026-11-01T18:43:07+00:00",
+   "last_ok": "2026-11-01T18:43:07+00:00",
    "state": "live",
    "records": 0,
    "latest": "No hazard headlines right now",
-   "latency_ms": 231
+   "latency_ms": 413
   },
   {
    "id": "gnews",
    "name": "Google News",
    "use": "News",
    "kind": "RSS",
-   "checked_at": "2026-11-01T18:16:25+00:00",
-   "last_ok": "2026-11-01T18:16:25+00:00",
+   "checked_at": "2026-11-01T18:43:07+00:00",
+   "last_ok": "2026-11-01T18:43:07+00:00",
    "state": "live",
    "records": 8,
-   "latest": "Bangkok, other provinces on tidal flood alert",
-   "latency_ms": 790
+   "latest": "Cyclone Murasu alert: Cyclone Murasu intensifies in Bay of Bengal, set to hit Andhra Pradesh coast on November 2-3",
+   "latency_ms": 1250
   },
   {
    "id": "groundsource",

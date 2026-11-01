@@ -52,11 +52,11 @@ Main modules in `src/hazards/`:
 
 ## Setup
 
-Needs Python 3.12 or newer and Node.js. On Windows:
+Full steps for a new computer are in [SETUP.md](SETUP.md). In short, with Python 3.12 or newer and Node.js:
 
 ```
 python -m venv .venv
-.venv/Scripts/python -m pip install -e .[dev]
+.venv/Scripts/python -m pip install -e ".[dev]"
 cd dashboard
 npm install
 ```

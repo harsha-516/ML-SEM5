@@ -247,6 +247,7 @@ def text_for(hazard: str, region: str, s: dict | None) -> str:
 
 def connect(path: Path = DB) -> sqlite3.Connection:
     """Open the bot database and create its tables if needed."""
+    path.parent.mkdir(parents=True, exist_ok=True)
     con = sqlite3.connect(path)
     con.execute(
         "create table if not exists subscribers (chat_id integer, hazard text, region text, primary key (chat_id, hazard, region))"
