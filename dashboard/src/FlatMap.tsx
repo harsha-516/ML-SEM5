@@ -34,7 +34,7 @@ export function FlatMap({ dots, rings = [], line, marker, center = [100, 18], zo
       sources.over = { type: 'raster', tileSize: 256, maxzoom: 6, tiles: [overlay] }
       layers.push({ id: 'over', type: 'raster', source: 'over', paint: { 'raster-opacity': 0.75 } })
     }
-    const m = new maplibregl.Map({ container: el.current, center, zoom, style: { version: 8, sources, layers } as maplibregl.StyleSpecification })
+    const m = new maplibregl.Map({ container: el.current, center, zoom, cooperativeGestures: window.matchMedia('(pointer: coarse)').matches, style: { version: 8, sources, layers } as maplibregl.StyleSpecification })
     m.scrollZoom.disable()
     m.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'bottom-right')
     m.once('style.load', () => {

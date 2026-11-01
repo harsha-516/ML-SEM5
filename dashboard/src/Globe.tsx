@@ -16,12 +16,19 @@ const line = (coordinates: number[][], properties: Record<string, unknown>): Fea
 })
 
 
+/** Space under the overlay text on a phone, measured so the globe sits directly above it. */
+function textRoom(box: HTMLElement): number {
+  const text = box.parentElement?.querySelector('.overlay')
+  if (!text) return 360
+  return box.getBoundingClientRect().bottom - text.getBoundingClientRect().top + 8
+}
+
 /** Largest zoom that keeps the whole globe inside the hero, whatever the window size. */
 function fitZoom(box: HTMLElement): number {
   const wide = box.clientWidth > 820
-  const room = wide ? box.clientHeight : box.clientHeight - 360
+  const room = wide ? box.clientHeight : box.clientHeight - textRoom(box)
   const radius = Math.min(room, wide ? box.clientWidth * 0.56 : box.clientWidth) * 0.45
-  return Math.log2(radius / (0.81 * (512 / (2 * Math.PI))))
+  return Math.log2(radius / ((wide ? 0.81 : 0.92) * (512 / (2 * Math.PI))))
 }
 
 const LAYERS: Record<Hazard, string[]> = {
@@ -46,6 +53,7 @@ export function Globe({ hazard, results, storms }: {
       center: [122, 18],
       zoom: fitZoom(el.current),
       attributionControl: { compact: true, customAttribution: 'NASA GIBS' },
+      cooperativeGestures: window.matchMedia('(pointer: coarse)').matches,
       minZoom: 1,
       maxZoom: 5,
       style: {
@@ -66,7 +74,7 @@ export function Globe({ hazard, results, storms }: {
       } as maplibregl.StyleSpecification,
     })
     m.scrollZoom.disable()
-    m.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'bottom-right')
+    if (window.innerWidth > 820) m.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'bottom-right')
     m.on('load', () => {
       const color = rampExpression('p') as maplibregl.ExpressionSpecification
       for (const id of ['eq', 'recent', 'flood', 'past', 'forecast', 'storms']) m.addSource(id, { type: 'geojson', data: fc([]) as never })
@@ -104,7 +112,7 @@ export function Globe({ hazard, results, storms }: {
     const center: [number, number] = hazard === 'cyclone' && s ? [s.lon - 6, s.lat - 2] : hazard === 'flood' ? [92, 22] : [105, 18]
     const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const wide = window.innerWidth > 820
-    m.easeTo({ center, zoom: fitZoom(m.getContainer()), padding: wide ? { left: Math.min(window.innerWidth * 0.42, 620), top: 0, right: 0, bottom: 0 } : { left: 0, top: 0, right: 0, bottom: 360 }, duration: still ? 0 : 1400 })
+    m.easeTo({ center, zoom: fitZoom(m.getContainer()), padding: wide ? { left: Math.min(window.innerWidth * 0.42, 620), top: 0, right: 0, bottom: 0 } : { left: 0, top: 0, right: 0, bottom: textRoom(m.getContainer()) }, duration: still ? 0 : 1400 })
   }, [hazard, ready, storms])
 
   return <div ref={el} className="globe" role="img" aria-label="Satellite globe of Asia with current hazard markers" />

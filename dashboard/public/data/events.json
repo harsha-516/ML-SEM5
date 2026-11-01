@@ -1,6 +1,50 @@
 [
  {
   "type": "EQ",
+  "name": "Earthquake in Vanuatu Islands",
+  "alert": "Green",
+  "from": "2026-11-01T12:08:30",
+  "to": "2026-11-01T12:08:30",
+  "country": "Vanuatu Islands",
+  "lat": -13.8667,
+  "lon": 165.6199,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1575070&episodeid=1744065&eventtype=EQ"
+ },
+ {
+  "type": "EQ",
+  "name": "Earthquake in Vanuatu",
+  "alert": "Green",
+  "from": "2026-11-01T11:56:51",
+  "to": "2026-11-01T11:56:51",
+  "country": "Vanuatu",
+  "lat": -14.0776,
+  "lon": 165.767,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1575069&episodeid=1744063&eventtype=EQ"
+ },
+ {
+  "type": "EQ",
+  "name": "Earthquake in Vanuatu",
+  "alert": "Green",
+  "from": "2026-11-01T11:47:03",
+  "to": "2026-11-01T11:47:03",
+  "country": "Vanuatu",
+  "lat": -14.1689,
+  "lon": 165.8242,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1575068&episodeid=1744061&eventtype=EQ"
+ },
+ {
+  "type": "EQ",
+  "name": "Earthquake in United States",
+  "alert": "Green",
+  "from": "2026-11-01T11:30:21",
+  "to": "2026-11-01T11:30:21",
+  "country": "United States",
+  "lat": 60.207,
+  "lon": -150.965,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1575067&episodeid=1744057&eventtype=EQ"
+ },
+ {
+  "type": "EQ",
   "name": "Earthquake in Taiwan",
   "alert": "Green",
   "from": "2026-11-01T08:20:07",
@@ -1054,49 +1098,5 @@
   "lat": -2.1901,
   "lon": -79.8869,
   "url": "https://www.gdacs.org/report.aspx?eventid=1104167&episodeid=11&eventtype=FL"
- },
- {
-  "type": "EQ",
-  "name": "Earthquake in Philippines",
-  "alert": "Green",
-  "from": "2026-10-27T23:43:52",
-  "to": "2026-10-27T23:43:52",
-  "country": "Philippines",
-  "lat": 5.6402,
-  "lon": 125.3536,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1574233&episodeid=1743124&eventtype=EQ"
- },
- {
-  "type": "EQ",
-  "name": "Earthquake in South Of Mariana Islands",
-  "alert": "Green",
-  "from": "2026-10-27T23:14:16",
-  "to": "2026-10-27T23:14:16",
-  "country": "South Of Mariana Islands",
-  "lat": 12.6676,
-  "lon": 142.9938,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1574228&episodeid=1743121&eventtype=EQ"
- },
- {
-  "type": "EQ",
-  "name": "Earthquake in China",
-  "alert": "Green",
-  "from": "2026-10-27T18:57:53",
-  "to": "2026-10-27T18:57:53",
-  "country": "China",
-  "lat": 32.5388,
-  "lon": 93.9028,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1574196&episodeid=1743078&eventtype=EQ"
- },
- {
-  "type": "EQ",
-  "name": "Earthquake in Philippines",
-  "alert": "Green",
-  "from": "2026-10-27T16:07:53",
-  "to": "2026-10-27T16:07:53",
-  "country": "Philippines",
-  "lat": 18.2708,
-  "lon": 119.8508,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1574180&episodeid=1743072&eventtype=EQ"
  }
 ]

@@ -20,12 +20,25 @@ function useRoute() {
 function App() {
   const route = useRoute()
   const d = useSiteData()
+  const [open, setOpen] = useState(false)
+  useEffect(() => setOpen(false), [route])
+  useEffect(() => {
+    if (!open) return
+    const key = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false) }
+    window.addEventListener('keydown', key)
+    return () => window.removeEventListener('keydown', key)
+  }, [open])
   const event = route.startsWith('#/event/') ? route.slice(8) : null
   return (
     <>
       <nav className="top" aria-label="Main">
         <a className="brand" href="#/">Tarang</a>
-        {LINKS.map(([h, t]) => <a key={h} href={h} aria-current={route === h ? 'page' : undefined}>{t}</a>)}
+        <button className="menu" type="button" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} aria-controls="main-links" onClick={() => setOpen(!open)}>
+          <span aria-hidden="true" className={open ? 'bars x' : 'bars'}><i /><i /><i /></span>
+        </button>
+        <div id="main-links" className={open ? 'links open' : 'links'}>
+          {LINKS.map(([h, t]) => <a key={h} href={h} aria-current={route === h ? 'page' : undefined} onClick={() => setOpen(false)}>{t}</a>)}
+        </div>
       </nav>
       <main>
         {event ? <EventPage key={event} id={event} news={d.eventNews} />
