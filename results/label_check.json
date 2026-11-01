@@ -1,0 +1,179 @@
+{
+ "method": "GDACS match within 500 km and 2 days. MODIS flood share at least 0.1% of a 1 degree box with at least 30% clear view, from the 3-day composite. Controls are quiet days at the same location and month.",
+ "gdacs_floods_listed": 4405,
+ "surge_episodes": 3381,
+ "gdacs_agree_surges": 0.26471458148476784,
+ "gdacs_agree_controls": 0.14758947057083702,
+ "gdacs_by_year": {
+  "2015": {
+   "surges": 175,
+   "agree": 0.005714285714285714,
+   "gdacs_listed": 6
+  },
+  "2016": {
+   "surges": 332,
+   "agree": 0.21084337349397592,
+   "gdacs_listed": 112
+  },
+  "2017": {
+   "surges": 316,
+   "agree": 0.14873417721518986,
+   "gdacs_listed": 115
+  },
+  "2018": {
+   "surges": 256,
+   "agree": 0.0625,
+   "gdacs_listed": 58
+  },
+  "2019": {
+   "surges": 293,
+   "agree": 0.20819112627986347,
+   "gdacs_listed": 242
+  },
+  "2020": {
+   "surges": 371,
+   "agree": 0.3611859838274933,
+   "gdacs_listed": 382
+  },
+  "2021": {
+   "surges": 317,
+   "agree": 0.3785488958990536,
+   "gdacs_listed": 504
+  },
+  "2022": {
+   "surges": 320,
+   "agree": 0.321875,
+   "gdacs_listed": 559
+  },
+  "2023": {
+   "surges": 298,
+   "agree": 0.31543624161073824,
+   "gdacs_listed": 615
+  },
+  "2024": {
+   "surges": 391,
+   "agree": 0.3836317135549872,
+   "gdacs_listed": 638
+  },
+  "2025": {
+   "surges": 301,
+   "agree": 0.31893687707641194,
+   "gdacs_listed": 609
+  },
+  "2026": {
+   "surges": 11,
+   "agree": 0.2727272727272727,
+   "gdacs_listed": 565
+  }
+ },
+ "gdacs_by_region": {
+  "East and island Asia": {
+   "surges": 1566,
+   "agree": 0.18646232439335889
+  },
+  "Mainland Southeast Asia": {
+   "surges": 635,
+   "agree": 0.3543307086614173
+  },
+  "South Asia": {
+   "surges": 1180,
+   "agree": 0.32033898305084746
+  }
+ },
+ "modis_surges": {
+  "maps": 200,
+  "with_clear_view": 26,
+  "flood_seen": 0.2692307692307692,
+  "median_clear": 0.00608062744140625
+ },
+ "modis_controls": {
+  "maps": 200,
+  "with_clear_view": 57,
+  "flood_seen": 0.3157894736842105,
+  "median_clear": 0.043792724609375
+ },
+ "replays": [
+  {
+   "id": "rasuwa-2026",
+   "gdacs": true,
+   "modis_flood_share": 0.0,
+   "modis_clear_share": 0.007
+  },
+  {
+   "id": "budhi-gandaki-2026",
+   "gdacs": true,
+   "modis_flood_share": 0.0,
+   "modis_clear_share": 0.0
+  },
+  {
+   "id": "nilambur-2026",
+   "gdacs": true,
+   "modis_flood_share": 0.0,
+   "modis_clear_share": 0.006
+  },
+  {
+   "id": "assam-2026",
+   "gdacs": false,
+   "modis_flood_share": 0.0014,
+   "modis_clear_share": 0.131
+  }
+ ],
+ "place_bias": {
+  "locations": 60,
+  "top_10_share_of_surges": 0.18513223731236597,
+  "most_surges": [
+   {
+    "lat": 0.5,
+    "lon": 101.5,
+    "surges": 277
+   },
+   {
+    "lat": 25.5,
+    "lon": 87.5,
+    "surges": 264
+   },
+   {
+    "lat": -0.5,
+    "lon": 100.5,
+    "surges": 261
+   },
+   {
+    "lat": -7.5,
+    "lon": 110.5,
+    "surges": 257
+   },
+   {
+    "lat": 21.5,
+    "lon": 105.5,
+    "surges": 257
+   }
+  ],
+  "fewest_surges": [
+   {
+    "lat": 6.5,
+    "lon": 80.5,
+    "surges": 212
+   },
+   {
+    "lat": 11.5,
+    "lon": 79.5,
+    "surges": 208
+   },
+   {
+    "lat": 35.5,
+    "lon": 129.5,
+    "surges": 197
+   },
+   {
+    "lat": 20.5,
+    "lon": 86.5,
+    "surges": 191
+   },
+   {
+    "lat": 15.5,
+    "lon": 102.5,
+    "surges": 179
+   }
+  ]
+ }
+}

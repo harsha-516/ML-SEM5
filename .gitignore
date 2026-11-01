@@ -1,0 +1,26 @@
+# Secrets
+.env
+.env.*
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# Data, models and logs are rebuilt by the scripts
+data/
+logs/
+
+# Dashboard build output and dependencies
+dashboard/node_modules/
+dashboard/dist/
+dashboard/*.tsbuildinfo
+dashboard/tsconfig*.tsbuildinfo
+
+# Tools and machine files
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini

@@ -1,0 +1,37 @@
+{
+ "table": [
+  {
+   "name": "Task 1 model",
+   "validation": 0.35875194254050885,
+   "test": 0.37320183497848575,
+   "kept": "Baseline"
+  },
+  {
+   "name": "Add IMERG",
+   "validation": 0.3647371739371795,
+   "test": 0.3814866675762357,
+   "kept": "Yes"
+  },
+  {
+   "name": "Add SMAP",
+   "validation": 0.3469732094885697,
+   "test": 0.36627312833581016,
+   "kept": "No"
+  },
+  {
+   "name": "Add both",
+   "validation": 0.3538743604167516,
+   "test": 0.37477097196913234,
+   "kept": "No"
+  }
+ ],
+ "imerg_rain_correlation": 0.6273108380970457,
+ "imerg_days": 4231,
+ "smap_days": 4144,
+ "rows": {
+  "train": 140520,
+  "validation": 41820,
+  "test": 44460
+ },
+ "note": "IMERG Late, 2 days behind, correlates 0.63 with reanalysis daily rain at the median location. SMAP is 3 days behind. Kept only if validation beats the Task 1 model by more than 2 standard deviations over 5 seeds."
+}

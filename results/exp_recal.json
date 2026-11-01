@@ -1,0 +1,111 @@
+{
+ "earthquake": {
+  "table": [
+   {
+    "name": "Fixed calibration",
+    "late_validation_loss": 0.05575519428805731,
+    "late_validation_pr_auc": 0.1361810390392219,
+    "gain_z": 0.0,
+    "test_pr_auc": 0.13335296118208476,
+    "expected": 2948.411376953125,
+    "observed": 2845.0,
+    "number_test": "Pass",
+    "expected_active": 2827.3759765625,
+    "z": 0.34507132881193436
+   },
+   {
+    "name": "Rolling, 2 years",
+    "late_validation_loss": 0.055768127097957955,
+    "late_validation_pr_auc": 0.1353530604615098,
+    "gain_z": -0.7434823907828246,
+    "test_pr_auc": 0.13275752117033116,
+    "expected": 2957.172917975766,
+    "observed": 2845.0,
+    "number_test": "Fail",
+    "expected_active": 2835.404825768579,
+    "z": 0.18762147517830483
+   },
+   {
+    "name": "Rolling, 4 years",
+    "late_validation_loss": 0.05574859754324892,
+    "late_validation_pr_auc": 0.13555919364593713,
+    "gain_z": 0.4831298188249828,
+    "test_pr_auc": 0.1338861050688029,
+    "expected": 2957.159861767039,
+    "observed": 2845.0,
+    "number_test": "Fail",
+    "expected_active": 2836.129432660191,
+    "z": 0.17339117251346312
+   },
+   {
+    "name": "Blend with ETAS",
+    "late_validation_loss": 0.05568960421924807,
+    "late_validation_pr_auc": 0.14022095569909898,
+    "gain_z": 1.8882051644263451,
+    "test_pr_auc": 0.1378069393905741,
+    "expected": 2951.8680107642053,
+    "observed": 2845.0,
+    "number_test": "Fail",
+    "expected_active": 2827.250062292502,
+    "z": 0.347820006567493
+   },
+   {
+    "name": "Blend, rolling 2 years",
+    "late_validation_loss": 0.055696994553258945,
+    "late_validation_pr_auc": 0.13924927832736167,
+    "gain_z": 1.554434884807435,
+    "test_pr_auc": 0.1372613070915455,
+    "expected": 2953.246431077121,
+    "observed": 2845.0,
+    "number_test": "Fail",
+    "expected_active": 2828.637437371258,
+    "z": 0.3205313547941698
+   },
+   {
+    "name": "Blend, rolling 4 years",
+    "late_validation_loss": 0.055679548835528475,
+    "late_validation_pr_auc": 0.1398174666314275,
+    "gain_z": 2.0836830625542047,
+    "test_pr_auc": 0.13770574615464232,
+    "expected": 2957.8258816752086,
+    "observed": 2845.0,
+    "number_test": "Fail",
+    "expected_active": 2833.7276352939352,
+    "z": 0.2205790692147279
+   }
+  ],
+  "kept": "Blend, rolling 4 years",
+  "etas": {
+   "test_pr_auc": 0.1288856373569573,
+   "expected": 2857.931354876105,
+   "observed": 2845.0,
+   "number_test": "Pass",
+   "expected_active": 2725.035904727233,
+   "z": 2.386827701392294
+  }
+ },
+ "cyclone": {
+  "table": [
+   {
+    "name": "Fixed margin",
+    "late_validation": 0.7696514012303486,
+    "test": 0.7776831345826235,
+    "width": 30.86190917720719
+   },
+   {
+    "name": "Rolling, 2 years",
+    "late_validation": 0.7826384142173616,
+    "test": 0.7964224872231687,
+    "width": 32.478159589567085
+   },
+   {
+    "name": "Rolling, 3 years",
+    "late_validation": 0.773069036226931,
+    "test": 0.7978421351504826,
+    "width": 32.558532296494285
+   }
+  ],
+  "kept": "Rolling, 2 years",
+  "margin_latest_3_years": 2.3672561645507812
+ }
+}

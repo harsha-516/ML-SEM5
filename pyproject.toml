@@ -1,0 +1,14 @@
+[project]
+name = "hazards"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = ["pandas", "numpy", "pyarrow", "scikit-learn", "xgboost", "imbalanced-learn", "requests", "python-dotenv", "xarray", "netCDF4", "h5py", "shap", "matplotlib", "defusedxml", "shapely", "cdsapi", "pillow", "pyshp", "torch", "joblib", "scipy"]
+[project.optional-dependencies]
+dev = ["pytest", "ruff"]
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+[tool.setuptools.packages.find]
+where = ["src"]
+[tool.pytest.ini_options]
+pythonpath = ["src"]

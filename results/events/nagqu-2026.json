@@ -1,0 +1,109 @@
+{
+ "id": "nagqu-2026",
+ "kind": "earthquake",
+ "title": "M7.0 earthquake near Nagqu, China",
+ "place": "Nagqu, China",
+ "date": "2026-10-22",
+ "lat": 32.38,
+ "lon": 93.78,
+ "mag": 7.0,
+ "severity": 7.0,
+ "headline": "Model chance for this cell, 0%",
+ "cell_chance": 0.0027270849230002637,
+ "cell_rank": 0.5444137386498223,
+ "window_start": "2026-10-20",
+ "sequence": [
+  {
+   "days": 0.61,
+   "mag": 7.0,
+   "depth": 18.0
+  },
+  {
+   "days": 0.63,
+   "mag": 5.2,
+   "depth": 10.0
+  },
+  {
+   "days": 0.68,
+   "mag": 4.9,
+   "depth": 10.0
+  },
+  {
+   "days": 0.7,
+   "mag": 4.6,
+   "depth": 10.0
+  },
+  {
+   "days": 0.7,
+   "mag": 4.5,
+   "depth": 10.0
+  },
+  {
+   "days": 0.71,
+   "mag": 4.7,
+   "depth": 10.0
+  },
+  {
+   "days": 0.75,
+   "mag": 5.0,
+   "depth": 10.0
+  },
+  {
+   "days": 1.59,
+   "mag": 4.7,
+   "depth": 10.0
+  },
+  {
+   "days": 1.61,
+   "mag": 4.5,
+   "depth": 10.0
+  },
+  {
+   "days": 1.86,
+   "mag": 4.8,
+   "depth": 10.0
+  },
+  {
+   "days": 2.01,
+   "mag": 4.9,
+   "depth": 10.0
+  },
+  {
+   "days": 2.36,
+   "mag": 5.3,
+   "depth": 10.0
+  },
+  {
+   "days": 2.56,
+   "mag": 4.6,
+   "depth": 10.0
+  },
+  {
+   "days": 3.48,
+   "mag": 5.1,
+   "depth": 10.0
+  },
+  {
+   "days": 3.48,
+   "mag": 5.9,
+   "depth": 7.0
+  },
+  {
+   "days": 3.7,
+   "mag": 4.5,
+   "depth": 10.0
+  },
+  {
+   "days": 3.92,
+   "mag": 4.7,
+   "depth": 10.0
+  },
+  {
+   "days": 5.79,
+   "mag": 5.4,
+   "depth": 10.0
+  }
+ ],
+ "news_query": "Nagqu Tibet earthquake magnitude",
+ "news_match": "nagqu|tibet|xizang"
+}

@@ -1,0 +1,478 @@
+{
+ "cyclone": [
+  {
+   "title": "ERA5 environment features",
+   "columns": [
+    "Target",
+    "Rows",
+    "Without, validation",
+    "With, validation",
+    "Without, test",
+    "With, test",
+    "Kept"
+   ],
+   "rows": [
+    [
+     "Reach 64 kt",
+     "2,397",
+     "0.627",
+     "0.675",
+     "0.695",
+     "0.722",
+     "Yes"
+    ],
+    [
+     "24 h wind",
+     "3,365",
+     "11.08 kt",
+     "10.71 kt",
+     "11.82 kt",
+     "11.71 kt",
+     "Yes"
+    ],
+    [
+     "Rapid intensification",
+     "3,365",
+     "0.254",
+     "0.312",
+     "0.418",
+     "0.388",
+     "Yes"
+    ]
+   ],
+   "note": "Same rows with and without. Train 2022 to 2024, validation 2025 to 2025, test 2026 to 2026. Kept only if validation improves by more than 2 standard deviations over 3 seeds. ERA5 arrives 5 or more days late, so this measures physical value and could not run live."
+  },
+  {
+   "title": "Himawari cloud features",
+   "columns": [
+    "Target",
+    "Rows",
+    "Without, validation",
+    "With, validation",
+    "Without, test",
+    "With, test",
+    "Kept"
+   ],
+   "rows": [
+    [
+     "Reach 64 kt",
+     "1,180",
+     "0.614",
+     "0.645",
+     "0.605",
+     "0.677",
+     "No"
+    ],
+    [
+     "24 h wind",
+     "1,705",
+     "11.79 kt",
+     "11.03 kt",
+     "15.39 kt",
+     "15.00 kt",
+     "Yes"
+    ],
+    [
+     "Rapid intensification",
+     "1,705",
+     "0.187",
+     "0.223",
+     "0.183",
+     "0.222",
+     "No"
+    ]
+   ],
+   "note": "Same rows with and without. Train 2024 to 2024, validation 2025 to 2025, test 2026 to 2026. Kept only if validation improves by more than 2 standard deviations over 3 seeds. Cloud is read at best-track positions, which are corrected after the storm; live positions would be rougher."
+  },
+  {
+   "title": "24 h wind range",
+   "columns": [
+    "Measure",
+    "Value"
+   ],
+   "rows": [
+    [
+     "Target coverage",
+     "80%"
+    ],
+    [
+     "Coverage before calibration",
+     "71.1%"
+    ],
+    [
+     "Coverage after calibration",
+     "79.6%"
+    ],
+    [
+     "Margin from validation",
+     "2.5 kt"
+    ],
+    [
+     "Mean width",
+     "32.5 kt"
+    ],
+    [
+     "Wind MAE",
+     "10.8 kt"
+    ],
+    [
+     "Persistence MAE",
+     "14.8 kt"
+    ],
+    [
+     "Rapid intensification PR-AUC",
+     "0.383"
+    ],
+    [
+     "Rapid intensification base rate",
+     "0.076"
+    ]
+   ],
+   "note": null
+  },
+  {
+   "title": "80% range calibration",
+   "columns": [
+    "Version",
+    "Late validation coverage",
+    "Test coverage",
+    "Test width, kt"
+   ],
+   "rows": [
+    [
+     "Fixed margin",
+     "77.0%",
+     "77.8%",
+     "30.9"
+    ],
+    [
+     "Rolling, 2 years",
+     "78.3%",
+     "79.6%",
+     "32.5"
+    ],
+    [
+     "Rolling, 3 years",
+     "77.3%",
+     "79.8%",
+     "32.6"
+    ]
+   ],
+   "note": "Kept: Rolling, 2 years."
+  }
+ ],
+ "flood": [
+  {
+   "title": "Feature sets, XGBoost",
+   "columns": [
+    "Features",
+    "Validation",
+    "Test, issued forecasts",
+    "Test, actual rain"
+   ],
+   "rows": [
+    [
+     "Current",
+     "0.224",
+     "0.277",
+     "-"
+    ],
+    [
+     "Add ratios",
+     "0.231",
+     "0.294",
+     "-"
+    ],
+    [
+     "Add forecast",
+     "0.361",
+     "0.369",
+     "0.410"
+    ],
+    [
+     "Add both",
+     "0.359",
+     "0.376",
+     "0.418"
+    ]
+   ],
+   "note": "Validation uses reanalysis rain for the next 3 days. Actual later rain is not available live."
+  },
+  {
+   "title": "Final stage on 2024 forecast rows",
+   "columns": [
+    "Version",
+    "Sep to Dec 2024",
+    "Test, 2025 onward"
+   ],
+   "rows": [
+    [
+     "Trained on reanalysis",
+     "0.384",
+     "0.390"
+    ],
+    [
+     "Final stage",
+     "0.374",
+     "0.383"
+    ]
+   ],
+   "note": "Not kept."
+  },
+  {
+   "title": "Satellite features",
+   "columns": [
+    "Features",
+    "Validation",
+    "Test",
+    "Kept"
+   ],
+   "rows": [
+    [
+     "Task 1 model",
+     "0.359",
+     "0.373",
+     "Baseline"
+    ],
+    [
+     "Add IMERG",
+     "0.365",
+     "0.381",
+     "Yes"
+    ],
+    [
+     "Add SMAP",
+     "0.347",
+     "0.366",
+     "No"
+    ],
+    [
+     "Add both",
+     "0.354",
+     "0.375",
+     "No"
+    ]
+   ],
+   "note": "IMERG Late, 2 days behind, correlates 0.63 with reanalysis daily rain at the median location. SMAP is 3 days behind. Kept only if validation beats the Task 1 model by more than 2 standard deviations over 5 seeds."
+  },
+  {
+   "title": "Event replays",
+   "columns": [
+    "Event",
+    "Top chance, 3 days before",
+    "Usual chance",
+    "Warned",
+    "Forecast source"
+   ],
+   "rows": [
+    [
+     "rasuwa-2026",
+     "28.8%",
+     "26.5%",
+     "No",
+     "archived forecast"
+    ],
+    [
+     "budhi-gandaki-2026",
+     "5.1%",
+     "16.6%",
+     "No",
+     "archived forecast"
+    ],
+    [
+     "nilambur-2026",
+     "7.6%",
+     "3.2%",
+     "Yes",
+     "archived forecast"
+    ],
+    [
+     "assam-2026",
+     "63.6%",
+     "24.3%",
+     "Yes",
+     "archived forecast"
+    ]
+   ],
+   "note": "Warning criterion: at least 1.5 times the usual chance."
+  },
+  {
+   "title": "Label check",
+   "columns": [
+    "Source",
+    "Surges",
+    "Quiet days at same place and month"
+   ],
+   "rows": [
+    [
+     "GDACS flood listed within 500 km",
+     "26.5% of 3,381",
+     "14.8%"
+    ],
+    [
+     "MODIS flood seen, clear view",
+     "26.9% of 26",
+     "31.6% of 57"
+    ]
+   ],
+   "note": "Labels are news reports. Top 10 of 60 locations hold 19% of surges. Cloud blocks most MODIS views, so that row is weak evidence."
+  }
+ ],
+ "earthquake": [
+  {
+   "title": "Benchmark, PR-AUC",
+   "columns": [
+    "Model",
+    "Validation",
+    "Test"
+   ],
+   "rows": [
+    [
+     "Blend with ETAS",
+     "0.129",
+     "0.138"
+    ],
+    [
+     "ETAS, fitted",
+     "0.110",
+     "0.129"
+    ],
+    [
+     "Older fixed rule",
+     "-",
+     "0.125"
+    ]
+   ],
+   "note": null
+  },
+  {
+   "title": "ETAS parameters",
+   "columns": [
+    "mu per day",
+    "K",
+    "alpha",
+    "c, days",
+    "p",
+    "D, km"
+   ],
+   "rows": [
+    [
+     "0.746",
+     "0.0211",
+     "1.29",
+     "0.0038",
+     "0.930",
+     "4.5"
+    ]
+   ],
+   "note": "Maximum likelihood on 23,285 M5+ events, 1980 to 2015. Background share 42%."
+  },
+  {
+   "title": "Count of active cell-windows, test",
+   "columns": [
+    "Forecast",
+    "Expected",
+    "Observed",
+    "z"
+   ],
+   "rows": [
+    [
+     "Blend with ETAS",
+     "2,834",
+     "2,845",
+     "0.22"
+    ],
+    [
+     "ETAS",
+     "2,725",
+     "2,845",
+     "2.39"
+    ]
+   ],
+   "note": "Expected is the sum of chances. Beyond 2 in size, a forecast is too high or too low."
+  },
+  {
+   "title": "pyCSEP tests, rates from chances",
+   "columns": [
+    "Forecast",
+    "Likelihood quantile",
+    "Spatial quantile"
+   ],
+   "rows": [
+    [
+     "Blend with ETAS",
+     "1.000",
+     "1.000"
+    ],
+    [
+     "ETAS",
+     "1.000",
+     "1.000"
+    ]
+   ],
+   "note": null
+  },
+  {
+   "title": "Calibration and ETAS blend",
+   "columns": [
+    "Version",
+    "Late validation PR-AUC",
+    "Gain z",
+    "Test PR-AUC",
+    "Expected",
+    "Count z"
+   ],
+   "rows": [
+    [
+     "Fixed calibration",
+     "0.136",
+     "0.00",
+     "0.133",
+     "2,827",
+     "0.35"
+    ],
+    [
+     "Rolling, 2 years",
+     "0.135",
+     "-0.74",
+     "0.133",
+     "2,835",
+     "0.19"
+    ],
+    [
+     "Rolling, 4 years",
+     "0.136",
+     "0.48",
+     "0.134",
+     "2,836",
+     "0.17"
+    ],
+    [
+     "Blend with ETAS",
+     "0.140",
+     "1.89",
+     "0.138",
+     "2,827",
+     "0.35"
+    ],
+    [
+     "Blend, rolling 2 years",
+     "0.139",
+     "1.55",
+     "0.137",
+     "2,829",
+     "0.32"
+    ],
+    [
+     "Blend, rolling 4 years",
+     "0.140",
+     "2.08",
+     "0.138",
+     "2,834",
+     "0.22"
+    ]
+   ],
+   "note": "Kept: Blend, rolling 4 years. Rule: lower late validation log loss by more than 2 standard errors across windows."
+  }
+ ]
+}
