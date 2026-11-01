@@ -85,8 +85,17 @@ def test_failed_or_old_storm_feed_is_unavailable(tmp_path, monkeypatch):
     assert bot.status("cyclone", "india", NOW)["unavailable"]
     f.write_text('{"status": "ok", "fetched_at": "2026-10-30T00:00:00+00:00", "storms": []}')
     assert bot.status("cyclone", "india", NOW)["unavailable"]
-    f.write_text('{"status": "ok", "fetched_at": "2026-11-01T00:00:00+00:00", "storms": []}')
+    f.write_text('{"status": "ok", "north_indian": "ok", "fetched_at": "2026-11-01T00:00:00+00:00", "storms": []}')
     assert bot.status("cyclone", "india", NOW) is None
+
+
+def test_north_indian_failure_is_unknown_only_for_regions_it_covers(tmp_path, monkeypatch):
+    f = tmp_path / "storms.json"
+    monkeypatch.setattr(bot, "STORMS", f)
+    monkeypatch.setattr(bot, "read_results", lambda h: {"risk_levels": CUTS})
+    f.write_text('{"status": "ok", "north_indian": "failed: Timeout", "fetched_at": "2026-11-01T00:00:00+00:00", "storms": []}')
+    assert bot.status("cyclone", "bayofbengal", NOW)["unavailable"]
+    assert bot.status("cyclone", "japan", NOW) is None
 
 
 def test_old_map_is_unavailable(monkeypatch):

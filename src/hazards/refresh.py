@@ -321,13 +321,17 @@ def cycle(full: bool) -> None:
     rows, feed = check_sources(read_previous())
     publish("feed.json", feed[:40])
     try:
-        active = storms()
+        active, north_indian = storms(), "ok"
         try:
             active += live.north_indian_storms(live.active_history(), pd.Timestamp.now(tz="UTC"))
+        except Exception as exc:  # JMA storms still publish, and the bot treats this basin as unknown
+            north_indian = f"failed: {type(exc).__name__}"
+            log(f"North Indian storms failed: {type(exc).__name__}")
+        try:
             active = live.score_storms(active)
         except Exception as exc:  # the storm still shows without a model forecast
             log(f"Storm scoring failed: {type(exc).__name__}: {exc}")
-        publish("storms.json", {"status": "ok", "fetched_at": now(), "storms": active})
+        publish("storms.json", {"status": "ok", "north_indian": north_indian, "fetched_at": now(), "storms": active})
     except Exception as exc:  # the page shows the failure instead of stale data
         publish("storms.json", {"status": f"failed: {type(exc).__name__}", "fetched_at": now(), "storms": []})
     full = daily() or full

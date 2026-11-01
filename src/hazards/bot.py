@@ -22,6 +22,7 @@ STORM_MAX_HOURS = 1  # the refresh loop writes storms every 5 minutes
 MAP_MAX_HOURS = 48  # maps rescore once a UTC day
 TYPHOON_10MIN_KT = 56  # 64 kt on the 1-minute scale
 UNAVAILABLE = {"unavailable": True}
+NORTH_INDIAN_EAST = 100  # IBTrACS is the only live source west of here
 REGIONS = {
     "india": (6, 36, 68, 98), "bangladesh": (20, 27, 88, 93), "nepal": (26, 31, 80, 89), "pakistan": (23, 37, 60, 77), "srilanka": (5, 10, 79, 83),
     "myanmar": (9, 29, 92, 102), "thailand": (5, 21, 97, 106), "vietnam": (8, 24, 102, 110), "philippines": (4, 21, 116, 127), "indonesia": (-11, 6, 95, 141),
@@ -91,6 +92,8 @@ def status(hazard: str, region: str, now: datetime | None = None) -> dict | None
         if hazard == "cyclone":
             feed = json.loads(STORMS.read_text())
             if feed.get("status") != "ok" or not fresh(feed.get("fetched_at"), STORM_MAX_HOURS, now):
+                return UNAVAILABLE
+            if feed.get("north_indian") != "ok" and REGIONS[region][2] < NORTH_INDIAN_EAST:
                 return UNAVAILABLE
             return storm_status(region, feed["storms"], r["risk_levels"])
         if not fresh(r.get("scored_at"), MAP_MAX_HOURS, now):

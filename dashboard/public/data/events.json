@@ -1,6 +1,17 @@
 [
  {
   "type": "EQ",
+  "name": "Earthquake in Taiwan",
+  "alert": "Green",
+  "from": "2026-11-01T08:20:07",
+  "to": "2026-11-01T08:20:07",
+  "country": "Taiwan",
+  "lat": 24.8805,
+  "lon": 122.0621,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1575057&episodeid=1744047&eventtype=EQ"
+ },
+ {
+  "type": "EQ",
   "name": "Earthquake in Vanuatu",
   "alert": "Green",
   "from": "2026-11-01T07:37:47",
@@ -1087,16 +1098,5 @@
   "lat": 18.2708,
   "lon": 119.8508,
   "url": "https://www.gdacs.org/report.aspx?eventid=1574180&episodeid=1743072&eventtype=EQ"
- },
- {
-  "type": "EQ",
-  "name": "Earthquake in South Of Fiji Islands",
-  "alert": "Green",
-  "from": "2026-10-27T15:31:41",
-  "to": "2026-10-27T15:31:41",
-  "country": "South Of Fiji Islands",
-  "lat": -23.7421,
-  "lon": -179.8379,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1574173&episodeid=1743278&eventtype=EQ"
  }
 ]
