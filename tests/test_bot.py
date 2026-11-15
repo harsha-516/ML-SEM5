@@ -171,10 +171,26 @@ def test_subscribe_alert_is_logged_once(tmp_path):
 def test_bad_commands_get_guidance(tmp_path):
     con = bot.connect(tmp_path / "b.sqlite")
     assert "Send /help" in bot.handle(con, 1, "/risk flood mars")
-    assert "Unknown" in bot.handle(con, 1, "hello")
+    assert bot.handle(con, 1, "hello") == bot.WELCOME
     assert "bay" in bot.handle(con, 1, "/help@tarang_ML_bot").lower()
     assert "no active storm" in bot.handle(con, 1, "/risk cyclone bay of bengal", lambda h, r: None)
 
 
 def test_connect_creates_the_data_folder_on_a_new_computer(tmp_path):
     assert bot.connect(tmp_path / "new" / "b.sqlite").execute("select count(*) from subscribers").fetchone() == (0,)
+
+
+def test_buttons_walk_through_subscribe_and_unsubscribe(tmp_path):
+    con = bot.connect(tmp_path / "b.sqlite")
+    text, markup = bot.press(con, 1, "m|sub")
+    assert "hazard" in text and markup["inline_keyboard"]
+    text, markup = bot.press(con, 1, "h|sub|flood")
+    assert "region" in text
+    assert all(len(b["callback_data"]) <= 64 for row in markup["inline_keyboard"] for b in row)
+    text, _ = bot.press(con, 1, "r|sub|flood|india")
+    assert "Subscribed" in text
+    assert "flood" in bot.press(con, 1, "mine")[0]
+    text, markup = bot.press(con, 1, "m|unsub")
+    assert markup["inline_keyboard"][0][0]["callback_data"] == "r|unsub|flood|india"
+    assert "Unsubscribed" in bot.press(con, 1, "r|unsub|flood|india")[0]
+    assert bot.press(con, 1, "garbage")[0] == bot.WELCOME

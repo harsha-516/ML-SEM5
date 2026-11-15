@@ -305,7 +305,7 @@ def handle(con: sqlite3.Connection, chat: int, text: str, look=status) -> str:
     if cmd in ("/start", "/help"):
         return ("Tarang sends model-based hazard risk alerts for Asia.\n\n" if cmd == "/start" else "") + HELP
     if cmd not in ("/risk", "/subscribe", "/unsubscribe"):
-        return "Unknown command. Send /help."
+        return WELCOME
     hazard = parts[1].lower() if len(parts) > 1 else ""
     region = "".join(parts[2:]).lower().replace("-", "")
     if hazard not in HAZARDS or region not in REGIONS:
@@ -321,13 +321,87 @@ def handle(con: sqlite3.Connection, chat: int, text: str, look=status) -> str:
     return f"Unsubscribed from {hazard}, {NAMES.get(region, region.title())}."
 
 
+WELCOME = "Hi! I am Tarang. I give model-based hazard risk levels for Asia. Pick an option below."
+ACTIONS = {"risk": "Check risk", "sub": "Subscribe to alerts", "unsub": "Unsubscribe"}
+ICONS = {"cyclone": "🌀", "flood": "🌊", "earthquake": "🫨"}
+
+
+def btn(label: str, data: str) -> dict:
+    return {"text": label, "callback_data": data}
+
+
+def menu_markup() -> dict:
+    rows = [[btn(f"🔎 {ACTIONS['risk']}", "m|risk")], [btn("🔔 Subscribe", "m|sub"), btn("🔕 Unsubscribe", "m|unsub")]]
+    rows.append([btn("📋 My subscriptions", "mine"), btn("ℹ️ Help", "help")])
+    return {"inline_keyboard": rows}
+
+
+def hazard_markup(action: str) -> dict:
+    rows = [[btn(f"{ICONS[h]} {h.title()}", f"h|{action}|{h}")] for h in HAZARDS]
+    return {"inline_keyboard": rows + [[btn("⬅️ Menu", "menu")]]}
+
+
+def region_markup(action: str, hazard: str) -> dict:
+    cells = [btn(NAMES.get(r, r.title()), f"r|{action}|{hazard}|{r}") for r in REGIONS]
+    rows = [cells[i : i + 3] for i in range(0, len(cells), 3)]
+    return {"inline_keyboard": rows + [[btn("⬅️ Back", f"m|{action}"), btn("Menu", "menu")]]}
+
+
+def subs_markup(con: sqlite3.Connection, chat: int) -> dict | None:
+    subs = con.execute("select hazard, region from subscribers where chat_id = ?", (chat,)).fetchall()
+    if not subs:
+        return None
+    rows = [[btn(f"❌ {ICONS.get(h, '')} {h.title()}, {NAMES.get(r, r.title())}", f"r|unsub|{h}|{r}")] for h, r in subs]
+    return {"inline_keyboard": rows + [[btn("⬅️ Menu", "menu")]]}
+
+
+def after(text: str) -> tuple[str, dict]:
+    """Attach the main menu to a result so the user can keep going."""
+    return text, menu_markup()
+
+
+def press(con: sqlite3.Connection, chat: int, data: str, look=status) -> tuple[str, dict | None]:
+    """Answer one button press with reply text and the next set of buttons."""
+    p = data.split("|")
+    if p[0] == "menu":
+        return "What would you like to do?", menu_markup()
+    if p[0] == "help":
+        return after(HELP)
+    if p[0] == "mine":
+        subs = con.execute("select hazard, region from subscribers where chat_id = ?", (chat,)).fetchall()
+        if not subs:
+            return after("No subscriptions yet. Tap Subscribe to add one.")
+        return after("Your subscriptions:\n" + "\n".join(f"- {h}, {NAMES.get(r, r.title())}" for h, r in subs))
+    if p[0] == "m" and len(p) == 2 and p[1] in ACTIONS:
+        if p[1] == "unsub":
+            markup = subs_markup(con, chat)
+            return ("Tap a subscription to remove it:", markup) if markup else after("You have no subscriptions.")
+        return "Choose a hazard:", hazard_markup(p[1])
+    if p[0] == "h" and len(p) == 3 and p[2] in HAZARDS:
+        return "Choose a region:", region_markup(p[1], p[2])
+    if p[0] == "r" and len(p) == 4 and p[1] in ACTIONS and p[2] in HAZARDS and p[3] in REGIONS:
+        cmd = {"risk": "risk", "sub": "subscribe", "unsub": "unsubscribe"}[p[1]]
+        return after(handle(con, chat, f"/{cmd} {p[2]} {p[3]}", look))
+    return after(WELCOME)
+
+
 class Telegram:
     def __init__(self, token: str):
         self.base = f"https://api.telegram.org/bot{token}"
 
-    def send(self, chat: int, text: str) -> bool:
-        r = requests.post(f"{self.base}/sendMessage", json={"chat_id": chat, "text": text}, timeout=30)
+    def send(self, chat: int, text: str, markup: dict | None = None) -> bool:
+        body = {"chat_id": chat, "text": text}
+        if markup:
+            body["reply_markup"] = markup
+        r = requests.post(f"{self.base}/sendMessage", json=body, timeout=30)
         return r.ok
+
+    def answer(self, callback_id: str) -> None:
+        requests.post(f"{self.base}/answerCallbackQuery", json={"callback_query_id": callback_id}, timeout=30)
+
+    def set_commands(self) -> None:
+        cmds = [{"command": "start", "description": "Open the menu"}, {"command": "help", "description": "Help"}]
+        requests.post(f"{self.base}/setMyCommands", json={"commands": cmds}, timeout=30)
 
     def updates(self, offset: int) -> list[dict]:
         r = requests.get(f"{self.base}/getUpdates", params={"offset": offset, "timeout": 25}, timeout=40)
@@ -347,14 +421,27 @@ def main() -> None:
     """Poll Telegram for commands and check for alerts on a schedule."""
     token = (dotenv_values(ROOT / ".env").get("TELEGRAM_BOT_TOKEN") or "").strip()
     bot, con, offset, checked = Telegram(token), connect(), 0, 0.0
+    try:
+        bot.set_commands()
+    except requests.RequestException:
+        pass
     log("Telegram bot start")
     while True:
         try:
             for u in bot.updates(offset):
                 offset = u["update_id"] + 1
+                cb = u.get("callback_query")
+                if cb and cb.get("message"):
+                    bot.answer(cb["id"])
+                    text, markup = press(con, cb["message"]["chat"]["id"], cb.get("data", ""))
+                    bot.send(cb["message"]["chat"]["id"], text, markup)
+                    continue
                 m = u.get("message") or {}
                 if m.get("text"):
-                    bot.send(m["chat"]["id"], handle(con, m["chat"]["id"], m["text"]))
+                    chat, raw = m["chat"]["id"], m["text"]
+                    reply = handle(con, chat, raw)
+                    typed = raw.strip().split()[0].split("@")[0].lower() in ("/risk", "/subscribe", "/unsubscribe", "/help")
+                    bot.send(chat, reply, None if typed and reply != WELCOME else menu_markup())
             if time.time() - checked > CHECK_S:
                 checked = time.time()
                 if queue_alerts(con, datetime.now(UTC)):
