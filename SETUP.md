@@ -113,6 +113,22 @@ This refreshes data every 5 minutes. The computer must stay awake. Run it on one
 
 The hosted website changes only when this data is pushed to GitHub.
 
+## Quick start (after steps 1 to 6 and the `data` copy in step 8)
+
+One command pulls fresh data, starts the 5-minute refresh loop and starts the Telegram bot, all in the background. Logs go to `logs\`.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\start.ps1
+```
+
+Add `-Dashboard` to also start the website on http://localhost:5173. To stop everything:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\start.ps1 -Stop
+```
+
+The computer must stay awake and online. Run it on one computer only.
+
 ## 9. Push changes to GitHub
 
 Do this once on each new computer:

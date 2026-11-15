@@ -440,7 +440,9 @@ def main() -> None:
                 if m.get("text"):
                     chat, raw = m["chat"]["id"], m["text"]
                     reply = handle(con, chat, raw)
-                    typed = raw.strip().split()[0].split("@")[0].lower() in ("/risk", "/subscribe", "/unsubscribe", "/help")
+                    words = raw.strip().split()
+                    cmd = words[0].split("@")[0].lower() if words else ""
+                    typed = cmd in ("/risk", "/subscribe", "/unsubscribe", "/help")
                     bot.send(chat, reply, None if typed and reply != WELCOME else menu_markup())
             if time.time() - checked > CHECK_S:
                 checked = time.time()
