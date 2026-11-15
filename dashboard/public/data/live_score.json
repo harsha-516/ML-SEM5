@@ -1,4 +1,21 @@
 {
- "generated_at": "2026-11-01T18:32:14+00:00",
- "hazards": {}
+ "generated_at": "2026-11-15T17:18:55+00:00",
+ "hazards": {
+  "flood": {
+   "scored": 300,
+   "pending": 59,
+   "happened": 41,
+   "mean_chance": 0.046412,
+   "observed_rate": 0.13666666666666666,
+   "brier": 0.12343490786666668,
+   "outcome_source": "GDACS flood events within 500 km in the 3-day window. Groundsource ended in February 2026, so this is not the training label."
+  },
+  "cyclone": {
+   "scored": 6,
+   "pending": 4,
+   "wind_mae_kt": 5.483044075243401,
+   "in_range": 1.0,
+   "outcome_source": "JMA analysis 24 hours later, converted to 1-minute winds"
+  }
+ }
 }

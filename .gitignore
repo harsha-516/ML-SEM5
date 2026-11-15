@@ -24,3 +24,4 @@ dashboard/tsconfig*.tsbuildinfo
 .idea/
 Thumbs.db
 desktop.ini
+/*.log
