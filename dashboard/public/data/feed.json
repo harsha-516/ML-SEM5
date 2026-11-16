@@ -1,122 +1,134 @@
 [
  {
   "source": "GDACS",
+  "text": "Flood in Indonesia, Green alert",
+  "time": "2026-11-17T01:00:00",
+  "url": "https://www.gdacs.org/report.aspx?eventid=1104253&episodeid=22&eventtype=FL"
+ },
+ {
+  "source": "The Hindu",
+  "text": "Cyclonic Storm Akvan forms over the Bay; CM tells officials to take precautionary steps",
+  "time": "2026-11-16T17:05+00:00",
+  "url": "https://www.thehindu.com/news/national/andhra-pradesh/cyclonic-storm-akvan-forms-over-the-bay-cm-tells-officials-to-take-precautionary-steps/article71708721.ece"
+ },
+ {
+  "source": "The Hindu",
+  "text": "Cyclone Akvan to make landfall between Nellore and Tuni in Andhra as very severe storm on November 20",
+  "time": "2026-11-16T17:04+00:00",
+  "url": "https://www.thehindu.com/news/national/andhra-pradesh/cyclone-akvan-to-cross-andhra-coast-between-nellore-and-tuni-by-november-20-noon-says-imd/article71706785.ece"
+ },
+ {
+  "source": "GDACS",
+  "text": "Earthquake in Peru, Green alert",
+  "time": "2026-11-16T16:16:45",
+  "url": "https://www.gdacs.org/report.aspx?eventid=1577663&episodeid=1746955&eventtype=EQ"
+ },
+ {
+  "source": "USGS",
+  "text": "M5.4 95 km WSW of Changuillo, Peru",
+  "time": "2026-11-16T16:16+00:00",
+  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tykh"
+ },
+ {
+  "source": "Qazinform",
+  "text": "Infrastructure damage from Kumamoto earthquake estimated at 1.1 trillion yen",
+  "time": "2026-11-16T15:55+00:00",
+  "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQcExkaXBZWWQ4cFdQSE9sMk1RSnNSTHdEZWNJRldFckVQaFJvMmJJdXNtZjFrWTZIR1FTMnhsZU9MVDZ0OHJPQTNuT3BBNTM3ckFYeDdBQVMtYUc4bzFmTldnQTg1R1FXbHVVakFmSVNEV285NE5GcXNFXzVCcDd3OVdvWG9iZHBOUVR3ejNiSE13QVF6Um9xYXMwck1HWHUxTFdjZ3BDcjF4Q0xPelHSAa4BQVVfeXFMUHBMZGlwWVlkOHBXUEhPbDJNUUpzUkx3RGVjSUZXRXJFUGhSbzJiSXVzbWYxa1k2SEdRUzJ4bGVPTFQ2dDhyT0Ezbk9wQTUzN3JBWHg3QUFTLWFHOG8xZk5XZ0E4NUdRV2x1VWpBZklTRFdvOTRORnFzRV81QnA3dzlXb1hvYmRwTlFUd3ozYkhNd0FRelJvcWFzMHJNR1h1MUxXY2dwQ3IxeENMT3pR?oc=5"
+ },
+ {
+  "source": "WPEC",
+  "text": "Riviera Beach council to consider $2 million in flood recovery aid to repair homes",
+  "time": "2026-11-16T15:54+00:00",
+  "url": "https://news.google.com/rss/articles/CBMivgJBVV95cUxOQ1dqbXRIblBGN2NiMGk3VVhOd3YzdVpMNTJfY0RReHBvWmpEQ3pGUGJ5eGVUQzY2bUVjMjNwUFVCWE5FSTBvZ210OUFvT295TG9CNGpIQzc3SHBwbzh0UVBVRWpSNEZMZ052MEk2ZHdUVi1zT20xV3d2eFAyam9kdXdGNU9lMmZDMGVUZ3R4OGxqdWRUbkVGZUFqbVpnVXRMekZ6SUk2b2hoLThtMjlmakV6WDJXeW1ROEZiZi16dm1kUEwzSXNQRndDTlFUaWpxUHlDQnJnUkpTUXNhb0pEak8zMHBCaFFHOXNRUWxhRmVjM3lpOWgzTnRXVTRmbXJJMmFBeVM0RDlLMDcwVGFNUUViU2s5SDR1ZUMxOWZRUm10WXRzemlYdFdOdTJOTkh6UFlqbXNLNThhbHM5V0E?oc=5"
+ },
+ {
+  "source": "Earth.com",
+  "text": "Tropical cyclones may follow a hidden winter pattern months before they form",
+  "time": "2026-11-16T14:21+00:00",
+  "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPZUw4bHZabENRZnM1ZnpqU21RYkdTb1lnZXNXNUE0NEZzMkk3c1NkcFA3RUkxRjNWZWp6dzZNdWZ1eDVXQlllMXR3WnVMRmppdU4zcTNiZFh3ZGVtMTd3ZDVoS3pHdXZRajJhejd1SU1STHpmMENtS1F3b3kza3k5c21RS2JfRm9QQThyeGhfdlV1R1pab1RpTFNvTlNHS2h3ZUdLcFU5ZFNDdlk?oc=5"
+ },
+ {
+  "source": "GDACS",
+  "text": "Earthquake in Japan, Green alert",
+  "time": "2026-11-16T13:32:25",
+  "url": "https://www.gdacs.org/report.aspx?eventid=1577651&episodeid=1746942&eventtype=EQ"
+ },
+ {
+  "source": "USGS",
+  "text": "M4.6 113 km ESE of Wadomari, Japan",
+  "time": "2026-11-16T13:32+00:00",
+  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyjz"
+ },
+ {
+  "source": "GDACS",
+  "text": "Earthquake in Eastern Gulf Of Aden, Green alert",
+  "time": "2026-11-16T13:30:33",
+  "url": "https://www.gdacs.org/report.aspx?eventid=1577632&episodeid=1746935&eventtype=EQ"
+ },
+ {
+  "source": "USGS",
+  "text": "M4.8 166 km N of Caluula, Somalia",
+  "time": "2026-11-16T13:30+00:00",
+  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyjy"
+ },
+ {
+  "source": "GDACS",
+  "text": "Earthquake in Russia, Green alert",
+  "time": "2026-11-16T13:25:21",
+  "url": "https://www.gdacs.org/report.aspx?eventid=1577631&episodeid=1746934&eventtype=EQ"
+ },
+ {
+  "source": "USGS",
+  "text": "M4.5 78 km S of Severo-Kuril\u2019sk, Russia",
+  "time": "2026-11-16T13:25+00:00",
+  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyjx"
+ },
+ {
+  "source": "WPEC",
+  "text": "Rain and flood potential returns this week; afternoon highs today in upper 70s",
+  "time": "2026-11-16T10:59+00:00",
+  "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE1DMXg2dGpBTVdXbEE3bFB2S085Qm82UGc3MW1YdzZsRTdDa2p5Q0U1VTBPTEFIOG4xRGVvam5JMXE1aUdaTmRuOFN3VkZKM3V5Vjc3aFRWSHZZNDZPME5qcWE2Rm1FWnNmWEk2NlZKQ29Wc1dSaDBuWmxiOA?oc=5"
+ },
+ {
+  "source": "GDACS",
   "text": "Earthquake in Indonesia, Green alert",
-  "time": "2026-11-15T15:41:14",
-  "url": "https://www.gdacs.org/report.aspx?eventid=1577509&episodeid=1746785&eventtype=EQ"
+  "time": "2026-11-16T07:14:14",
+  "url": "https://www.gdacs.org/report.aspx?eventid=1577597&episodeid=1746886&eventtype=EQ"
  },
  {
   "source": "USGS",
-  "text": "M5.1 169 km NW of Gorontalo, Indonesia",
-  "time": "2026-11-15T15:41+00:00",
-  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyf4"
+  "text": "M5.0 68 km S of Sarangani, Philippines",
+  "time": "2026-11-16T07:14+00:00",
+  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyil"
  },
  {
-  "source": "GDACS",
-  "text": "Earthquake in Philippines, Green alert",
-  "time": "2026-11-15T13:41:35",
-  "url": "https://www.gdacs.org/report.aspx?eventid=1577487&episodeid=1746763&eventtype=EQ"
+  "source": "The Siasat Daily",
+  "text": "Andhra braces for third cyclone in three weeks as Akvan brews",
+  "time": "2026-11-16T05:42+00:00",
+  "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNMVIyX2xOdHl6eDZEcENhX3FieWpsbUpzWVdDZzM3V19YN0xHclZ1ZmNTNXFmeWFpWU1CMlI1VXEtUjJ6S1F1dy1NWFEtNmsxcXJvN1NlSGUxWGFrbThXd3dTYXlXeS1fd0JFMm9BYVJ3N1dhTTVpSkpfcGFGVGU4Z0REUHROYzVoQmJoZ2JqMEl3WU8tdU1FVtIBngFBVV95cUxQWUhTUmVIeUVOXzJKQ3dKOW5TWldsM0tSc3BMLTdxZHRKOVRJNVhlMWtYdkhKOGhMRWJSZkQyckpKTEN1clhacGt4VkdUc0xFY1FJMEp1d1BEeFRUQ2JCMVc0MGRhUHRIVERNLWtHdEZRQUdRMlN5dUl0MkU0N0ZDYjhVTzVpM3AxVE9KRVJhTTlMRTF1OWNnd2hsQjVyZw?oc=5"
  },
  {
-  "source": "USGS",
-  "text": "M5.5 9 km E of Union, Philippines",
-  "time": "2026-11-15T13:41+00:00",
-  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyek"
+  "source": "jiji press",
+  "text": "M4.6 earthquake jolts Afghanistan",
+  "time": "2026-11-16T05:05+00:00",
+  "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9GLWVHQXBELTg4cHFSQjZ3YjhVNDE2Wk84Vm5wdUx3cVd4ZjBLUmFxRVZjT2ljQ0luaUx2VUNWWkU3a2k3TW1nakRtaTZSVVFxQThxUGtDeTI4VW1HUWotOGFwdVhTTkZoMVZZem9uWXl1QmRPczR4NDZDbEJHUQ?oc=5"
  },
  {
-  "source": "The Hawk",
-  "text": "Cyclone alert issued for Andhra Pradesh, Odisha coasts",
-  "time": "2026-11-15T10:57+00:00",
-  "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQYlYtV3MxSU9lT0pTa0RCdGwzZTJVOXBrak9maWN1NFQwSWQwaE15ZDJ2bGFTY0VhN2ttYUx6M1I3dVJWSHpJcmlWcktqU1ZqdDdGZ1lzbWxOUUdGTUJtc1Z5OERpcXo0U2FDRWtNVTRJWFBLdUpicEhuQ0pNZndVWXFaOEVOWVA1WjZvYjhwdV95X3dDaUFIaUFqRWhYRVVEUHRYTDJFelJwSGg1c042Zw?oc=5"
- },
- {
-  "source": "Volcano Discovery",
-  "text": "Light mag. 3.5 earthquake - 66 km southwest of Hualien City, Taiwan, on Sunday, Nov 15, 2026, at 06:03 pm (Taipei time)",
-  "time": "2026-11-15T10:26+00:00",
-  "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOS3JxNElwVXVyUWU4RjJXbDdoVjQweFBZcGZTX2M4QkNUbGQ4S3R0aWpZNDVLckhaWlp5N0ZFbl9GTkdpTzFjeGh1OXRzZUpTNkh0RnFJdEJvMlE0Rk5fSGpmR3dHREVfSUZ4V3BIODlURWo3WWFrZE5TTThsNHNjZGJaN1RjNXQ2WllHakNBWEttdm10VlhfYzRMTjQ1QkU?oc=5"
- },
- {
-  "source": "Volcano Discovery",
-  "text": "Weak mag. 2.3 earthquake - South China Sea, 56 km west of Vigan, Philippines, on Sunday, Nov 15, 2026, at 04:13 pm (Manila time)",
-  "time": "2026-11-15T08:30+00:00",
-  "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxOSUFJNldXamp0VW5TUGdMTm81aVRGME5vRkZ2bXZXMXp2WC1jb2Z3aENPTHZ2WWNTTDBDaV84a3hHbEJVelpBUlhsbXpOZXliMWlBMG9HMjlSYnk0d1FPSHAxV3ZQWHFaWkk3aU1ka0ZWTGxvc3gyczNEdk54eVlWVmFMQWNLLW00VlctbzJzdWZzcU1GX3RNVnBHME1yUlNiY25CYU5ia3JXR2pha2pHY2RGbGoxcXZ4NXgtTG9IeVlubGJLWUpNb1FTMlJNSFR2NEJ1LVRtRnpzRG9yQWJJ?oc=5"
- },
- {
-  "source": "GDACS",
-  "text": "Earthquake in Tonga, Green alert",
-  "time": "2026-11-15T07:36:37",
-  "url": "https://www.gdacs.org/report.aspx?eventid=1577454&episodeid=1746728&eventtype=EQ"
+  "source": "Inshorts",
+  "text": "Cyclone Murasu caused \u20b92,484 cr damage in Andhra Pradesh | Tap to know more | Inshorts",
+  "time": "2026-11-16T04:31+00:00",
+  "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQWUJZa2twcW05N0VjQkpUbFNEMXVzX0oxQVFhSlctaTZNMUdVQXQwSUZCemp0cjZBMVB6UjFoY1ZoY2tZeVBYWlFBLXBkejgwQmFWQkFRRHdHVU1MMUVYSFdSbXlHajh4aUh0cXhfd1BfQlp2aGREdEQyM0N1UEZNQi0wUm1oWVJoSHppV1ZJS1FYZWdiUFRxaTJwclBlSHBJcEJhVDR30gGmAUFVX3lxTFBZQllra3BxbTk3RWNCSlRsU0QxdXNfSjFBUWFKVy1pNk0xR1VBdDBJRkJ6anRyNkExUHpSMWhjVmhja1l5UFhaUUEtcGR6ODBCYVZCQVFEd0dVTUwxRVhIV1JteUdqOHhpSHRxeF93UF9CWnZoZER0RDIzQ3VQRk1CLTBSbWhZUmhIemlXVklLUVhlZ2JQVHFpMnByUGVIcElwQmFUNHc?oc=5"
  },
  {
   "source": "USGS",
-  "text": "M4.7 92 km NW of Houma, Tonga",
-  "time": "2026-11-15T07:36+00:00",
-  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyd3"
+  "text": "M5.4 20 km NW of Anamizu, Japan",
+  "time": "2026-11-16T04:24+00:00",
+  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyhr"
  },
  {
-  "source": "GDACS",
-  "text": "Tropical Cyclone FOUR-26, Green alert",
-  "time": "2026-11-15T06:00:00",
-  "url": "https://www.gdacs.org/report.aspx?eventid=1001350&episodeid=1&eventtype=TC"
- },
- {
-  "source": "GDACS",
-  "text": "Earthquake in Fiji, Green alert",
-  "time": "2026-11-15T05:15:02",
-  "url": "https://www.gdacs.org/report.aspx?eventid=1577445&episodeid=1746718&eventtype=EQ"
- },
- {
-  "source": "USGS",
-  "text": "M5.5 Fiji region",
-  "time": "2026-11-15T05:15+00:00",
-  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyca"
- },
- {
-  "source": "GDACS",
-  "text": "Earthquake in Argentina, Green alert",
-  "time": "2026-11-15T03:59:59",
-  "url": "https://www.gdacs.org/report.aspx?eventid=1577435&episodeid=1746707&eventtype=EQ"
- },
- {
-  "source": "USGS",
-  "text": "M4.8 19 km NW of Albard\u00f3n, Argentina",
-  "time": "2026-11-15T03:59+00:00",
-  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tybx"
- },
- {
-  "source": "DW.com",
-  "text": "Deadly flash flood wipes away villages in Nepal, Tibet",
-  "time": "2026-11-15T01:52+00:00",
-  "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9wcWFVNy1DU1gzOVRxSnJsS09GVk40MjlKSEcwS3J2eDZfbVEtT0g4Y2FHR1hrTGZzdVE5V0lqcnhOSU1TUkxndWNIMGpubk51Wm01UE9wTVpFZmZiSi14MTlqb29tTnpZeWRDNkpOTnBERDVZWDJoX1BLONIBe0FVX3lxTE1FNE5QV3J1MWE2OXltMXpJRjZvX2thVmEtRHdMTC1kWENkaUhsZXlaWGs5aWlGV1RuSkw3SkNsZjRHVmlNNTdiLUZWZTRBT0VuNHhWWVJVSTNOWlo2M3pSV0FjeFlxNkNLZmstMWhzWVBKeXM4c3UwRFg5WQ?oc=5"
- },
- {
-  "source": "Volcano Discovery",
-  "text": "Light mag. 3.0 earthquake - 10.8 km west of Changji, Xinjiang, China, on Sunday, Nov 15, 2026, at 07:25 am (Shanghai time)",
-  "time": "2026-11-14T23:51+00:00",
-  "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQcUpVZnBfS3Z1RGZmWUtObmFJTFF6ZVFVdUd4dkd4Z0k1VUlSc0lsRllSOW9VZ0J2cmRvc1VlU2NadEhpX0ZYUVhHYmtqX1IybjN1V0dtdkNEUWRoNzBDcTdIWlMxOVBNQ1RqcHBjSnpHY3dkekFaaGFic2lMUlIyXzREZHBpWXNOZTByNVBsSi1VVHVpMzRTeDc0VzRFSlE?oc=5"
- },
- {
-  "source": "USGS",
-  "text": "M4.7 east central Pacific Ocean",
-  "time": "2026-11-14T22:23+00:00",
-  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyay"
- },
- {
-  "source": "Volcano Discovery",
-  "text": "Weak mag. 2.1 earthquake - 023 km S 16\u00b0 W of Calatagan (Batangas) on Sunday, Nov 15, 2026, at 12:32 am (Manila time)",
-  "time": "2026-11-14T17:15+00:00",
-  "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOOTNQNDdkbGwtb0ZlTnN1UjVqZTZDWjNPbDZpbVJ3OXJWQ2Fhb01YV3NEcTRtNUZKSjUtVDJyX0F3OUt1M3NYaXRqUEtNUnVDRzNWSGE2WEJZeXcyWHFPYXV4ZXZhR0ZRZEd1OVNJak9Kbk1jbjIyQ3hTOXhBd0hLdkFpd1V3RTVzcGNScXQ1THAyclhvZDU3T3V5V1NfVE5vdi0xaUdkRnJfUWJQSFNkSDZlWEk2M2ZZdUliZGxDdDZrdFNSX09rZW5mczRLZzhveXFYOEZR?oc=5"
- },
- {
-  "source": "Islamabad Post",
-  "text": "EU urges \u2018immediate, unimpeded\u2019 flood aid to Gaza",
-  "time": "2026-11-14T16:09+00:00",
-  "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNMk9GdWgwb21iVnd2NkxRMkdCV0JxRVNkU1dHcUE1X1VvODZDQ05BcXBTTzlyaVYtZC1wRGVkYnJmX0N1Wk5fWm5EZXRkMEhtSGozX0UtdEZqeXBORjgySzlPQ25kSndmRkdrVDY2eURxNEVnX1I1RFZsb3Z5eTJYcXFn?oc=5"
- },
- {
-  "source": "Volcano Discovery",
-  "text": "Light mag. 3.5 earthquake - 30 km north of Yingkiong, Upper Siang, State of Arunachal Pradesh, India, on Saturday, Nov 14, 2026, at 03:30 pm (Kolkata time)",
-  "time": "2026-11-14T12:21+00:00",
-  "url": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxNREEwZDNtSFZGSG8wb2xIMDhQMjhybFZjSjJxcHhBMV9Ia1BkUUk2dm1JMWl5RmtDanpDWkY2MkJ1Q2RxQ1U2MzNZZlZmbGdiUlhoSlZKRHg0WDJVOUZQTmE2cF90ZTd6TTk0MnRQMVRuV3lvWjdyYnVSRnptNlNPcEM5b0xhNm9udDdtQ0JXVHVtZ3RKODVvdERPY1RqV3EyQ1gyU2dYcnBpenRyb25wQjBiRk9rQjNWTlQzazJ0dFBNbi1TSWZ4aU1mcFVOV2ZwTjJ6cHBQYXpMYzYwSWdFX0t5SjJoc1dlZURDVFpiM2Vwa29OOTJj?oc=5"
+  "source": "Hindustan Times",
+  "text": "HT morning news brief Nov 16: Modi to land in Manila for Asean; Cyclone \u2018Akvan\u2019 likely to form today | India News",
+  "time": "2026-11-16T03:39+00:00",
+  "url": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxOU1Z3dTNxcTJFRlFWN0I4bDZEQ0NUNS1GTF8xQ0EwNm9FY3hVYWpxdDRSajlNbk55ZUVBZG9ManZOOGhnQUpvakJFUzQyTk9YbldkVWd1LU9hZk9vSE0wR2ZnWFBlQVpuU0NWYVc0LVl6SzZMb3ZZdG1ubXQ5WjNmbjY5U2hlbVZqYklvYnh3N2F1a1UxOU8wd0sxQkVmd1B0MGVVY2hqVmtSdEk4ZC1xdFNLTURyZ3RlRjJ4aWxmcWY3VnZaVUM4VkdWX0tNSjJDM1h2NFRLMU1ael9YSU04cEVDUDhra2ZoOGx2MGtRcXRsM2UyaTN1NmdYZlo1Qk9oa05BbHB3MzRjbHPSAZACQVVfeXFMTk9fZGNJZmJvSmdNWE9zWXlROTN1cjJONUVWdm9RamJlREZ0UTUwVTkwOGlhM2lBbUxCZ0FsZFVKUlNpQlJFSDBwWTlhX3RPSmJiVXVlVnF2WTBsUGYyZm5SYVhTejNaVzYtVkFHVUdWNjNzZ25qaHd4WTZDb093czBFeUR4aGJ2R3FyWVgzbVNGdVRoX05TNkNqem5Zcm1PMVhDOVJFNXdaeHRWSWFFSWxlb0VuN213SXM2V0pLOEhPSThQMGRfdDlLRUJqVnI4SkRicEk1OUtIZHYwaGVCa3BGdk5kZmpKRWRRN0x6am1KczhnVkJRN2hDQXd6Nm9LVFpielQ0T21RMkNVczlzc0Y?oc=5"
  }
 ]

@@ -1,5 +1,159 @@
 [
  {
+  "type": "FL",
+  "name": "Flood in Indonesia",
+  "alert": "Green",
+  "from": "2026-10-24T01:00:00",
+  "to": "2026-11-17T01:00:00",
+  "country": "Indonesia",
+  "lat": 4.3685,
+  "lon": 97.0253,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1104253&episodeid=22&eventtype=FL"
+ },
+ {
+  "type": "EQ",
+  "name": "Earthquake in Peru",
+  "alert": "Green",
+  "from": "2026-11-16T16:16:45",
+  "to": "2026-11-16T16:16:45",
+  "country": "Peru",
+  "lat": -15.0306,
+  "lon": -76.0259,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1577663&episodeid=1746955&eventtype=EQ"
+ },
+ {
+  "type": "EQ",
+  "name": "Earthquake in Japan",
+  "alert": "Green",
+  "from": "2026-11-16T13:32:25",
+  "to": "2026-11-16T13:32:25",
+  "country": "Japan",
+  "lat": 26.8491,
+  "lon": 129.6312,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1577651&episodeid=1746942&eventtype=EQ"
+ },
+ {
+  "type": "EQ",
+  "name": "Earthquake in Eastern Gulf Of Aden",
+  "alert": "Green",
+  "from": "2026-11-16T13:30:33",
+  "to": "2026-11-16T13:30:33",
+  "country": "Eastern Gulf Of Aden",
+  "lat": 13.474,
+  "lon": 50.742,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1577632&episodeid=1746935&eventtype=EQ"
+ },
+ {
+  "type": "EQ",
+  "name": "Earthquake in Russia",
+  "alert": "Green",
+  "from": "2026-11-16T13:25:21",
+  "to": "2026-11-16T13:25:21",
+  "country": "Russia",
+  "lat": 49.9837,
+  "lon": 155.9172,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1577631&episodeid=1746934&eventtype=EQ"
+ },
+ {
+  "type": "EQ",
+  "name": "Earthquake in Indonesia",
+  "alert": "Green",
+  "from": "2026-11-16T07:14:14",
+  "to": "2026-11-16T07:14:14",
+  "country": "Indonesia",
+  "lat": 4.7842,
+  "lon": 125.4267,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1577597&episodeid=1746886&eventtype=EQ"
+ },
+ {
+  "type": "TC",
+  "name": "Tropical Cyclone XAVIER-26",
+  "alert": "Green",
+  "from": "2026-11-15T06:00:00",
+  "to": "2026-11-16T06:00:00",
+  "country": "Cook Islands",
+  "lat": -8.5,
+  "lon": -161.0,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1001350&episodeid=3&eventtype=TC"
+ },
+ {
+  "type": "EQ",
+  "name": "Earthquake in Japan",
+  "alert": "Green",
+  "from": "2026-11-16T04:24:11",
+  "to": "2026-11-16T04:24:11",
+  "country": "Japan",
+  "lat": 37.3664,
+  "lon": 136.7444,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1577580&episodeid=1746867&eventtype=EQ"
+ },
+ {
+  "type": "FL",
+  "name": "Flood in France",
+  "alert": "Green",
+  "from": "2026-11-04T01:00:00",
+  "to": "2026-11-16T01:00:00",
+  "country": "France",
+  "lat": 43.5586,
+  "lon": 3.9502,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1104270&episodeid=5&eventtype=FL"
+ },
+ {
+  "type": "FL",
+  "name": "Flood in Argentina",
+  "alert": "Green",
+  "from": "2026-11-08T01:00:00",
+  "to": "2026-11-16T01:00:00",
+  "country": "Argentina",
+  "lat": -27.7759,
+  "lon": -67.1713,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1104277&episodeid=3&eventtype=FL"
+ },
+ {
+  "type": "EQ",
+  "name": "Earthquake in Russia",
+  "alert": "Green",
+  "from": "2026-11-15T22:38:22",
+  "to": "2026-11-15T22:38:22",
+  "country": "Russia",
+  "lat": 52.4937,
+  "lon": 160.494,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1577554&episodeid=1746839&eventtype=EQ"
+ },
+ {
+  "type": "EQ",
+  "name": "Earthquake in Afghanistan",
+  "alert": "Green",
+  "from": "2026-11-15T21:37:22",
+  "to": "2026-11-15T21:37:22",
+  "country": "Afghanistan",
+  "lat": 36.4657,
+  "lon": 70.9205,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1577548&episodeid=1746835&eventtype=EQ"
+ },
+ {
+  "type": "EQ",
+  "name": "Earthquake in Indonesia",
+  "alert": "Green",
+  "from": "2026-11-15T20:51:56",
+  "to": "2026-11-15T20:51:56",
+  "country": "Indonesia",
+  "lat": -5.9449,
+  "lon": 128.7523,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1577543&episodeid=1746823&eventtype=EQ"
+ },
+ {
+  "type": "EQ",
+  "name": "Earthquake in Afghanistan",
+  "alert": "Green",
+  "from": "2026-11-15T17:48:36",
+  "to": "2026-11-15T17:48:36",
+  "country": "Afghanistan",
+  "lat": 36.0947,
+  "lon": 70.9503,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1577520&episodeid=1746799&eventtype=EQ"
+ },
+ {
   "type": "EQ",
   "name": "Earthquake in Indonesia",
   "alert": "Green",
@@ -9,6 +163,17 @@
   "lat": 1.7527,
   "lon": 122.1345,
   "url": "https://www.gdacs.org/report.aspx?eventid=1577509&episodeid=1746785&eventtype=EQ"
+ },
+ {
+  "type": "EQ",
+  "name": "Earthquake in Philippines",
+  "alert": "Green",
+  "from": "2026-11-15T14:17:52",
+  "to": "2026-11-15T14:17:52",
+  "country": "Philippines",
+  "lat": 9.6916,
+  "lon": 126.3512,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1577504&episodeid=1746811&eventtype=EQ"
  },
  {
   "type": "EQ",
@@ -33,17 +198,6 @@
   "url": "https://www.gdacs.org/report.aspx?eventid=1577454&episodeid=1746728&eventtype=EQ"
  },
  {
-  "type": "TC",
-  "name": "Tropical Cyclone FOUR-26",
-  "alert": "Green",
-  "from": "2026-11-15T06:00:00",
-  "to": "2026-11-15T06:00:00",
-  "country": "Cook Islands",
-  "lat": -8.4,
-  "lon": -158.9,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1001350&episodeid=1&eventtype=TC"
- },
- {
   "type": "EQ",
   "name": "Earthquake in Fiji",
   "alert": "Green",
@@ -64,6 +218,17 @@
   "lat": -31.3221,
   "lon": -68.6822,
   "url": "https://www.gdacs.org/report.aspx?eventid=1577435&episodeid=1746707&eventtype=EQ"
+ },
+ {
+  "type": "FL",
+  "name": "Flood in Brazil",
+  "alert": "Green",
+  "from": "2026-10-01T01:00:00",
+  "to": "2026-11-15T01:00:00",
+  "country": "Brazil",
+  "lat": -23.5234,
+  "lon": -46.1927,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1104216&episodeid=12&eventtype=FL"
  },
  {
   "type": "FL",
@@ -254,25 +419,25 @@
  },
  {
   "type": "FL",
-  "name": "Flood in France",
+  "name": "Flood in Croatia",
   "alert": "Green",
-  "from": "2026-11-04T01:00:00",
+  "from": "2026-11-12T01:00:00",
   "to": "2026-11-14T01:00:00",
-  "country": "France",
-  "lat": 43.5439,
-  "lon": 6.9359,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1104270&episodeid=4&eventtype=FL"
+  "country": "Croatia",
+  "lat": 45.4444,
+  "lon": 14.3743,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1104285&episodeid=2&eventtype=FL"
  },
  {
   "type": "FL",
-  "name": "Flood in Indonesia",
+  "name": "Flood in Ecuador",
   "alert": "Green",
-  "from": "2026-10-24T01:00:00",
+  "from": "2026-09-15T01:00:00",
   "to": "2026-11-14T01:00:00",
-  "country": "Indonesia",
-  "lat": 4.3685,
-  "lon": 97.0253,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1104253&episodeid=22&eventtype=FL"
+  "country": "Ecuador",
+  "lat": 0.9668,
+  "lon": -79.6524,
+  "url": "https://www.gdacs.org/report.aspx?eventid=1104167&episodeid=17&eventtype=FL"
  },
  {
   "type": "EQ",
@@ -933,170 +1098,5 @@
   "lat": 36.1492,
   "lon": 142.185,
   "url": "https://www.gdacs.org/report.aspx?eventid=1576739&episodeid=1745924&eventtype=EQ"
- },
- {
-  "type": "EQ",
-  "name": "Earthquake in Canada",
-  "alert": "Green",
-  "from": "2026-11-11T01:45:27",
-  "to": "2026-11-11T01:45:27",
-  "country": "Canada",
-  "lat": 49.0876,
-  "lon": -127.6912,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1576727&episodeid=1745916&eventtype=EQ"
- },
- {
-  "type": "FL",
-  "name": "Flood in Democratic Republic of Congo",
-  "alert": "Green",
-  "from": "2026-11-01T01:00:00",
-  "to": "2026-11-11T01:00:00",
-  "country": "Democratic Republic of Congo",
-  "lat": 3.0277,
-  "lon": 19.3658,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1104269&episodeid=3&eventtype=FL"
- },
- {
-  "type": "FL",
-  "name": "Flood in Peru",
-  "alert": "Green",
-  "from": "2026-10-26T01:00:00",
-  "to": "2026-11-11T01:00:00",
-  "country": "Peru",
-  "lat": -3.9269,
-  "lon": -80.6388,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1104259&episodeid=8&eventtype=FL"
- },
- {
-  "type": "EQ",
-  "name": "Earthquake in China",
-  "alert": "Green",
-  "from": "2026-11-10T22:15:10",
-  "to": "2026-11-10T22:15:10",
-  "country": "China",
-  "lat": 32.6589,
-  "lon": 119.5153,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1576688&episodeid=1746278&eventtype=EQ"
- },
- {
-  "type": "EQ",
-  "name": "Earthquake in Indonesia",
-  "alert": "Green",
-  "from": "2026-11-10T22:09:07",
-  "to": "2026-11-10T22:09:07",
-  "country": "Indonesia",
-  "lat": 3.9179,
-  "lon": 97.359,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1576884&episodeid=1746279&eventtype=EQ"
- },
- {
-  "type": "EQ",
-  "name": "Earthquake in Vanuatu Islands",
-  "alert": "Green",
-  "from": "2026-11-10T19:54:18",
-  "to": "2026-11-10T19:54:18",
-  "country": "Vanuatu Islands",
-  "lat": -13.9345,
-  "lon": 165.5166,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1576674&episodeid=1745855&eventtype=EQ"
- },
- {
-  "type": "EQ",
-  "name": "Earthquake in Papua New Guinea",
-  "alert": "Green",
-  "from": "2026-11-10T17:36:49",
-  "to": "2026-11-10T17:36:49",
-  "country": "Papua New Guinea",
-  "lat": -8.7206,
-  "lon": 148.0429,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1576653&episodeid=1745830&eventtype=EQ"
- },
- {
-  "type": "EQ",
-  "name": "Earthquake in Mid-Indian Ridge",
-  "alert": "Green",
-  "from": "2026-11-10T17:36:28",
-  "to": "2026-11-10T17:36:28",
-  "country": "Mid-Indian Ridge",
-  "lat": -20.7528,
-  "lon": 68.4755,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1576654&episodeid=1745831&eventtype=EQ"
- },
- {
-  "type": "EQ",
-  "name": "Earthquake in Solomon Islands",
-  "alert": "Green",
-  "from": "2026-11-10T15:52:55",
-  "to": "2026-11-10T15:52:55",
-  "country": "Solomon Islands",
-  "lat": -10.8979,
-  "lon": 165.7366,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1576642&episodeid=1745816&eventtype=EQ"
- },
- {
-  "type": "EQ",
-  "name": "Earthquake in Indonesia",
-  "alert": "Green",
-  "from": "2026-11-10T15:51:35",
-  "to": "2026-11-10T15:51:35",
-  "country": "Indonesia",
-  "lat": -0.9034,
-  "lon": 128.701,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1576636&episodeid=1746072&eventtype=EQ"
- },
- {
-  "type": "EQ",
-  "name": "Earthquake in Guatemala",
-  "alert": "Green",
-  "from": "2026-11-10T15:23:58",
-  "to": "2026-11-10T15:23:58",
-  "country": "Guatemala",
-  "lat": 13.6155,
-  "lon": -90.819,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1576634&episodeid=1745806&eventtype=EQ"
- },
- {
-  "type": "EQ",
-  "name": "Earthquake in Guatemala",
-  "alert": "Green",
-  "from": "2026-11-10T14:54:19",
-  "to": "2026-11-10T14:54:19",
-  "country": "Guatemala",
-  "lat": 13.5622,
-  "lon": -90.8534,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1576618&episodeid=1746073&eventtype=EQ"
- },
- {
-  "type": "EQ",
-  "name": "Earthquake in Indonesia",
-  "alert": "Green",
-  "from": "2026-11-10T14:31:36",
-  "to": "2026-11-10T14:31:36",
-  "country": "Indonesia",
-  "lat": -6.9525,
-  "lon": 106.9355,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1576664&episodeid=1745843&eventtype=EQ"
- },
- {
-  "type": "EQ",
-  "name": "Earthquake in Iceland",
-  "alert": "Green",
-  "from": "2026-11-10T13:37:53",
-  "to": "2026-11-10T13:37:53",
-  "country": "Iceland",
-  "lat": 64.7124,
-  "lon": -17.2814,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1576600&episodeid=1745821&eventtype=EQ"
- },
- {
-  "type": "EQ",
-  "name": "Earthquake in Indonesia",
-  "alert": "Green",
-  "from": "2026-11-10T08:34:07",
-  "to": "2026-11-10T08:34:07",
-  "country": "Indonesia",
-  "lat": -0.4928,
-  "lon": 132.859,
-  "url": "https://www.gdacs.org/report.aspx?eventid=1576577&episodeid=1745746&eventtype=EQ"
  }
 ]
