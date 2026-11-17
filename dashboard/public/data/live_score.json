@@ -1,9 +1,9 @@
 {
- "generated_at": "2026-11-16T16:47:08+00:00",
+ "generated_at": "2026-11-17T03:20:57+00:00",
  "hazards": {
   "flood": {
    "scored": 300,
-   "pending": 119,
+   "pending": 179,
    "happened": 41,
    "mean_chance": 0.046412,
    "observed_rate": 0.13666666666666666,

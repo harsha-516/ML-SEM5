@@ -1,174 +1,174 @@
 {
- "refreshed_at": "2026-11-16T17:23:50+00:00",
- "forecasts_logged": 18147,
+ "refreshed_at": "2026-11-17T03:21:08+00:00",
+ "forecasts_logged": 20740,
  "sources": [
   {
    "id": "usgs",
    "name": "USGS earthquakes",
    "use": "Earthquakes",
    "kind": "API",
-   "checked_at": "2026-11-16T17:23:36+00:00",
-   "last_ok": "2026-11-16T17:23:36+00:00",
+   "checked_at": "2026-11-17T03:19:45+00:00",
+   "last_ok": "2026-11-17T03:19:45+00:00",
    "state": "live",
-   "records": 113,
-   "latest": "M5.4 95 km WSW of Changuillo, Peru",
-   "latency_ms": 810
+   "records": 110,
+   "latest": "M5.0 137 km SSE of Kirakira, Solomon Islands",
+   "latency_ms": 545
   },
   {
    "id": "jma",
    "name": "JMA active storms",
    "use": "Cyclones",
    "kind": "API",
-   "checked_at": "2026-11-16T17:23:37+00:00",
-   "last_ok": "2026-11-16T17:23:37+00:00",
+   "checked_at": "2026-11-17T03:19:45+00:00",
+   "last_ok": "2026-11-17T03:19:45+00:00",
    "state": "live",
    "records": 0,
    "latest": "No active storm",
-   "latency_ms": 266
+   "latency_ms": 194
   },
   {
    "id": "ibtracs",
    "name": "IBTrACS storm tracks",
    "use": "Cyclones",
    "kind": "File",
-   "checked_at": "2026-11-16T17:23:37+00:00",
-   "last_ok": "2026-11-16T17:23:37+00:00",
+   "checked_at": "2026-11-17T03:19:46+00:00",
+   "last_ok": "2026-11-17T03:19:46+00:00",
    "state": "live",
    "records": null,
-   "latest": "File updated Thu, 12 Nov 2026 10:05:25 GMT",
-   "latency_ms": 1676
+   "latest": "File updated Sun, 15 Nov 2026 10:04:27 GMT",
+   "latency_ms": 982
   },
   {
    "id": "gdacs",
    "name": "GDACS disaster alerts",
    "use": "All hazards",
    "kind": "API",
-   "checked_at": "2026-11-16T17:23:39+00:00",
-   "last_ok": "2026-11-16T17:23:39+00:00",
+   "checked_at": "2026-11-17T03:19:47+00:00",
+   "last_ok": "2026-11-17T03:19:47+00:00",
    "state": "live",
    "records": 100,
-   "latest": "Flood in Indonesia",
-   "latency_ms": 1725
+   "latest": "Earthquake in Solomon Islands",
+   "latency_ms": 847
   },
   {
    "id": "discharge",
    "name": "GloFAS river discharge",
    "use": "Floods",
    "kind": "API",
-   "checked_at": "2026-11-16T17:23:40+00:00",
-   "last_ok": "2026-11-16T17:23:40+00:00",
+   "checked_at": "2026-11-17T03:19:47+00:00",
+   "last_ok": "2026-11-17T03:19:47+00:00",
    "state": "live",
    "records": 1,
-   "latest": "Patna river discharge 1.45 m3/s",
-   "latency_ms": 687
+   "latest": "Patna river discharge 1.44 m3/s",
+   "latency_ms": 691
   },
   {
    "id": "rain",
    "name": "Open-Meteo rainfall",
    "use": "Floods",
    "kind": "API",
-   "checked_at": "2026-11-16T17:23:41+00:00",
-   "last_ok": "2026-11-16T17:23:41+00:00",
+   "checked_at": "2026-11-17T03:19:48+00:00",
+   "last_ok": "2026-11-17T03:19:48+00:00",
    "state": "live",
    "records": 1,
    "latest": "Kathmandu rain today 0.0 mm",
-   "latency_ms": 774
+   "latency_ms": 1650
   },
   {
    "id": "gibs",
    "name": "NASA GIBS imagery",
    "use": "Maps",
    "kind": "Satellite",
-   "checked_at": "2026-11-16T17:23:42+00:00",
+   "checked_at": "2026-11-17T03:19:50+00:00",
    "last_ok": "2026-11-03T03:59:22+00:00",
    "state": "failed",
    "records": null,
    "latest": "Request failed: HTTPError",
-   "latency_ms": 2065
+   "latency_ms": 839
   },
   {
    "id": "imerg",
    "name": "NASA IMERG rainfall",
    "use": "Floods",
    "kind": "Satellite",
-   "checked_at": "2026-11-16T17:23:44+00:00",
-   "last_ok": "2026-11-16T17:23:44+00:00",
-   "state": "live",
+   "checked_at": "2026-11-17T03:19:51+00:00",
+   "last_ok": "2026-11-17T03:15:11+00:00",
+   "state": "failed",
    "records": null,
-   "latest": "Newest record 2026-11-16 11:30 UTC",
-   "latency_ms": 1166
+   "latest": "Request failed: ReadTimeout",
+   "latency_ms": 30438
   },
   {
    "id": "smap",
    "name": "NASA SMAP soil moisture",
    "use": "Floods",
    "kind": "Satellite",
-   "checked_at": "2026-11-16T17:23:45+00:00",
-   "last_ok": "2026-11-16T17:23:45+00:00",
-   "state": "live",
+   "checked_at": "2026-11-17T03:20:21+00:00",
+   "last_ok": "2026-11-17T03:15:26+00:00",
+   "state": "failed",
    "records": null,
-   "latest": "Newest record 2026-11-14 00:00 UTC",
-   "latency_ms": 936
+   "latest": "Request failed: ReadTimeout",
+   "latency_ms": 30379
   },
   {
    "id": "himawari",
    "name": "Himawari-9 clouds",
    "use": "Cyclones",
    "kind": "Satellite",
-   "checked_at": "2026-11-16T17:23:46+00:00",
-   "last_ok": "2026-11-16T17:23:46+00:00",
+   "checked_at": "2026-11-17T03:20:51+00:00",
+   "last_ok": "2026-11-17T03:20:51+00:00",
    "state": "live",
    "records": 5,
-   "latest": "Files listed for 16 Nov 2026",
-   "latency_ms": 1007
+   "latest": "Files listed for 17 Nov 2026",
+   "latency_ms": 774
   },
   {
    "id": "bbc",
    "name": "BBC Asia",
    "use": "News",
    "kind": "RSS",
-   "checked_at": "2026-11-16T17:23:47+00:00",
-   "last_ok": "2026-11-16T17:23:47+00:00",
+   "checked_at": "2026-11-17T03:20:52+00:00",
+   "last_ok": "2026-11-17T03:20:52+00:00",
    "state": "live",
    "records": 17,
    "latest": "No hazard headlines right now",
-   "latency_ms": 424
+   "latency_ms": 441
   },
   {
    "id": "hindu",
    "name": "The Hindu",
    "use": "News",
    "kind": "RSS",
-   "checked_at": "2026-11-16T17:23:47+00:00",
-   "last_ok": "2026-11-16T17:23:47+00:00",
+   "checked_at": "2026-11-17T03:20:53+00:00",
+   "last_ok": "2026-11-17T03:20:53+00:00",
    "state": "live",
    "records": 60,
-   "latest": "2 hazard headlines",
-   "latency_ms": 416
+   "latest": "5 hazard headlines",
+   "latency_ms": 1236
   },
   {
    "id": "toi",
    "name": "Times of India",
    "use": "News",
    "kind": "RSS",
-   "checked_at": "2026-11-16T17:23:48+00:00",
-   "last_ok": "2026-11-16T17:23:48+00:00",
+   "checked_at": "2026-11-17T03:20:54+00:00",
+   "last_ok": "2026-11-17T03:20:54+00:00",
    "state": "live",
    "records": 0,
    "latest": "No hazard headlines right now",
-   "latency_ms": 740
+   "latency_ms": 221
   },
   {
    "id": "gnews",
    "name": "Google News",
    "use": "News",
    "kind": "RSS",
-   "checked_at": "2026-11-16T17:23:49+00:00",
-   "last_ok": "2026-11-16T17:23:49+00:00",
+   "checked_at": "2026-11-17T03:20:54+00:00",
+   "last_ok": "2026-11-17T03:20:54+00:00",
    "state": "live",
    "records": 8,
-   "latest": "Infrastructure damage from Kumamoto earthquake estimated at 1.1 trillion yen",
-   "latency_ms": 887
+   "latest": "Magnitude 6.6 earthquake strikes off Indonesia's Tual",
+   "latency_ms": 806
   },
   {
    "id": "groundsource",

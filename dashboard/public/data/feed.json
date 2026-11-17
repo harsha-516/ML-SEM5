@@ -1,134 +1,146 @@
 [
  {
   "source": "GDACS",
+  "text": "Earthquake in Solomon Islands, Green alert",
+  "time": "2026-11-17T02:00:17",
+  "url": "https://www.gdacs.org/report.aspx?eventid=1577735&episodeid=1747032&eventtype=EQ"
+ },
+ {
+  "source": "USGS",
+  "text": "M5.0 137 km SSE of Kirakira, Solomon Islands",
+  "time": "2026-11-17T02:00+00:00",
+  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyq5"
+ },
+ {
+  "source": "The Hindu",
+  "text": "Cyclone Akvan brews over Bay of Bengal: What you need to know",
+  "time": "2026-11-17T01:46+00:00",
+  "url": "https://www.thehindu.com/news/national/cyclone-akvan-what-you-need-to-know-about-the-third-bay-of-bengal-storm-in-three-weeks/article71706612.ece"
+ },
+ {
+  "source": "GDACS",
   "text": "Flood in Indonesia, Green alert",
   "time": "2026-11-17T01:00:00",
   "url": "https://www.gdacs.org/report.aspx?eventid=1104253&episodeid=22&eventtype=FL"
  },
  {
+  "source": "GDACS",
+  "text": "Tropical Cyclone AKVAN-26, Orange alert",
+  "time": "2026-11-17T00:00:00",
+  "url": "https://www.gdacs.org/report.aspx?eventid=1001351&episodeid=2&eventtype=TC"
+ },
+ {
+  "source": "Anadolu Ajans\u0131",
+  "text": "Magnitude 6.6 earthquake strikes off Indonesia's Tual",
+  "time": "2026-11-16T23:40+00:00",
+  "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOeXdnUUFuQVZrV0J1cGsxUXd3QUZBQzg1TmVHeXNZM2xCUURZX3hCT0JkUjVjaVptMmtXdmJMc0dGdTVmT1JzWEhWQ1J3OW5SQ1RMT05DX1QyalpvQ0FrZEJmSnpzaFlPVlhoM0NYSm54cFVPMzVPVW9xcUtSdUxBR0Z2Um5sdFVYRXBwb3NLN0dXejdJaVY4cw?oc=5"
+ },
+ {
+  "source": "CNA",
+  "text": "As Jakarta prepares for another flood season, hope and scepticism abound",
+  "time": "2026-11-16T22:00+00:00",
+  "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNUXpWLVdiV3kzeDE4NVl1ZGhra0ltSU9ZTDBXcEpDS2J2M21oMTFMNmw2V29aeXhzWVc4UE9OUXotQlcyU2ZWaTlnRlVac09KMklEQ2lFcUlHUXFRa01PS1NKRGxndkU3R3RpX0tTX2oyTTNCSi15R3VzRTBHQzV0bGVpU0xuZE1Ld3FNQU55LVZUQ0J0?oc=5"
+ },
+ {
+  "source": "GDACS",
+  "text": "Earthquake in Vanuatu, Green alert",
+  "time": "2026-11-16T21:55:58",
+  "url": "https://www.gdacs.org/report.aspx?eventid=1577702&episodeid=1746996&eventtype=EQ"
+ },
+ {
+  "source": "USGS",
+  "text": "M4.6 146 km SSE of Isangel, Vanuatu",
+  "time": "2026-11-16T21:55+00:00",
+  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyns"
+ },
+ {
+  "source": "GDACS",
+  "text": "Earthquake in Indonesia, Green alert",
+  "time": "2026-11-16T21:11:17",
+  "url": "https://www.gdacs.org/report.aspx?eventid=1577696&episodeid=1746999&eventtype=EQ"
+ },
+ {
+  "source": "USGS",
+  "text": "M6.6 148 km WSW of Tual, Indonesia",
+  "time": "2026-11-16T21:11+00:00",
+  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tymu"
+ },
+ {
+  "source": "The Hindu",
+  "text": "Cyclone Akvan to bring light rainfall to parts of coastal T.N. on November 17",
+  "time": "2026-11-16T20:19+00:00",
+  "url": "https://www.thehindu.com/news/national/tamil-nadu/cyclone-akvan-to-bring-light-rainfall-to-parts-of-coastal-tn-on-november-17/article71707572.ece"
+ },
+ {
+  "source": "Australasian Leisure Management Magazine",
+  "text": "Molong reopens flood-resilient hockey facility following $1.87 million redevelopment",
+  "time": "2026-11-16T20:12+00:00",
+  "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNY1ZMQmh1TkJNbGxuNWxhYklqZlVwMk02NVJqQTFDYkxpcnR6MEVKZ2hpWXVzd2haaWhNMlhTUnVBeEVyV1VwSEZVX0VqVDIza2gtZU8ySm5JRzhpZHM5Tk8xeUpHY01Rd1o1SV94bFg5cE1rRE9BeGl5RlczOGFTU0Z2ajhtVmN1UEJQREl0d3RuUk1xeER3Y0RQcmdtamZud3U1OE0wVUJ1LWNLZjc5TVFpOTNEUUcw?oc=5"
+ },
+ {
+  "source": "Borneo Bulletin",
+  "text": "Indonesia prepares weather modification operations to mitigate flood risks",
+  "time": "2026-11-16T20:01+00:00",
+  "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPSG16b2hIaHhfeVgtc2NZb1BFNTlSbnN2UDI3dHFtd1Fyd05rdGpkd3N4NzNpX2lfNGZWaHMwb2Z0eVVycHBPREplQ1k1eERLUndfSUk2TFBMYXViRkd0a0tsRVU2bWw0VGdhLUhMX0NucWtTLVhzdjl0cXhVaW03MHdrUDlGRmlVTVlFV2lrSkZMcVVmUnpsMlZxLWZ6eXdTcUZ1MXBpNmQ?oc=5"
+ },
+ {
+  "source": "GDACS",
+  "text": "Earthquake in Papua New Guinea, Green alert",
+  "time": "2026-11-16T19:33:00",
+  "url": "https://www.gdacs.org/report.aspx?eventid=1577706&episodeid=1747003&eventtype=EQ"
+ },
+ {
+  "source": "USGS",
+  "text": "M4.6 144 km NW of Kavieng, Papua New Guinea",
+  "time": "2026-11-16T19:33+00:00",
+  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tymc"
+ },
+ {
+  "source": "USGS",
+  "text": "M4.7 77 km WSW of Changuillo, Peru",
+  "time": "2026-11-16T19:26+00:00",
+  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tym8"
+ },
+ {
   "source": "The Hindu",
   "text": "Cyclonic Storm Akvan forms over the Bay; CM tells officials to take precautionary steps",
-  "time": "2026-11-16T17:05+00:00",
+  "time": "2026-11-16T17:28+00:00",
   "url": "https://www.thehindu.com/news/national/andhra-pradesh/cyclonic-storm-akvan-forms-over-the-bay-cm-tells-officials-to-take-precautionary-steps/article71708721.ece"
  },
  {
   "source": "The Hindu",
-  "text": "Cyclone Akvan to make landfall between Nellore and Tuni in Andhra as very severe storm on November 20",
-  "time": "2026-11-16T17:04+00:00",
-  "url": "https://www.thehindu.com/news/national/andhra-pradesh/cyclone-akvan-to-cross-andhra-coast-between-nellore-and-tuni-by-november-20-noon-says-imd/article71706785.ece"
+  "text": "3,478 pregnant women identified for shifting to hospitals amid cyclone alert",
+  "time": "2026-11-16T17:21+00:00",
+  "url": "https://www.thehindu.com/news/national/andhra-pradesh/3478-pregnant-women-identified-for-shifting-to-hospitals-amid-cyclone-alert/article71708888.ece"
  },
  {
-  "source": "GDACS",
-  "text": "Earthquake in Peru, Green alert",
-  "time": "2026-11-16T16:16:45",
-  "url": "https://www.gdacs.org/report.aspx?eventid=1577663&episodeid=1746955&eventtype=EQ"
+  "source": "DW.com",
+  "text": "Deadly flash flood wipes away villages in Nepal, Tibet",
+  "time": "2026-11-16T16:59+00:00",
+  "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9wcWFVNy1DU1gzOVRxSnJsS09GVk40MjlKSEcwS3J2eDZfbVEtT0g4Y2FHR1hrTGZzdVE5V0lqcnhOSU1TUkxndWNIMGpubk51Wm01UE9wTVpFZmZiSi14MTlqb29tTnpZeWRDNkpOTnBERDVZWDJoX1BLONIBe0FVX3lxTE1FNE5QV3J1MWE2OXltMXpJRjZvX2thVmEtRHdMTC1kWENkaUhsZXlaWGs5aWlGV1RuSkw3SkNsZjRHVmlNNTdiLUZWZTRBT0VuNHhWWVJVSTNOWlo2M3pSV0FjeFlxNkNLZmstMWhzWVBKeXM4c3UwRFg5WQ?oc=5"
  },
  {
   "source": "USGS",
-  "text": "M5.4 95 km WSW of Changuillo, Peru",
-  "time": "2026-11-16T16:16+00:00",
-  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tykh"
+  "text": "M4.8 28 km SW of Changuillo, Peru",
+  "time": "2026-11-16T16:23+00:00",
+  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tykk"
  },
  {
   "source": "Qazinform",
   "text": "Infrastructure damage from Kumamoto earthquake estimated at 1.1 trillion yen",
   "time": "2026-11-16T15:55+00:00",
-  "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQcExkaXBZWWQ4cFdQSE9sMk1RSnNSTHdEZWNJRldFckVQaFJvMmJJdXNtZjFrWTZIR1FTMnhsZU9MVDZ0OHJPQTNuT3BBNTM3ckFYeDdBQVMtYUc4bzFmTldnQTg1R1FXbHVVakFmSVNEV285NE5GcXNFXzVCcDd3OVdvWG9iZHBOUVR3ejNiSE13QVF6Um9xYXMwck1HWHUxTFdjZ3BDcjF4Q0xPelHSAa4BQVVfeXFMUHBMZGlwWVlkOHBXUEhPbDJNUUpzUkx3RGVjSUZXRXJFUGhSbzJiSXVzbWYxa1k2SEdRUzJ4bGVPTFQ2dDhyT0Ezbk9wQTUzN3JBWHg3QUFTLWFHOG8xZk5XZ0E4NUdRV2x1VWpBZklTRFdvOTRORnFzRV81QnA3dzlXb1hvYmRwTlFUd3ozYkhNd0FRelJvcWFzMHJNR1h1MUxXY2dwQ3IxeENMT3pR?oc=5"
+  "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOc0gzaWJXN0otN2RUUTc0ckRXMnY0bUdxWWt5LTlKZzAtMWVjSV9SRVNuQzBVLXZTWXk0aWxQVFdoR0NPcEtRaUhXSlk1aUxaUVF0QzRyNXIwbDAtTXdyZWpSNkZUVFhLVWw4NTZUMnRoRjRjRFhPQjJBd1FkMkFjcHRxUzhINTRCajRLMktEN01hdkhhcDVKQjRhU0NtQm40QTVNUzdWcXVxMlEwOUHSAa4BQVVfeXFMUHBMZGlwWVlkOHBXUEhPbDJNUUpzUkx3RGVjSUZXRXJFUGhSbzJiSXVzbWYxa1k2SEdRUzJ4bGVPTFQ2dDhyT0Ezbk9wQTUzN3JBWHg3QUFTLWFHOG8xZk5XZ0E4NUdRV2x1VWpBZklTRFdvOTRORnFzRV81QnA3dzlXb1hvYmRwTlFUd3ozYkhNd0FRelJvcWFzMHJNR1h1MUxXY2dwQ3IxeENMT3pR?oc=5"
  },
  {
-  "source": "WPEC",
-  "text": "Riviera Beach council to consider $2 million in flood recovery aid to repair homes",
-  "time": "2026-11-16T15:54+00:00",
-  "url": "https://news.google.com/rss/articles/CBMivgJBVV95cUxOQ1dqbXRIblBGN2NiMGk3VVhOd3YzdVpMNTJfY0RReHBvWmpEQ3pGUGJ5eGVUQzY2bUVjMjNwUFVCWE5FSTBvZ210OUFvT295TG9CNGpIQzc3SHBwbzh0UVBVRWpSNEZMZ052MEk2ZHdUVi1zT20xV3d2eFAyam9kdXdGNU9lMmZDMGVUZ3R4OGxqdWRUbkVGZUFqbVpnVXRMekZ6SUk2b2hoLThtMjlmakV6WDJXeW1ROEZiZi16dm1kUEwzSXNQRndDTlFUaWpxUHlDQnJnUkpTUXNhb0pEak8zMHBCaFFHOXNRUWxhRmVjM3lpOWgzTnRXVTRmbXJJMmFBeVM0RDlLMDcwVGFNUUViU2s5SDR1ZUMxOWZRUm10WXRzemlYdFdOdTJOTkh6UFlqbXNLNThhbHM5V0E?oc=5"
+  "source": "EnergyNow.com",
+  "text": "LNG Supply Cut Further After Cyclone Hits Australian Plants",
+  "time": "2026-11-16T15:39+00:00",
+  "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNUHQxUEZwYm5BM2MwRWdxd01FRHBDekZvVXBCY1NTX2xQb2VKQ2xkZ1RoQkFUUUFMNVN5WUZKT2NkTllFMUxCNWp1el9Ud2V3OFlwOHhvVlpEeFM1T1dDamg0Zzd0WDB0N2lpb0h4bmdRVmw3VEdkTzdDbnIycWxrYnJscDJxQjllZjg4eFpSWFBKcEkt?oc=5"
  },
  {
   "source": "Earth.com",
   "text": "Tropical cyclones may follow a hidden winter pattern months before they form",
   "time": "2026-11-16T14:21+00:00",
   "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPZUw4bHZabENRZnM1ZnpqU21RYkdTb1lnZXNXNUE0NEZzMkk3c1NkcFA3RUkxRjNWZWp6dzZNdWZ1eDVXQlllMXR3WnVMRmppdU4zcTNiZFh3ZGVtMTd3ZDVoS3pHdXZRajJhejd1SU1STHpmMENtS1F3b3kza3k5c21RS2JfRm9QQThyeGhfdlV1R1pab1RpTFNvTlNHS2h3ZUdLcFU5ZFNDdlk?oc=5"
- },
- {
-  "source": "GDACS",
-  "text": "Earthquake in Japan, Green alert",
-  "time": "2026-11-16T13:32:25",
-  "url": "https://www.gdacs.org/report.aspx?eventid=1577651&episodeid=1746942&eventtype=EQ"
- },
- {
-  "source": "USGS",
-  "text": "M4.6 113 km ESE of Wadomari, Japan",
-  "time": "2026-11-16T13:32+00:00",
-  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyjz"
- },
- {
-  "source": "GDACS",
-  "text": "Earthquake in Eastern Gulf Of Aden, Green alert",
-  "time": "2026-11-16T13:30:33",
-  "url": "https://www.gdacs.org/report.aspx?eventid=1577632&episodeid=1746935&eventtype=EQ"
- },
- {
-  "source": "USGS",
-  "text": "M4.8 166 km N of Caluula, Somalia",
-  "time": "2026-11-16T13:30+00:00",
-  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyjy"
- },
- {
-  "source": "GDACS",
-  "text": "Earthquake in Russia, Green alert",
-  "time": "2026-11-16T13:25:21",
-  "url": "https://www.gdacs.org/report.aspx?eventid=1577631&episodeid=1746934&eventtype=EQ"
- },
- {
-  "source": "USGS",
-  "text": "M4.5 78 km S of Severo-Kuril\u2019sk, Russia",
-  "time": "2026-11-16T13:25+00:00",
-  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyjx"
- },
- {
-  "source": "WPEC",
-  "text": "Rain and flood potential returns this week; afternoon highs today in upper 70s",
-  "time": "2026-11-16T10:59+00:00",
-  "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE1DMXg2dGpBTVdXbEE3bFB2S085Qm82UGc3MW1YdzZsRTdDa2p5Q0U1VTBPTEFIOG4xRGVvam5JMXE1aUdaTmRuOFN3VkZKM3V5Vjc3aFRWSHZZNDZPME5qcWE2Rm1FWnNmWEk2NlZKQ29Wc1dSaDBuWmxiOA?oc=5"
- },
- {
-  "source": "GDACS",
-  "text": "Earthquake in Indonesia, Green alert",
-  "time": "2026-11-16T07:14:14",
-  "url": "https://www.gdacs.org/report.aspx?eventid=1577597&episodeid=1746886&eventtype=EQ"
- },
- {
-  "source": "USGS",
-  "text": "M5.0 68 km S of Sarangani, Philippines",
-  "time": "2026-11-16T07:14+00:00",
-  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyil"
- },
- {
-  "source": "The Siasat Daily",
-  "text": "Andhra braces for third cyclone in three weeks as Akvan brews",
-  "time": "2026-11-16T05:42+00:00",
-  "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNMVIyX2xOdHl6eDZEcENhX3FieWpsbUpzWVdDZzM3V19YN0xHclZ1ZmNTNXFmeWFpWU1CMlI1VXEtUjJ6S1F1dy1NWFEtNmsxcXJvN1NlSGUxWGFrbThXd3dTYXlXeS1fd0JFMm9BYVJ3N1dhTTVpSkpfcGFGVGU4Z0REUHROYzVoQmJoZ2JqMEl3WU8tdU1FVtIBngFBVV95cUxQWUhTUmVIeUVOXzJKQ3dKOW5TWldsM0tSc3BMLTdxZHRKOVRJNVhlMWtYdkhKOGhMRWJSZkQyckpKTEN1clhacGt4VkdUc0xFY1FJMEp1d1BEeFRUQ2JCMVc0MGRhUHRIVERNLWtHdEZRQUdRMlN5dUl0MkU0N0ZDYjhVTzVpM3AxVE9KRVJhTTlMRTF1OWNnd2hsQjVyZw?oc=5"
- },
- {
-  "source": "jiji press",
-  "text": "M4.6 earthquake jolts Afghanistan",
-  "time": "2026-11-16T05:05+00:00",
-  "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9GLWVHQXBELTg4cHFSQjZ3YjhVNDE2Wk84Vm5wdUx3cVd4ZjBLUmFxRVZjT2ljQ0luaUx2VUNWWkU3a2k3TW1nakRtaTZSVVFxQThxUGtDeTI4VW1HUWotOGFwdVhTTkZoMVZZem9uWXl1QmRPczR4NDZDbEJHUQ?oc=5"
- },
- {
-  "source": "Inshorts",
-  "text": "Cyclone Murasu caused \u20b92,484 cr damage in Andhra Pradesh | Tap to know more | Inshorts",
-  "time": "2026-11-16T04:31+00:00",
-  "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQWUJZa2twcW05N0VjQkpUbFNEMXVzX0oxQVFhSlctaTZNMUdVQXQwSUZCemp0cjZBMVB6UjFoY1ZoY2tZeVBYWlFBLXBkejgwQmFWQkFRRHdHVU1MMUVYSFdSbXlHajh4aUh0cXhfd1BfQlp2aGREdEQyM0N1UEZNQi0wUm1oWVJoSHppV1ZJS1FYZWdiUFRxaTJwclBlSHBJcEJhVDR30gGmAUFVX3lxTFBZQllra3BxbTk3RWNCSlRsU0QxdXNfSjFBUWFKVy1pNk0xR1VBdDBJRkJ6anRyNkExUHpSMWhjVmhja1l5UFhaUUEtcGR6ODBCYVZCQVFEd0dVTUwxRVhIV1JteUdqOHhpSHRxeF93UF9CWnZoZER0RDIzQ3VQRk1CLTBSbWhZUmhIemlXVklLUVhlZ2JQVHFpMnByUGVIcElwQmFUNHc?oc=5"
- },
- {
-  "source": "USGS",
-  "text": "M5.4 20 km NW of Anamizu, Japan",
-  "time": "2026-11-16T04:24+00:00",
-  "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyhr"
- },
- {
-  "source": "Hindustan Times",
-  "text": "HT morning news brief Nov 16: Modi to land in Manila for Asean; Cyclone \u2018Akvan\u2019 likely to form today | India News",
-  "time": "2026-11-16T03:39+00:00",
-  "url": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxOU1Z3dTNxcTJFRlFWN0I4bDZEQ0NUNS1GTF8xQ0EwNm9FY3hVYWpxdDRSajlNbk55ZUVBZG9ManZOOGhnQUpvakJFUzQyTk9YbldkVWd1LU9hZk9vSE0wR2ZnWFBlQVpuU0NWYVc0LVl6SzZMb3ZZdG1ubXQ5WjNmbjY5U2hlbVZqYklvYnh3N2F1a1UxOU8wd0sxQkVmd1B0MGVVY2hqVmtSdEk4ZC1xdFNLTURyZ3RlRjJ4aWxmcWY3VnZaVUM4VkdWX0tNSjJDM1h2NFRLMU1ael9YSU04cEVDUDhra2ZoOGx2MGtRcXRsM2UyaTN1NmdYZlo1Qk9oa05BbHB3MzRjbHPSAZACQVVfeXFMTk9fZGNJZmJvSmdNWE9zWXlROTN1cjJONUVWdm9RamJlREZ0UTUwVTkwOGlhM2lBbUxCZ0FsZFVKUlNpQlJFSDBwWTlhX3RPSmJiVXVlVnF2WTBsUGYyZm5SYVhTejNaVzYtVkFHVUdWNjNzZ25qaHd4WTZDb093czBFeUR4aGJ2R3FyWVgzbVNGdVRoX05TNkNqem5Zcm1PMVhDOVJFNXdaeHRWSWFFSWxlb0VuN213SXM2V0pLOEhPSThQMGRfdDlLRUJqVnI4SkRicEk1OUtIZHYwaGVCa3BGdk5kZmpKRWRRN0x6am1KczhnVkJRN2hDQXd6Nm9LVFpielQ0T21RMkNVczlzc0Y?oc=5"
  }
 ]
